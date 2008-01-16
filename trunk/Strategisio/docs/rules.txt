@@ -1,7 +1,7 @@
 SVN commit
 	+	=>	add new stuff
 	-	=>	delete stuff
-	%	=>	changed stuff
+	%	=>	change stuff
 
 variables
 	static variables	capital letters
