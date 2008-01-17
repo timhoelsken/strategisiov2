@@ -4,10 +4,10 @@ SVN commit
 	%	=>	change stuff
 
 variables
-	static variables	CAPITAL LETTERS
-	local variables		with prefix "tmp"
-	parameters			with prefix "a"
-	attributes			without prefix
+	static variables	CAPITAL_LETTERS
+	local variables		with prefix "tmp" => tmpLocalVariable
+	parameters			with prefix "a" => aParameter
+	attributes			without prefix => thisIsAnAttribute
 
 class names
 	LongClassNameBecauseLongClassNamesAreVeryNice
