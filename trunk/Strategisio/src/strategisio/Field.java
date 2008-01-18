@@ -4,7 +4,7 @@ package strategisio;
  * 
  * @author Tim
  * 
- * This class defines a single Field on the Map
+ * This class defines a single field on the map
  * 
  */
 public class Field {
@@ -74,7 +74,7 @@ public class Field {
 	 * @author Tim
 	 * @return boolean
 	 * 
-	 * returns true if a item is set on the field
+	 * returns true if an item is set on the field
 	 */
 	public boolean hasItem() {
 		if (this.item != null) {
