@@ -4,7 +4,7 @@ package strategisio;
  * 
  * @author Tim
  * 
- * This Class defines an item
+ * This class defines an item
  */
 public class Item {
 
@@ -20,27 +20,27 @@ public class Item {
 		this.visible = false;
 	}
 
-	public String getKind() {
-		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setActive(boolean isActive) {
+		active = isActive;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String aKind) {
+		kind = aKind;
 	}
 
 	public boolean isVisible() {
 		return visible;
 	}
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
+	public void setVisible(boolean isVisible) {
+		visible = isVisible;
 	}
 }

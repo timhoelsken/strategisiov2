@@ -69,16 +69,16 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param figure
+	 * @param aFigureArray
 	 * @return int
 	 * 
 	 * Returns the position of the next available figure, returns -1 if no
 	 * figure left
 	 */
-	private int figureLeft(Figure[] figure) {
+	private int figureLeft(Figure[] aFigureArray) {
 
-		for (int i = 0; i < figure.length; i++) {
-			if (!figure[i].equals(null))
+		for (int i = 0; i < aFigureArray.length; i++) {
+			if (!aFigureArray[i].equals(null))
 				return i;
 		}
 		return -1;
@@ -86,16 +86,16 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param item
+	 * @param anItemArray
 	 * @return int
 	 * 
 	 * Returns the position of the next available item, returns -1 if no item
 	 * left
 	 */
-	private int itemLeft(Item[] item) {
+	private int itemLeft(Item[] anItemArray) {
 
-		for (int i = 0; i < item.length; i++) {
-			if (!item[i].equals(null))
+		for (int i = 0; i < anItemArray.length; i++) {
+			if (!anItemArray[i].equals(null))
 				return i;
 		}
 		return -1;
@@ -103,15 +103,15 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param item
+	 * @param anItemArray
 	 * @return int
 	 * 
 	 * Returns the position of the next free space in item[] returns -1 if array
 	 * is full
 	 */
-	private int itemSpace(Item[] item) {
-		for (int i = 0; i < item.length; i++) {
-			if (item[i].equals(null))
+	private int itemSpace(Item[] anItemArray) {
+		for (int i = 0; i < anItemArray.length; i++) {
+			if (anItemArray[i].equals(null))
 				return i;
 		}
 		return -1;
@@ -119,15 +119,15 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param figure
+	 * @param anFigureArray
 	 * @return int
 	 * 
 	 * Returns the position of the next free space in figure[] returns -1 if
 	 * array is full
 	 */
-	private int figureSpace(Figure[] figure) {
-		for (int i = 0; i < figure.length; i++) {
-			if (figure[i].equals(null))
+	private int figureSpace(Figure[] anFigureArray) {
+		for (int i = 0; i < anFigureArray.length; i++) {
+			if (anFigureArray[i].equals(null))
 				return i;
 		}
 		return -1;
@@ -141,14 +141,14 @@ public class Panel {
 	 * Removes a figure from the array of the panel Returnes true if it was
 	 * possible to remove a figure
 	 */
-	public Figure removeFigure(String figureString) {
-		Figure[] figure = convertStringToFigure(figureString);
-		Figure singleFigure;
-		int position = figureLeft(figure);
-		if (position != -1) {
-			singleFigure = figure[position];
-			figure[position] = null;
-			return singleFigure;
+	public Figure removeFigure(String aFigure) {
+		Figure[] tmpFigure = convertStringToFigure(aFigure);
+		Figure tmpSingleFigure;
+		int tmpPosition = figureLeft(tmpFigure);
+		if (tmpPosition != -1) {
+			tmpSingleFigure = tmpFigure[tmpPosition];
+			tmpFigure[tmpPosition] = null;
+			return tmpSingleFigure;
 		}
 		return null;
 	}
@@ -161,33 +161,33 @@ public class Panel {
 	 * Removes an item from the array of the panel Returnes true if it was
 	 * possible to remove a figure
 	 */
-	public Item removeItem(String itemString) {
-		Item[] item = convertStringToItem(itemString);
-		Item singleItem;
-		int position = itemLeft(item);
-		if (position != -1) {
-			singleItem = item[position];
-			item[position] = null;
-			return singleItem;
+	public Item removeItem(String anItem) {
+		Item[] tmpItem = convertStringToItem(anItem);
+		Item tmpSingleItem;
+		int tmpPosition = itemLeft(tmpItem);
+		if (tmpPosition != -1) {
+			tmpSingleItem = tmpItem[tmpPosition];
+			tmpItem[tmpPosition] = null;
+			return tmpSingleItem;
 		}
 		return null;
 	}
 
 	/**
 	 * @author Tim
-	 * @param itemString
-	 * @param singleItem
+	 * @param anItem
+	 * @param aSingleItem
 	 * @return boolean
 	 * 
 	 * Inserts an item to the panel. This should be used when the user did not
 	 * want to place the item on the map
 	 * 
 	 */
-	public boolean insertItem(String itemString, Item singleItem) {
-		Item[] item = convertStringToItem(itemString);
-		int position = itemSpace(item);
-		if (position != -1) {
-			item[position] = singleItem;
+	public boolean insertItem(String anItem, Item aSingleItem) {
+		Item[] tmpItem = convertStringToItem(anItem);
+		int tmpPosition = itemSpace(tmpItem);
+		if (tmpPosition != -1) {
+			tmpItem[tmpPosition] = aSingleItem;
 			return true;
 		}
 		return false;
@@ -195,18 +195,18 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param figureString
-	 * @param singleFigure
+	 * @param aFigure
+	 * @param aSingleFigure
 	 * @return boolean
 	 * 
 	 * Inserts a figure to the panel. This should be used when the user did not
 	 * want to place the figure on the map
 	 */
-	public boolean insertFigure(String figureString, Figure singleFigure) {
-		Figure[] figure = convertStringToFigure(figureString);
-		int position = figureSpace(figure);
-		if (position != -1) {
-			figure[position] = singleFigure;
+	public boolean insertFigure(String aFigure, Figure aSingleFigure) {
+		Figure[] tmpFigure = convertStringToFigure(aFigure);
+		int tmpPosition = figureSpace(tmpFigure);
+		if (tmpPosition != -1) {
+			tmpFigure[tmpPosition] = aSingleFigure;
 			return true;
 		}
 		return false;
@@ -214,48 +214,48 @@ public class Panel {
 
 	/**
 	 * @author Tim
-	 * @param itemString
+	 * @param anItem
 	 * @return Item[]
 	 * 
 	 * Converts an itemString to an Item[], so that Item[] remains private
 	 */
-	private Item[] convertStringToItem(String itemString) {
-		Item[] item;
-		if (itemString.equals("trap")) {
-			item = trap;
-		} else if (itemString.equals("bomb")) {
-			item = bomb;
-		} else if (itemString.equals("fakeflag")) {
-			item = fakeflag;
+	private Item[] convertStringToItem(String anItem) {
+		Item[] tmpItem;
+		if (anItem.equals("trap")) {
+			tmpItem = trap;
+		} else if (anItem.equals("bomb")) {
+			tmpItem = bomb;
+		} else if (anItem.equals("fakeflag")) {
+			tmpItem = fakeflag;
 		} else {
-			item = flag;
+			tmpItem = flag;
 		}
-		return item;
+		return tmpItem;
 	}
 
 	/**
 	 * @author Tim
-	 * @param figureString
+	 * @param aFigure
 	 * @return Figure[]
 	 * 
 	 * Converts an figureString to an Figure[], so that Figure[] remains private
 	 */
-	private Figure[] convertStringToFigure(String figureString) {
-		Figure[] figure;
-		if (figureString.equals("fighter")) {
-			figure = fighter;
-		} else if (figureString.equals("spy")) {
-			figure = spy;
-		} else if (figureString.equals("medic")) {
-			figure = medic;
-		} else if (figureString.equals("diver")) {
-			figure = diver;
-		} else if (figureString.equals("bomber")) {
-			figure = bomber;
+	private Figure[] convertStringToFigure(String aFigure) {
+		Figure[] tmpFigure;
+		if (aFigure.equals("fighter")) {
+			tmpFigure = fighter;
+		} else if (aFigure.equals("spy")) {
+			tmpFigure = spy;
+		} else if (aFigure.equals("medic")) {
+			tmpFigure = medic;
+		} else if (aFigure.equals("diver")) {
+			tmpFigure = diver;
+		} else if (aFigure.equals("bomber")) {
+			tmpFigure = bomber;
 		} else {
-			figure = climber;
+			tmpFigure = climber;
 		}
-		return figure;
+		return tmpFigure;
 	}
 
 	public String paint() {

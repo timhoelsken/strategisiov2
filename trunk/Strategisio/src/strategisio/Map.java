@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
  * 
  * @author Tim
  * 
- * This Class defines the map, which consists of an two-dimensional array of
+ * This class defines the map, which consists of an two-dimensional array of
  * fields
  */
 public class Map {
@@ -63,65 +63,65 @@ public class Map {
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
+	 * @param anX
+	 * @param aY
 	 * @return
 	 * 
 	 * With the help of an unique fieldID, a single field is repainted
 	 */
-	public boolean rePaintField(int x, int y) {
+	public boolean rePaintField(int anX, int aY) {
 		return true;
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
-	 * @param field
+	 * @param anX
+	 * @param aY
+	 * @param aField
 	 * 
 	 * Sets a single field on the map
 	 */
-	public void setField(int x, int y, Field field) {
-		fieldProperties[x][y] = field;
+	public void setField(int anX, int aY, Field aField) {
+		fieldProperties[anX][aY] = aField;
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
+	 * @param anX
+	 * @param anY
 	 * @return field
 	 * 
 	 * Gets a single field from the map
 	 */
-	public Field getField(int x, int y) {
-		return fieldProperties[x][y];
+	public Field getField(int anX, int anY) {
+		return fieldProperties[anX][anY];
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
+	 * @param anX
+	 * @param aY
 	 * @return String
 	 * 
 	 * Returns the ground of a single field
 	 */
-	public String getSingleFieldGround(int x, int y) {
+	public String getSingleFieldGround(int anX, int aY) {
 
-		return fieldProperties[x][y].getGround();
+		return fieldProperties[anX][aY].getGround();
 	}
 
 	/**
 	 * @author Tim
-	 * @param field
-	 * @param figure
+	 * @param aField
+	 * @param aFigure
 	 * @return boolean
 	 * 
 	 * Returns true if a field has no figure
 	 */
-	public boolean emptyFieldForFigure(Field field, Figure figure) {
-		if (field.hasFigure()
-				|| field.hasItem()
-				|| ((!field.getGround().equals(figure.getAcceptedGround()) && !field
+	public boolean emptyFieldForFigure(Field aField, Figure aFigure) {
+		if (aField.hasFigure()
+				|| aField.hasItem()
+				|| ((!aField.getGround().equals(aFigure.getAcceptedGround()) && !aField
 						.getGround().equals("gras")))) {
 			return false;
 		} else {
@@ -131,15 +131,15 @@ public class Map {
 
 	/**
 	 * @author Tim
-	 * @param field
-	 * @param figure
+	 * @param aField
+	 * @param aFigure
 	 * @return boolean
 	 * 
 	 * Returns true if a field has no item
 	 */
-	public boolean moveFigure(Field field, Figure figure) {
-		if (emptyFieldForFigure(field, figure)) {
-			field.setFigure(figure);
+	public boolean moveFigure(Field aField, Figure aFigure) {
+		if (emptyFieldForFigure(aField, aFigure)) {
+			aField.setFigure(aFigure);
 			return true;
 		}
 		return false;
@@ -147,77 +147,78 @@ public class Map {
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
+	 * @param anX
+	 * @param aY
 	 * @return Figure
 	 * 
 	 * Removes a figure from a field
 	 */
-	public Figure removeFigure(int x, int y) {
-		Field field = getField(x, y);
-		Figure figure = field.getFigure();
-		field.setFigure(null);
-		return figure;
+	public Figure removeFigure(int anX, int aY) {
+		Field tmpField = getField(anX, aY);
+		Figure tmpFigure = tmpField.getFigure();
+		tmpField.setFigure(null);
+		return tmpFigure;
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
-	 * @param figure
+	 * @param anX
+	 * @param aY
+	 * @param aFigure
 	 * @return boolean
 	 * 
 	 * Inserts a figure to a field
 	 */
-	public boolean insertFigure(int x, int y, Figure figure) {
-		Field field = getField(x, y);
-		field.setFigure(figure);
+	public boolean insertFigure(int anX, int aY, Figure aFigure) {
+		Field tmpField = getField(anX, aY);
+		tmpField.setFigure(aFigure);
 		return true;
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
+	 * @param anX
+	 * @param aY
 	 * @return Item
 	 * 
 	 * Removes a figure form a field
 	 */
-	public Item removeItem(int x, int y) {
-		Field field = getField(x, y);
-		Item item = field.getItem();
-		return item;
+	public Item removeItem(int anX, int aY) {
+		Field tmpField = getField(anX, aY);
+		Item tmpItem = tmpField.getItem();
+		return tmpItem;
 	}
 
 	/**
 	 * @author Tim
-	 * @param x
-	 * @param y
-	 * @param item
+	 * @param anX
+	 * @param aY
+	 * @param anItem
 	 * @return boolean
 	 * 
 	 * Inserts an item to a field
 	 */
-	public boolean insertItem(int x, int y, Item item) {
-		Field field = getField(x, y);
-		field.setItem(item);
+	public boolean insertItem(int anX, int aY, Item anItem) {
+		Field tmpField = getField(anX, aY);
+		tmpField.setItem(anItem);
 		return true;
 	}
 
 	/**
 	 * @author Tim
-	 * @param fileInput
+	 * @param aFile
 	 * @return w3c Document
 	 * 
 	 * Reads an XML file into a w3c Document
 	 */
-	public Document getDocumentFrom(String fileInput) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	public Document getDocumentFrom(File aFile) {
+		DocumentBuilderFactory tmpFactory = DocumentBuilderFactory
+				.newInstance();
 		Document tmpDocument = null;
 
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			tmpDocument = builder.parse(new File(fileInput));
+			DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
+			tmpDocument = tmpBuilder.parse(aFile);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -227,45 +228,45 @@ public class Map {
 
 	/**
 	 * @author Tim
-	 * @param path
+	 * @param aFile
 	 * @return
 	 * 
 	 * Imports map data from XML to field collection
 	 */
-	public boolean importMap(String path) {
+	public boolean importMap(File aFile) {
 		/*
 		 * Read XML file from path, save data to field collection
 		 * 
 		 */
 
-		Document gameMapData = getDocumentFrom(path);
-		NodeList fieldList = gameMapData.getElementsByTagName("field");
+		Document tmpGameMapData = getDocumentFrom(aFile);
+		NodeList tmpFieldList = tmpGameMapData.getElementsByTagName("field");
 		Node tmpNode;
-		NodeList childs;
+		NodeList tmpChilds;
 
 		int x = 0;
 
 		// GANZ DOLL BÄH !!!
-		int z = (int) Math.sqrt((double) fieldList.getLength());
+		int z = (int) Math.sqrt((double) tmpFieldList.getLength());
 
 		/*
 		 * Structure in XML has to be the same as it is here. see mapdummy.xml
 		 * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
 		 */
-		for (int y = 0; y < fieldList.getLength(); y++) {
-			tmpNode = fieldList.item(y);
-			childs = tmpNode.getChildNodes();
+		for (int y = 0; y < tmpFieldList.getLength(); y++) {
+			tmpNode = tmpFieldList.item(y);
+			tmpChilds = tmpNode.getChildNodes();
 
 			if ((y % z == 0) && y > 0) {
 				x += 1;
-				fieldProperties[x][(y - (x * z))] = new Field(childs.item(0)
-						.getTextContent(), new Figure(childs.item(1)
-						.getTextContent()), new Item(childs.item(2)
+				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0)
+						.getTextContent(), new Figure(tmpChilds.item(1)
+						.getTextContent()), new Item(tmpChilds.item(2)
 						.getTextContent()));
 			} else {
-				fieldProperties[x][(y - (x * z))] = new Field(childs.item(0)
-						.getTextContent(), new Figure(childs.item(1)
-						.getTextContent()), new Item(childs.item(2)
+				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0)
+						.getTextContent(), new Figure(tmpChilds.item(1)
+						.getTextContent()), new Item(tmpChilds.item(2)
 						.getTextContent()));
 			}
 		}

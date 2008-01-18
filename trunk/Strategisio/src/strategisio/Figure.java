@@ -28,12 +28,12 @@ public class Figure {
 
 	/**
 	 * @author Tim
-	 * @param kind
+	 * @param aKind
 	 * 
 	 * Constructor of any kind of figure
 	 */
-	public Figure(String kind) {
-		this.kind = kind;
+	public Figure(String aKind) {
+		this.kind = aKind;
 
 		this.acceptedGround = null;
 		this.attack.add("fist");
@@ -43,7 +43,7 @@ public class Figure {
 		this.visible = false;
 		this.trapped = false;
 
-		if (kind.equals("fighter")) {
+		if (aKind.equals("fighter")) {
 			this.steps = 2;
 			this.view = 1;
 
@@ -52,10 +52,10 @@ public class Figure {
 
 			this.defence.add("knife");
 			this.defence.add("rifle");
-		} else if (kind.equals("spy")) {
+		} else if (aKind.equals("spy")) {
 			this.steps = 3;
 			this.view = 2;
-		} else if (kind.equals("diver")) {
+		} else if (aKind.equals("diver")) {
 			this.steps = 1;
 			this.view = 1;
 			this.acceptedGround = "water";
@@ -64,14 +64,14 @@ public class Figure {
 
 			this.defence.add("knife");
 			this.defence.add("rifle");
-		} else if (kind.equals("medic")) {
+		} else if (aKind.equals("medic")) {
 			this.steps = 1;
 			this.view = 1;
 
 			this.attack.add("knife");
 
 			this.defence.add("knife");
-		} else if (kind.equals("climber")) {
+		} else if (aKind.equals("climber")) {
 			this.steps = 1;
 			this.view = 1;
 
@@ -81,7 +81,7 @@ public class Figure {
 
 			this.defence.add("knife");
 			this.defence.add("rifle");
-		} else if (kind.equals("bomber")) {
+		} else if (aKind.equals("bomber")) {
 			this.steps = 1;
 			this.view = 1;
 
@@ -92,67 +92,67 @@ public class Figure {
 		}
 	}
 
-	public String getKind() {
-		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
 	public String getAcceptedGround() {
 		return acceptedGround;
 	}
 
-	public void setAcceptedGround(String acceptedGround) {
-		this.acceptedGround = acceptedGround;
+	public void setAcceptedGround(String anAcceptedGround) {
+		acceptedGround = anAcceptedGround;
 	}
 
 	public Collection getAttack() {
 		return attack;
 	}
 
-	public void setAttack(Collection attack) {
-		this.attack = attack;
+	public void setAttack(Collection anAttack) {
+		attack = anAttack;
 	}
 
 	public Collection getDefence() {
 		return defence;
 	}
 
-	public void setDefence(Collection defence) {
-		this.defence = defence;
+	public void setDefence(Collection aDefence) {
+		defence = aDefence;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String aKind) {
+		kind = aKind;
 	}
 
 	public int getSteps() {
 		return steps;
 	}
 
-	public void setSteps(int steps) {
-		this.steps = steps;
+	public void setSteps(int aStepNumber) {
+		steps = aStepNumber;
 	}
 
 	public boolean isTrapped() {
 		return trapped;
 	}
 
-	public void setTrapped(boolean trapped) {
-		this.trapped = trapped;
+	public void setTrapped(boolean isTrapped) {
+		trapped = isTrapped;
 	}
 
 	public int getView() {
 		return view;
 	}
 
-	public void setView(int view) {
-		this.view = view;
+	public void setView(int aView) {
+		view = aView;
 	}
 
 	public boolean isVisible() {
 		return visible;
 	}
 
-	public void setVisible(boolean visible) {
-		this.visible = visible;
+	public void setVisible(boolean isVisible) {
+		visible = isVisible;
 	}
 }

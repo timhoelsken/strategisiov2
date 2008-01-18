@@ -17,45 +17,19 @@ public class Field {
 
 	/**
 	 * @author Tim
-	 * @param xCoordinate
-	 * @param yCoordinate
-	 * @param ground
-	 * @param figure
-	 * @param item
+	 * @param aGround
+	 * @param aFigure
+	 * @param anItem
 	 * 
-	 * Constructor for a Field on the map
+	 * Constructor for a field on the map
 	 */
 
-	public Field(String ground, Figure figure, Item item) {
-		setGround(ground);
-		setFigure(figure);
-		setItem(item);
+	public Field(String aGround, Figure aFigure, Item anItem) {
+		setGround(aGround);
+		setFigure(aFigure);
+		setItem(anItem);
 	}
-
-	public Figure getFigure() {
-		return figure;
-	}
-
-	public void setFigure(Figure figure) {
-		this.figure = figure;
-	}
-
-	public String getGround() {
-		return ground;
-	}
-
-	public void setGround(String ground) {
-		this.ground = ground;
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-
+	
 	/**
 	 * @author Tim
 	 * @return boolean
@@ -82,5 +56,29 @@ public class Field {
 		} else {
 			return false;
 		}
+	}
+
+	public Figure getFigure() {
+		return figure;
+	}
+
+	public void setFigure(Figure aFigure) {
+		figure = aFigure;
+	}
+
+	public String getGround() {
+		return ground;
+	}
+
+	public void setGround(String aGround) {
+		ground = aGround;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item aItem) {
+		item = aItem;
 	}
 }
