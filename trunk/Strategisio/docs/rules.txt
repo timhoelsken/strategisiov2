@@ -7,6 +7,7 @@ variables
 	static variables	CAPITAL_LETTERS
 	local variables		with prefix "tmp" => tmpLocalVariable
 	parameters			with prefix "a" => aParameter
+                        boolean with prefix "is" => isBoolean
 	attributes			without prefix => thisIsAnAttribute
 
 class names

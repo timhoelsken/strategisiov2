@@ -1,6 +1,8 @@
 package strategisio;
 
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -18,9 +20,9 @@ public class Figure {
 
 	private String acceptedGround;
 
-	private Collection attack;
+	private Collection<String> attack;
 
-	private Collection defence;
+	private Collection<String> defence;
 
 	private boolean visible;
 
@@ -31,64 +33,68 @@ public class Figure {
 	 * @param aKind
 	 * 
 	 * Constructor of any kind of figure
+	 * @throws NoFigureException
 	 */
 	public Figure(String aKind) {
-		this.kind = aKind;
+		kind = aKind;
 
-		this.acceptedGround = null;
-		this.attack.add("fist");
-		this.attack.add("kick");
-		this.defence.add("fist");
-		this.defence.add("kick");
-		this.visible = false;
-		this.trapped = false;
+		acceptedGround = null;
+		attack.add(Constants.FIST);
+		attack.add(Constants.KICK);
+		defence.add(Constants.FIST);
+		defence.add(Constants.KICK);
+		visible = false;
+		trapped = false;
 
-		if (aKind.equals("fighter")) {
-			this.steps = 2;
-			this.view = 1;
+		if (aKind.equals(Constants.FIGHTER)) {
+			steps = 2;
+			view = 1;
 
-			this.attack.add("knife");
-			this.attack.add("rifle");
+			attack.add(Constants.KNIFE);
+			attack.add(Constants.RIFLE);
 
-			this.defence.add("knife");
-			this.defence.add("rifle");
-		} else if (aKind.equals("spy")) {
-			this.steps = 3;
-			this.view = 2;
-		} else if (aKind.equals("diver")) {
-			this.steps = 1;
-			this.view = 1;
-			this.acceptedGround = "water";
+			defence.add(Constants.KNIFE);
+			defence.add(Constants.RIFLE);
+		} else if (aKind.equals(Constants.SPY)) {
+			steps = 3;
+			view = 2;
+		} else if (aKind.equals(Constants.DIVER)) {
+			steps = 1;
+			view = 1;
+			acceptedGround = Constants.WATER;
 
-			this.attack.add("knife");
+			attack.add(Constants.KNIFE);
 
-			this.defence.add("knife");
-			this.defence.add("rifle");
-		} else if (aKind.equals("medic")) {
-			this.steps = 1;
-			this.view = 1;
+			defence.add(Constants.KNIFE);
+			defence.add(Constants.RIFLE);
+		} else if (aKind.equals(Constants.MEDIC)) {
+			steps = 1;
+			view = 1;
 
-			this.attack.add("knife");
+			attack.add(Constants.KNIFE);
 
-			this.defence.add("knife");
-		} else if (aKind.equals("climber")) {
-			this.steps = 1;
-			this.view = 1;
+			defence.add(Constants.KNIFE);
+		} else if (aKind.equals(Constants.CLIMBER)) {
+			steps = 1;
+			view = 1;
 
-			this.acceptedGround = "mountain";
+			acceptedGround = Constants.MOUNTAIN;
 
-			this.attack.add("knife");
+			attack.add(Constants.KNIFE);
 
-			this.defence.add("knife");
-			this.defence.add("rifle");
-		} else if (aKind.equals("bomber")) {
-			this.steps = 1;
-			this.view = 1;
+			defence.add(Constants.KNIFE);
+			defence.add(Constants.RIFLE);
+		} else if (aKind.equals(Constants.BOMBER)) {
+			steps = 1;
+			view = 1;
 
-			this.attack.add("knife");
+			attack.add(Constants.KNIFE);
 
-			this.defence.add("knife");
-			this.defence.add("rifle");
+			defence.add(Constants.KNIFE);
+			defence.add(Constants.RIFLE);
+		} else {
+			Exception e = new Exception("Unknown FigureType");
+			Logger.getAnonymousLogger().log(Level.SEVERE, e.getMessage());
 		}
 	}
 
@@ -100,19 +106,33 @@ public class Figure {
 		acceptedGround = anAcceptedGround;
 	}
 
-	public Collection getAttack() {
+	/**
+	 * @return the attack
+	 */
+	public Collection<String> getAttack() {
 		return attack;
 	}
 
-	public void setAttack(Collection anAttack) {
-		attack = anAttack;
+	/**
+	 * @param aAttack
+	 *            the attack to set
+	 */
+	public void setAttack(Collection<String> aAttack) {
+		attack = aAttack;
 	}
 
-	public Collection getDefence() {
+	/**
+	 * @return the defence
+	 */
+	public Collection<String> getDefence() {
 		return defence;
 	}
 
-	public void setDefence(Collection aDefence) {
+	/**
+	 * @param aDefence
+	 *            the defence to set
+	 */
+	public void setDefence(Collection<String> aDefence) {
 		defence = aDefence;
 	}
 

@@ -23,13 +23,12 @@ public class Field {
 	 * 
 	 * Constructor for a field on the map
 	 */
-
 	public Field(String aGround, Figure aFigure, Item anItem) {
 		setGround(aGround);
 		setFigure(aFigure);
 		setItem(anItem);
 	}
-	
+
 	/**
 	 * @author Tim
 	 * @return boolean

@@ -14,10 +14,10 @@ public class Item {
 
 	private boolean visible;
 
-	public Item(String kind) {
-		this.kind = kind;
-		this.active = false;
-		this.visible = false;
+	public Item(String aKind) {
+		kind = aKind;
+		active = false;
+		visible = false;
 	}
 
 	public boolean isActive() {

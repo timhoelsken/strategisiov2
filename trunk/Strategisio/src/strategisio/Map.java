@@ -121,8 +121,8 @@ public class Map {
 	public boolean emptyFieldForFigure(Field aField, Figure aFigure) {
 		if (aField.hasFigure()
 				|| aField.hasItem()
-				|| ((!aField.getGround().equals(aFigure.getAcceptedGround()) && !aField
-						.getGround().equals("gras")))) {
+				|| ((!aField.getGround().equals(aFigure.getAcceptedGround()) && !aField.getGround().equals(
+						"gras")))) {
 			return false;
 		} else {
 			return true;
@@ -212,8 +212,7 @@ public class Map {
 	 * Reads an XML file into a w3c Document
 	 */
 	public Document getDocumentFrom(File aFile) {
-		DocumentBuilderFactory tmpFactory = DocumentBuilderFactory
-				.newInstance();
+		DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
 		Document tmpDocument = null;
 
 		try {
@@ -259,18 +258,13 @@ public class Map {
 
 			if ((y % z == 0) && y > 0) {
 				x += 1;
-				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0)
-						.getTextContent(), new Figure(tmpChilds.item(1)
-						.getTextContent()), new Item(tmpChilds.item(2)
-						.getTextContent()));
+				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
+						tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
 			} else {
-				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0)
-						.getTextContent(), new Figure(tmpChilds.item(1)
-						.getTextContent()), new Item(tmpChilds.item(2)
-						.getTextContent()));
+				fieldProperties[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
+						tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
 			}
 		}
-
 		return true;
 	}
 
