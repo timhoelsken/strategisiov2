@@ -1,10 +1,10 @@
-package strategisio.elements;
+package strategisio.elements.figures;
 
 
 /**
  * Abstract class for all figures
  */
-abstract class Figure {
+public abstract class Figure {
 
 	private int horizontalSteps;
 

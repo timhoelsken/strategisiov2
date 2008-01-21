@@ -1,4 +1,7 @@
-package strategisio.elements;
+package strategisio.elements.figures;
+
+import strategisio.elements.FightMoves;
+import strategisio.elements.Ground;
 
 
 public class Spy extends Figure {

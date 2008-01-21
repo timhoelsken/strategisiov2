@@ -1,18 +1,21 @@
-package strategisio.elements;
+package strategisio.elements.figures;
+
+import strategisio.elements.FightMoves;
+import strategisio.elements.Ground;
 
 
-public class Diver extends Figure {
+public class Medic extends Figure {
 
-	public Diver() {
+	public Medic() {
 		setHorizontalSteps(1);
 		setVerticalSteps(1);
-		setDiagonalSteps(0);
+		setDiagonalSteps(1);
 
 		setHorizontalView(1);
 		setVerticalView(1);
 		setDiagonalView(0);
 
-		setGroundAuthority(Ground.WATER);
+		setGroundAuthority(Ground.GRASS);
 
 		int[] tmpAttacks = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK};
 		setAttacks(tmpAttacks);
