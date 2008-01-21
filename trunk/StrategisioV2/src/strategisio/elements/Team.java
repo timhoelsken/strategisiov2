@@ -15,6 +15,11 @@ import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
 
+/**
+ *
+ * represents a player's Team
+ *
+ */
 public class Team {
 
 	private String id;

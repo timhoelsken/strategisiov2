@@ -3,6 +3,11 @@ package strategisio.elements;
 import strategisio.elements.fields.Field;
 import strategisio.elements.fields.Grass;
 
+/**
+ *
+ * the PlayMap
+ *
+ */
 public class PlayMap {
 
 	private Field[][] fields;
