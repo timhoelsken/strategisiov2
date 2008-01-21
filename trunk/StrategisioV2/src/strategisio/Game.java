@@ -20,8 +20,7 @@ public class Game {
 	public Game() {
 		playMap = new PlayMap();
 
-		teams = new HashMap<Character, Team>(2, 2);
-		System.out.println(teams.size());
+		teams = new HashMap<Character, Team>();
 		Team tmpTeam1 = new Team("Team 1");
 		Team tmpTeam2 = new Team("Team 2");
 		teams.put(Character.valueOf('A'), tmpTeam1);
