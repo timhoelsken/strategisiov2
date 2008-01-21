@@ -26,7 +26,7 @@ public class Team {
 	public Team(int anId){
 		id = anId;
 
-		// dynamic fill has to be implemented
+		//TODO dynamic fill has to be implemented
 		figures = new ArrayList<Figure>();
 		figures.add(new Fighter());
 		figures.add(new Fighter());
@@ -59,7 +59,7 @@ public class Team {
 			}
 		}
 		if (tmpFlagCounter < 0){
-			//TODO just one flag allowed
+			//TODO Exception: just one flag allowed
 		}
 	}
 }
