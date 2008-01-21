@@ -62,4 +62,8 @@ public class Team {
 			//TODO Exception: just one flag allowed
 		}
 	}
+
+	public int getId() {
+		return id;
+	}
 }
