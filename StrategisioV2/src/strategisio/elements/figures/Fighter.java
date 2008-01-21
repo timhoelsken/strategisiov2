@@ -19,7 +19,5 @@ public class Fighter extends Figure {
 		int[] tmpFightMoves = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT};
 		setAttacks(tmpFightMoves);
 		setDefences(tmpFightMoves);
-
-		setVisible(true);
 	}
 }

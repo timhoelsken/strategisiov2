@@ -20,7 +20,5 @@ public class Climber extends Figure {
 		setAttacks(tmpAttacks);
 		int[] tmpDefends = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT};
 		setDefences(tmpDefends);
-
-		setVisible(true);
 	}
 }

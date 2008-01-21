@@ -20,7 +20,5 @@ public class Spy extends Figure {
 		setAttacks(tmpAttacks);
 		int[] tmpDefences = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK};
 		setDefences(tmpDefences);
-
-		setVisible(true);
 	}
 }

@@ -19,7 +19,5 @@ public class Miner extends Figure {
 		int[] tmpFightMoves = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK};
 		setAttacks(tmpFightMoves);
 		setDefences(tmpFightMoves);
-
-		setVisible(true);
 	}
 }

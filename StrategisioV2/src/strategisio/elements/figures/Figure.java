@@ -24,8 +24,6 @@ abstract class Figure {
 
 	private int[] defences;
 
-	private boolean visible;
-
 	protected int getHorizontalSteps() {
 		return horizontalSteps;
 	}
@@ -96,14 +94,6 @@ abstract class Figure {
 
 	protected void setDefences(int[] defences) {
 		this.defences = defences;
-	}
-
-	protected boolean isVisible() {
-		return visible;
-	}
-
-	protected void setVisible(boolean visible) {
-		this.visible = visible;
 	}
 
 //	/**
