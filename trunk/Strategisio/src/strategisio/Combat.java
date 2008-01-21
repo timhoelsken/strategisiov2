@@ -1,9 +1,9 @@
 package strategisio;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  * Defines a combat.
  */
 public class Combat {
