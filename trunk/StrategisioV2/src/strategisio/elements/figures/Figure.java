@@ -1,10 +1,12 @@
 package strategisio.elements.figures;
 
+import strategisio.elements.PlayElement;
+
 
 /**
  * Abstract class for all figures
  */
-public abstract class Figure {
+public abstract class Figure implements PlayElement {
 
 	private int horizontalSteps;
 
