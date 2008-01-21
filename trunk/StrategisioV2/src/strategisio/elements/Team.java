@@ -17,13 +17,13 @@ import strategisio.elements.items.Trap;
 
 public class Team {
 
-	private int id;
+	private String id;
 
 	private ArrayList<Figure> figures;
 
 	private ArrayList<Item> items;
 
-	public Team(int anId){
+	public Team(String anId){
 		id = anId;
 
 		//TODO dynamic fill has to be implemented
@@ -63,7 +63,7 @@ public class Team {
 		}
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 }
