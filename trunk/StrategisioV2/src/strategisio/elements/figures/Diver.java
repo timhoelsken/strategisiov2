@@ -1,7 +1,7 @@
 package strategisio.elements.figures;
 
-import strategisio.elements.FightMoves;
-import strategisio.elements.Ground;
+import strategisio.elements.constants.FightMoves;
+import strategisio.elements.constants.Ground;
 
 
 public class Diver extends Figure {
