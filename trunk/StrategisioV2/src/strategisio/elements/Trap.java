@@ -1,6 +1,4 @@
-package strategisio.elements.items;
-
-import strategisio.Figure;
+package strategisio.elements;
 
 public class Trap extends Item {
 

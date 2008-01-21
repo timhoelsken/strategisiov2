@@ -1,7 +1,5 @@
-package strategisio.elements.figures;
+package strategisio.elements;
 
-import strategisio.elements.FightMoves;
-import strategisio.elements.Ground;
 
 public class Fighter extends Figure {
 

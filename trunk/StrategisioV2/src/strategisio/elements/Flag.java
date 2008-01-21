@@ -1,4 +1,4 @@
-package strategisio.elements.items;
+package strategisio.elements;
 
 public class Flag extends Item {
 }

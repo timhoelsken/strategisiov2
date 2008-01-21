@@ -1,11 +1,9 @@
-package strategisio.elements.figures;
+package strategisio.elements;
 
-import strategisio.elements.FightMoves;
-import strategisio.elements.Ground;
 
-public class Climber extends Figure {
+public class Diver extends Figure {
 
-	public Climber() {
+	public Diver() {
 		setHorizontalSteps(1);
 		setVerticalSteps(1);
 		setDiagonalSteps(0);
@@ -14,7 +12,7 @@ public class Climber extends Figure {
 		setVerticalView(1);
 		setDiagonalView(0);
 
-		setGroundAuthority(Ground.MOUNTAIN);
+		setGroundAuthority(Ground.WATER);
 
 		int[] tmpAttacks = new int[]{FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK};
 		setAttacks(tmpAttacks);
