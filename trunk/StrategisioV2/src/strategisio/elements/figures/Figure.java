@@ -2,99 +2,152 @@ package strategisio.elements.figures;
 
 import strategisio.elements.PlayElement;
 
-
 /**
  * Abstract class for all figures
  */
 public abstract class Figure implements PlayElement {
 
-	private int horizontalSteps;
+  private int horizontalSteps;
 
-	private int verticalSteps;
+  private int verticalSteps;
 
-	private int diagonalSteps;
+  private int diagonalSteps;
 
-	private int horizontalView;
+  private int horizontalView;
 
-	private int verticalView;
+  private int verticalView;
 
-	private int diagonalView;
+  private int diagonalView;
 
-	private int groundAuthority;
+  private int groundAuthority;
 
-	private int[] attacks;
+  private int[] attacks;
 
-	private int[] defences;
+  private int[] defences;
 
-	protected int getHorizontalSteps() {
-		return horizontalSteps;
-	}
+  /**
+   * @return
+   */
+  protected int getHorizontalSteps() {
+    return horizontalSteps;
+  }
 
-	protected void setHorizontalSteps(int horizontalSteps) {
-		this.horizontalSteps = horizontalSteps;
-	}
+  /**
+   * @param horizontalSteps
+   */
+  protected void setHorizontalSteps(int horizontalSteps) {
+    this.horizontalSteps = horizontalSteps;
+  }
 
-	protected int getVerticalSteps() {
-		return verticalSteps;
-	}
+  /**
+   * @return
+   */
+  protected int getVerticalSteps() {
+    return verticalSteps;
+  }
 
-	protected void setVerticalSteps(int verticalSteps) {
-		this.verticalSteps = verticalSteps;
-	}
+  /**
+   * @param verticalSteps
+   */
+  protected void setVerticalSteps(int verticalSteps) {
+    this.verticalSteps = verticalSteps;
+  }
 
-	protected int getDiagonalSteps() {
-		return diagonalSteps;
-	}
+  /**
+   * @return
+   */
+  protected int getDiagonalSteps() {
+    return diagonalSteps;
+  }
 
-	protected void setDiagonalSteps(int diagonalSteps) {
-		this.diagonalSteps = diagonalSteps;
-	}
+  /**
+   * @param diagonalSteps
+   */
+  protected void setDiagonalSteps(int diagonalSteps) {
+    this.diagonalSteps = diagonalSteps;
+  }
 
-	protected int getHorizontalView() {
-		return horizontalView;
-	}
+  /**
+   * @return
+   */
+  protected int getHorizontalView() {
+    return horizontalView;
+  }
 
-	protected void setHorizontalView(int horizontalView) {
-		this.horizontalView = horizontalView;
-	}
+  /**
+   * @param horizontalView
+   */
+  protected void setHorizontalView(int horizontalView) {
+    this.horizontalView = horizontalView;
+  }
 
-	protected int getVerticalView() {
-		return verticalView;
-	}
+  /**
+   * @return
+   */
+  protected int getVerticalView() {
+    return verticalView;
+  }
 
-	protected void setVerticalView(int verticalView) {
-		this.verticalView = verticalView;
-	}
+  /**
+   * @param verticalView
+   */
+  protected void setVerticalView(int verticalView) {
+    this.verticalView = verticalView;
+  }
 
-	protected int getDiagonalView() {
-		return diagonalView;
-	}
+  /**
+   * @return
+   */
+  protected int getDiagonalView() {
+    return diagonalView;
+  }
 
-	protected void setDiagonalView(int diagonalView) {
-		this.diagonalView = diagonalView;
-	}
+  /**
+   * @param diagonalView
+   */
+  protected void setDiagonalView(int diagonalView) {
+    this.diagonalView = diagonalView;
+  }
 
-	protected int getGroundAuthority() {
-		return groundAuthority;
-	}
+  /**
+   * @return
+   */
+  protected int getGroundAuthority() {
+    return groundAuthority;
+  }
 
-	protected void setGroundAuthority(int groundAuthority) {
-		this.groundAuthority = groundAuthority;
-	}
+  /**
+   * @param groundAuthority
+   */
+  protected void setGroundAuthority(int groundAuthority) {
+    this.groundAuthority = groundAuthority;
+  }
 
-	protected int[] getAttacks() {
-		return attacks;
-	}
+  /**
+   * @return
+   */
+  protected int[] getAttacks() {
+    return attacks;
+  }
 
-	protected void setAttacks(int[] attacks) {
-		this.attacks = attacks;
-	}
+  /**
+   * @param attacks
+   */
+  protected void setAttacks(int[] attacks) {
+    this.attacks = attacks;
+  }
 
-	protected int[] getDefences() {
-		return defences;
-	}
+  /**
+   * @return
+   */
+  protected int[] getDefences() {
+    return defences;
+  }
 
-	protected void setDefences(int[] defences) {
-		this.defences = defences;
-	}
+  /**
+   * @param defences
+   */
+  protected void setDefences(int[] defences) {
+    this.defences = defences;
+  }
 }

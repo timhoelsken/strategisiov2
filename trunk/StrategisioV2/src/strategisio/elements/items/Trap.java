@@ -2,15 +2,26 @@ package strategisio.elements.items;
 
 import strategisio.elements.figures.Figure;
 
+/**
+ * @author Tobias
+ *
+ * the trap
+ */
 public class Trap extends Item {
 
-	private Figure catched;
+  private Figure catched;
 
-	protected Figure getCatched() {
-		return catched;
-	}
+  /**
+   * @return
+   */
+  protected Figure getCatched() {
+    return catched;
+  }
 
-	protected void setCatched(Figure catched) {
-		this.catched = catched;
-	}
+  /**
+   * @param catched
+   */
+  protected void setCatched(Figure catched) {
+    this.catched = catched;
+  }
 }
