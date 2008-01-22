@@ -68,7 +68,7 @@ public class PlayMap {
       fields[anX][aY].setSetter(aMovable);
     } else {
       // TODO already set => go anywhere!
-      System.out.println("Go anywhere!");
+      System.err.println("Go anywhere!");
     }
   }
 
