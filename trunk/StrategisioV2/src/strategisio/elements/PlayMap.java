@@ -72,15 +72,15 @@ public class PlayMap {
     }
   }
 
-  private void checkCoordinates(int anX, int aY) throws IllegalArgumentException {
+  private void checkCoordinates(int anX, int aY) throws WrongCoordinateException {
     if (anX < 0) {
-      throw new IllegalArgumentException("x value '" + anX + "' is less than 0");
+      throw new WrongCoordinateException("x value '" + anX + "' is less than 0");
     } else if (anX >= xDimension) {
-      throw new IllegalArgumentException("x value '" + anX + "' equals or is greater than maximum value '" + xDimension + "'");
+      throw new WrongCoordinateException("x value '" + anX + "' equals or is greater than maximum value '" + xDimension + "'");
     } else if (aY < 0) {
-      throw new IllegalArgumentException("y value '" + aY + "'  less than 0");
+      throw new WrongCoordinateException("y value '" + aY + "'  less than 0");
     } else if (aY >= yDimension) {
-      throw new IllegalArgumentException("y value '" + aY + "'  equals or is greater than maximum value '" + yDimension + "'");
+      throw new WrongCoordinateException("y value '" + aY + "'  equals or is greater than maximum value '" + yDimension + "'");
     }
   }
 
@@ -92,6 +92,8 @@ public class PlayMap {
    * shows map on console
    */
   public void showMap() {
+    System.out.println();
+    System.out.println();
     String tmpFirstLine = "       ";
     for (int i = 0; i < yDimension; i++) {
       tmpFirstLine += (i+1);
@@ -118,7 +120,7 @@ public class PlayMap {
           tmpMovableName = tmpMovableName.substring(tmpMovableName.lastIndexOf('.') + 1);
           if (tmpMovable.getId() == 'A') {
             tmpMovableName = tmpMovableName.toUpperCase();
-          } else { // 'B'
+          } else if (tmpMovable.getId() == 'B') {
             tmpMovableName = tmpMovableName.toLowerCase();
           }
           while (tmpMovableName.length() != 10) {

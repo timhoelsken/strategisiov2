@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
+import strategisio.elements.WrongCoordinateException;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
 
@@ -67,7 +68,7 @@ public class Game {
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
         tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
-      } catch (IllegalArgumentException e) {
+      } catch (WrongCoordinateException e) {
         tmpX = 0;
         tmpY++;
         i--;
@@ -76,7 +77,7 @@ public class Game {
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
         tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
-      } catch (IllegalArgumentException e) {
+      } catch (WrongCoordinateException e) {
         tmpX = 0;
         tmpY++;
         i--;
@@ -90,7 +91,7 @@ public class Game {
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
         tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
-      } catch (IllegalArgumentException e) {
+      } catch (WrongCoordinateException e) {
         tmpX = tmpMapSize - 1;
         tmpY--;
         i--;
@@ -99,7 +100,7 @@ public class Game {
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
         tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
-      } catch (IllegalArgumentException e) {
+      } catch (WrongCoordinateException e) {
         tmpX = tmpMapSize - 1;
         tmpY--;
         i--;
@@ -107,5 +108,12 @@ public class Game {
     }
 
     tmpPlayMap.showMap();
+
+//    // activate to see that the objects in the ArrayList are the same as on the map
+//    // the figures of teamB will be shown with only one capital letter because id 'C' is unknown
+//    for (int i = 0; i < tmpFigures.size(); i++) {
+//      tmpFigures.get(i).setId('C');
+//    }
+//    tmpPlayMap.showMap();
   }
 }
