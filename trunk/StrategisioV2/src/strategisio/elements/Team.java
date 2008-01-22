@@ -38,26 +38,44 @@ public class Team {
     id = anId;
 
     // TODO dynamic fill has to be implemented
+    final int tmpNoOfFighters = 2;
+    final int tmpNoOfClimbers = 2;
+    final int tmpNoOfDivers = 2;
+    final int tmpNoOfMedics = 2;
+    final int tmpNoOfSpys = 2;
+
     figures = new ArrayList<Figure>();
-    figures.add(new Fighter());
-    figures.add(new Fighter());
-    figures.add(new Climber());
-    figures.add(new Climber());
-    figures.add(new Diver());
-    figures.add(new Diver());
-    figures.add(new Medic());
-    figures.add(new Medic());
-    figures.add(new Spy());
+    for (int i = 0; i < tmpNoOfFighters; i++) {
+      figures.add(new Fighter());
+    }
+    for (int i = 0; i < tmpNoOfClimbers; i++) {
+      figures.add(new Climber());
+    }
+    for (int i = 0; i < tmpNoOfDivers; i++) {
+      figures.add(new Diver());
+    }
+    for (int i = 0; i < tmpNoOfMedics; i++) {
+      figures.add(new Medic());
+    }
+    for (int i = 0; i < tmpNoOfSpys; i++) {
+      figures.add(new Spy());
+    }
+
+    final int tmpNoOfFakeFlags = 2;
+    final int tmpNoOfTraps = 2;
+    final int tmpNoOfBombs = 3;
 
     items = new ArrayList<Item>();
     items.add(new Flag());
-    items.add(new FakeFlag());
-    items.add(new FakeFlag());
-    items.add(new Trap());
-    items.add(new Trap());
-    items.add(new Bomb());
-    items.add(new Bomb());
-    items.add(new Bomb());
+    for (int i = 0; i < tmpNoOfFakeFlags; i++) {
+      items.add(new FakeFlag());
+    }
+    for (int i = 0; i < tmpNoOfTraps; i++) {
+      items.add(new Trap());
+    }
+    for (int i = 0; i < tmpNoOfBombs; i++) {
+      items.add(new Bomb());
+    }
 
     checkTeam();
   }
