@@ -14,14 +14,14 @@ public abstract class Field {
   /**
    * @return the setter
    */
-  protected Movable getSetter() {
+  public Movable getSetter() {
     return setter;
   }
 
   /**
    * @param aSetter the setter to set
    */
-  protected void setSetter(Movable aSetter) {
+  public void setSetter(Movable aSetter) {
     setter = aSetter;
   }
 }
