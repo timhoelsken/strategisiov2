@@ -23,6 +23,8 @@ public abstract class Figure implements Movable {
 
   private int[] defences;
 
+  private String id;
+
   /**
    * @return the normalSteps
    */
@@ -133,5 +135,19 @@ public abstract class Figure implements Movable {
    */
   protected void setDefences(int[] aDefences) {
     defences = aDefences;
+  }
+
+  /**
+   * @return the id
+   */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * @param aId the id to set
+   */
+  public void setId(String aId) {
+    id = aId;
   }
 }

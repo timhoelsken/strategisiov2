@@ -46,19 +46,29 @@ public class Team {
 
     figures = new ArrayList<Figure>();
     for (int i = 0; i < tmpNoOfFighters; i++) {
-      figures.add(new Fighter());
+      Fighter tmpFighter = new Fighter();
+      tmpFighter.setId(anId);
+      figures.add(tmpFighter);
     }
     for (int i = 0; i < tmpNoOfClimbers; i++) {
-      figures.add(new Climber());
+      Climber tmpClimber = new Climber();
+      tmpClimber.setId(anId);
+      figures.add(tmpClimber);
     }
     for (int i = 0; i < tmpNoOfDivers; i++) {
-      figures.add(new Diver());
+      Diver tmpDiver = new Diver();
+      tmpDiver.setId(anId);
+      figures.add(tmpDiver);
     }
     for (int i = 0; i < tmpNoOfMedics; i++) {
-      figures.add(new Medic());
+      Medic tmpMedic = new Medic();
+      tmpMedic.setId(anId);
+      figures.add(tmpMedic);
     }
     for (int i = 0; i < tmpNoOfSpys; i++) {
-      figures.add(new Spy());
+      Spy tmpSpy = new Spy();
+      tmpSpy.setId(anId);
+      figures.add(tmpSpy);
     }
 
     final int tmpNoOfFakeFlags = 2;
@@ -66,15 +76,23 @@ public class Team {
     final int tmpNoOfBombs = 3;
 
     items = new ArrayList<Item>();
-    items.add(new Flag());
+    Flag tmpFlag = new Flag();
+    tmpFlag.setId(anId);
+    items.add(tmpFlag);
     for (int i = 0; i < tmpNoOfFakeFlags; i++) {
-      items.add(new FakeFlag());
+      FakeFlag tmpFakeFlag = new FakeFlag();
+      tmpFakeFlag.setId(anId);
+      items.add(tmpFakeFlag);
     }
     for (int i = 0; i < tmpNoOfTraps; i++) {
-      items.add(new Trap());
+      Trap tmpTrap = new Trap();
+      tmpTrap.setId(anId);
+      items.add(tmpTrap);
     }
     for (int i = 0; i < tmpNoOfBombs; i++) {
-      items.add(new Bomb());
+      Bomb tmpBomb = new Bomb();
+      tmpBomb.setId(anId);
+      items.add(tmpBomb);
     }
 
     checkTeam();
