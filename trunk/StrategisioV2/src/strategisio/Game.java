@@ -53,7 +53,7 @@ public class Game {
    * @param args
    */
   public static void main(String[] args) {
-    int tmpMapSize = 8;
+    int tmpMapSize = 9;
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
     Game tmpGame = new Game(tmpMapSize, tmpTeam1, tmpTeam2);
@@ -91,7 +91,6 @@ public class Game {
       try {
         tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
       } catch (IllegalArgumentException e) {
-        System.err.println(e.getMessage());
         tmpX = tmpMapSize - 1;
         tmpY--;
         i--;

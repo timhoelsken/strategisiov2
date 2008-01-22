@@ -94,13 +94,23 @@ public class PlayMap {
   public void showMap() {
     String tmpFirstLine = "       ";
     for (int i = 0; i < yDimension; i++) {
-      tmpFirstLine += (i+1) + "         ";
+      tmpFirstLine += (i+1);
+      if ((i+1) < 10) {
+        tmpFirstLine += "         ";
+      } else {
+        tmpFirstLine += "        ";
+      }
     }
     System.out.println(tmpFirstLine);
 
     for (int i = 0; i < yDimension; i++) {
       System.out.println();
-      String tmpFieldRow = "  " + (i+1) + "   ";
+      String tmpFieldRow = "  " + (i+1);
+      if ((i+1) < 10) {
+        tmpFieldRow += "   ";
+      } else {
+        tmpFieldRow += "  ";
+      }
       for (int j = 0; j < xDimension; j++) {
         if (fields[i][j].getSetter() != null) {
           Movable tmpMovable = fields[i][j].getSetter();
