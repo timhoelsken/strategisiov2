@@ -1,52 +1,110 @@
 package strategisio;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
+import strategisio.elements.figures.Figure;
+import strategisio.elements.items.Item;
 
 /**
- * 
+ *
  * contains all Game elements
- * 
+ *
  */
 public class Game {
 
   private PlayMap playMap;
 
-  private Map<Character, Team> teams;
+  private Team team1;
+
+  private Team team2;
 
   /**
    * standard constructor
+   *
+   * @param aMapSize
+   *            size of the map
+   * @param aTeamName
+   *            name for team 1
+   * @param anotherTeamName
+   *            name for team 2
    */
-  public Game() {
-    playMap = new PlayMap();
+  public Game(int aMapSize, String aTeamName, String anotherTeamName) {
+    playMap = new PlayMap(aMapSize);
 
-    teams = new HashMap<Character, Team>();
-    Team tmpTeam1 = new Team("Team 1");
-    Team tmpTeam2 = new Team("Team 2");
-    teams.put(Character.valueOf('A'), tmpTeam1);
-    teams.put(Character.valueOf('B'), tmpTeam2);
+    team1 = new Team(aTeamName);
+    team2 = new Team(anotherTeamName);
   }
 
-  private PlayMap getPlayMap() {
-    return playMap;
-  }
-
-  private Map<Character, Team> getTeams() {
-    return teams;
-  }
+  // private void move(Figure aFigure, int anX, int aY) {
+  // Field tmpField = playMap.getFields()[anX][aY];
+  // Movable tmpElement = tmpField.getSetter();
+  // if (tmpElement == null) {
+  // playMap.getFields()[anX][aY].setSetter(aFigure);
+  // } else {
+  // // TODO already set => fight!
+  // }
+  // }
 
   /**
-   * just a test main method
-   * 
+   * start it here
+   *
    * @param args
    */
   public static void main(String[] args) {
-    Game tmpGame = new Game();
-    System.out.println("Das Spiel: " + tmpGame.toString());
-    System.out.println("Die Karte: " + tmpGame.getPlayMap().toString());
-    System.out.println("Die Teams: " + tmpGame.getTeams().toString());
+    int tmpMapSize = 8;
+    String tmpTeam1 = "Team 1";
+    String tmpTeam2 = "Team 2";
+    Game tmpGame = new Game(tmpMapSize, tmpTeam1, tmpTeam2);
+
+    // TODO init fields by request
+    ArrayList<Figure> tmpFigures = tmpGame.team1.getFigures();
+    ArrayList<Item> tmpItems = tmpGame.team1.getItems();
+    PlayMap tmpPlayMap = tmpGame.playMap;
+    int tmpX = 0;
+    int tmpY = 0;
+    for (int i = 0; i < tmpItems.size(); i++) {
+      try {
+        tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+      } catch (IllegalArgumentException e) {
+        tmpX = 0;
+        tmpY++;
+        i--;
+      }
+    }
+    for (int i = 0; i < tmpFigures.size(); i++) {
+      try {
+        tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
+      } catch (IllegalArgumentException e) {
+        tmpX = 0;
+        tmpY++;
+        i--;
+      }
+    }
+
+    tmpFigures = tmpGame.team2.getFigures();
+    tmpItems = tmpGame.team2.getItems();
+    tmpX = tmpMapSize - 1;
+    tmpY = tmpMapSize - 1;
+    for (int i = 0; i < tmpItems.size(); i++) {
+      try {
+        tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
+      } catch (IllegalArgumentException e) {
+        System.err.println(e.getMessage());
+        tmpX = tmpMapSize - 1;
+        tmpY--;
+        i--;
+      }
+    }
+    for (int i = 0; i < tmpFigures.size(); i++) {
+      try {
+        tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
+      } catch (IllegalArgumentException e) {
+        tmpX = tmpMapSize - 1;
+        tmpY--;
+        i--;
+      }
+    }
   }
 }
