@@ -16,9 +16,9 @@ public class Game {
 
   private PlayMap playMap;
 
-  private Team team1;
+  private Team teamA;
 
-  private Team team2;
+  private Team teamB;
 
   /**
    * standard constructor
@@ -33,8 +33,8 @@ public class Game {
   public Game(int aMapSize, String aTeamName, String anotherTeamName) {
     playMap = new PlayMap(aMapSize);
 
-    team1 = new Team('A', aTeamName);
-    team2 = new Team('B', anotherTeamName);
+    teamA = new Team('A', aTeamName);
+    teamB = new Team('B', anotherTeamName);
   }
 
   // private void move(Figure aFigure, int anX, int aY) {
@@ -59,8 +59,8 @@ public class Game {
     Game tmpGame = new Game(tmpMapSize, tmpTeam1, tmpTeam2);
 
     // TODO init fields by request
-    ArrayList<Figure> tmpFigures = tmpGame.team1.getFigures();
-    ArrayList<Item> tmpItems = tmpGame.team1.getItems();
+    ArrayList<Figure> tmpFigures = tmpGame.teamA.getFigures();
+    ArrayList<Item> tmpItems = tmpGame.teamA.getItems();
     PlayMap tmpPlayMap = tmpGame.playMap;
     int tmpX = 0;
     int tmpY = 0;
@@ -83,8 +83,8 @@ public class Game {
       }
     }
 
-    tmpFigures = tmpGame.team2.getFigures();
-    tmpItems = tmpGame.team2.getItems();
+    tmpFigures = tmpGame.teamB.getFigures();
+    tmpItems = tmpGame.teamB.getItems();
     tmpX = tmpMapSize - 1;
     tmpY = tmpMapSize - 1;
     for (int i = 0; i < tmpItems.size(); i++) {
