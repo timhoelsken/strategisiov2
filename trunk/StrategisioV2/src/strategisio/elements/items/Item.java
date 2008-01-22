@@ -1,9 +1,9 @@
 package strategisio.elements.items;
 
-import strategisio.elements.PlayElement;
+import strategisio.elements.Movable;
 
 /**
  * Abstract class for all items
  */
-public abstract class Item implements PlayElement {
+public abstract class Item implements Movable {
 }

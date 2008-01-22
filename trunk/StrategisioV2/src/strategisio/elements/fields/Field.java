@@ -1,6 +1,6 @@
 package strategisio.elements.fields;
 
-import strategisio.elements.PlayElement;
+import strategisio.elements.Movable;
 
 /**
  * 
@@ -9,19 +9,19 @@ import strategisio.elements.PlayElement;
  */
 public abstract class Field {
 
-  private PlayElement setter = null;
+  private Movable setter = null;
 
   /**
    * @return setter
    */
-  protected PlayElement getSetter() {
+  protected Movable getSetter() {
     return setter;
   }
 
   /**
    * @param setter
    */
-  protected void setSetter(PlayElement setter) {
+  protected void setSetter(Movable setter) {
     this.setter = setter;
   }
 }

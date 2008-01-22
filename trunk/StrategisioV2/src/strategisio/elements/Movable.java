@@ -5,5 +5,5 @@ package strategisio.elements;
  * groups figures & items
  * 
  */
-public interface PlayElement {
+public interface Movable {
 }

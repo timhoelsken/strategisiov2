@@ -1,11 +1,11 @@
 package strategisio.elements.figures;
 
-import strategisio.elements.PlayElement;
+import strategisio.elements.Movable;
 
 /**
  * Abstract class for all figures
  */
-public abstract class Figure implements PlayElement {
+public abstract class Figure implements Movable {
 
   private int horizontalSteps;
 
