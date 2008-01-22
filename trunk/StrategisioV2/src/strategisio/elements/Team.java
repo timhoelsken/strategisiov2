@@ -95,7 +95,42 @@ public class Team {
   /**
    * @return the id
    */
-  protected String getId() {
+  public String getId() {
     return id;
+  }
+
+  /**
+   * @param aId the id to set
+   */
+  public void setId(String aId) {
+    id = aId;
+  }
+
+  /**
+   * @return the figures
+   */
+  public ArrayList<Figure> getFigures() {
+    return figures;
+  }
+
+  /**
+   * @param aFigures the figures to set
+   */
+  public void setFigures(ArrayList<Figure> aFigures) {
+    figures = aFigures;
+  }
+
+  /**
+   * @return the items
+   */
+  public ArrayList<Item> getItems() {
+    return items;
+  }
+
+  /**
+   * @param aItems the items to set
+   */
+  public void setItems(ArrayList<Item> aItems) {
+    items = aItems;
   }
 }
