@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the miner
  */
 public class Miner extends Figure {
@@ -14,8 +14,7 @@ public class Miner extends Figure {
    * standard constructor
    */
   public Miner() {
-    setHorizontalSteps(1);
-    setVerticalSteps(1);
+    setNormalSteps(1);
     setDiagonalSteps(0);
 
     setHorizontalView(1);

@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the climber
  */
 public class Climber extends Figure {
@@ -14,8 +14,7 @@ public class Climber extends Figure {
    * standard constructor
    */
   public Climber() {
-    setHorizontalSteps(1);
-    setVerticalSteps(1);
+    setNormalSteps(1);
     setDiagonalSteps(0);
 
     setHorizontalView(1);

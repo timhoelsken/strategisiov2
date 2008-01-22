@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the medic
  */
 public class Medic extends Figure {
@@ -14,8 +14,7 @@ public class Medic extends Figure {
    * standard constructor
    */
   public Medic() {
-    setHorizontalSteps(1);
-    setVerticalSteps(1);
+    setNormalSteps(1);
     setDiagonalSteps(1);
 
     setHorizontalView(1);

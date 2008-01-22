@@ -12,16 +12,16 @@ public class Trap extends Item {
   private Figure catched;
 
   /**
-   * @return
+   * @return the catched
    */
   protected Figure getCatched() {
     return catched;
   }
 
   /**
-   * @param catched
+   * @param aCatched the catched to set
    */
-  protected void setCatched(Figure catched) {
-    this.catched = catched;
+  protected void setCatched(Figure aCatched) {
+    catched = aCatched;
   }
 }

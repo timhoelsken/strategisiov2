@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the fighter
  */
 public class Fighter extends Figure {
@@ -14,8 +14,7 @@ public class Fighter extends Figure {
    * standard constructor
    */
   public Fighter() {
-    setHorizontalSteps(2);
-    setVerticalSteps(2);
+    setNormalSteps(2);
     setDiagonalSteps(0);
 
     setHorizontalView(1);

@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the spy
  */
 public class Spy extends Figure {
@@ -14,8 +14,7 @@ public class Spy extends Figure {
    * standard constructor
    */
   public Spy() {
-    setHorizontalSteps(3);
-    setVerticalSteps(3);
+    setNormalSteps(3);
     setDiagonalSteps(0);
 
     setHorizontalView(2);

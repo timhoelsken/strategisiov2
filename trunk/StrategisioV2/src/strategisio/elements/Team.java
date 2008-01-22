@@ -16,9 +16,9 @@ import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
 
 /**
- * 
+ *
  * represents a player's Team
- * 
+ *
  */
 public class Team {
 
@@ -30,7 +30,7 @@ public class Team {
 
   /**
    * constructor
-   * 
+   *
    * @param anId
    *            a unique id for the team
    */
@@ -75,7 +75,7 @@ public class Team {
   }
 
   /**
-   * @return id
+   * @return the id
    */
   protected String getId() {
     return id;

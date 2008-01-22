@@ -7,9 +7,7 @@ import strategisio.elements.Movable;
  */
 public abstract class Figure implements Movable {
 
-  private int horizontalSteps;
-
-  private int verticalSteps;
+  private int normalSteps;
 
   private int diagonalSteps;
 
@@ -26,128 +24,114 @@ public abstract class Figure implements Movable {
   private int[] defences;
 
   /**
-   * @return
+   * @return the normalSteps
    */
-  protected int getHorizontalSteps() {
-    return horizontalSteps;
+  protected int getNormalSteps() {
+    return normalSteps;
   }
 
   /**
-   * @param horizontalSteps
+   * @param aNormalSteps the normalSteps to set
    */
-  protected void setHorizontalSteps(int horizontalSteps) {
-    this.horizontalSteps = horizontalSteps;
+  protected void setNormalSteps(int aNormalSteps) {
+    normalSteps = aNormalSteps;
   }
 
   /**
-   * @return
-   */
-  protected int getVerticalSteps() {
-    return verticalSteps;
-  }
-
-  /**
-   * @param verticalSteps
-   */
-  protected void setVerticalSteps(int verticalSteps) {
-    this.verticalSteps = verticalSteps;
-  }
-
-  /**
-   * @return
+   * @return the diagonalSteps
    */
   protected int getDiagonalSteps() {
     return diagonalSteps;
   }
 
   /**
-   * @param diagonalSteps
+   * @param aDiagonalSteps the diagonalSteps to set
    */
-  protected void setDiagonalSteps(int diagonalSteps) {
-    this.diagonalSteps = diagonalSteps;
+  protected void setDiagonalSteps(int aDiagonalSteps) {
+    diagonalSteps = aDiagonalSteps;
   }
 
   /**
-   * @return
+   * @return the horizontalView
    */
   protected int getHorizontalView() {
     return horizontalView;
   }
 
   /**
-   * @param horizontalView
+   * @param aHorizontalView the horizontalView to set
    */
-  protected void setHorizontalView(int horizontalView) {
-    this.horizontalView = horizontalView;
+  protected void setHorizontalView(int aHorizontalView) {
+    horizontalView = aHorizontalView;
   }
 
   /**
-   * @return
+   * @return the verticalView
    */
   protected int getVerticalView() {
     return verticalView;
   }
 
   /**
-   * @param verticalView
+   * @param aVerticalView the verticalView to set
    */
-  protected void setVerticalView(int verticalView) {
-    this.verticalView = verticalView;
+  protected void setVerticalView(int aVerticalView) {
+    verticalView = aVerticalView;
   }
 
   /**
-   * @return
+   * @return the diagonalView
    */
   protected int getDiagonalView() {
     return diagonalView;
   }
 
   /**
-   * @param diagonalView
+   * @param aDiagonalView the diagonalView to set
    */
-  protected void setDiagonalView(int diagonalView) {
-    this.diagonalView = diagonalView;
+  protected void setDiagonalView(int aDiagonalView) {
+    diagonalView = aDiagonalView;
   }
 
   /**
-   * @return
+   * @return the groundAuthority
    */
   protected int getGroundAuthority() {
     return groundAuthority;
   }
 
   /**
-   * @param groundAuthority
+   * @param aGroundAuthority the groundAuthority to set
    */
-  protected void setGroundAuthority(int groundAuthority) {
-    this.groundAuthority = groundAuthority;
+  protected void setGroundAuthority(int aGroundAuthority) {
+    groundAuthority = aGroundAuthority;
   }
 
   /**
-   * @return
+   * @return the attacks
    */
   protected int[] getAttacks() {
     return attacks;
   }
 
   /**
-   * @param attacks
+   * @param aAttacks the attacks to set
    */
-  protected void setAttacks(int[] attacks) {
-    this.attacks = attacks;
+  protected void setAttacks(int[] aAttacks) {
+    attacks = aAttacks;
   }
 
   /**
-   * @return
+   * @return the defences
    */
   protected int[] getDefences() {
     return defences;
   }
 
   /**
-   * @param defences
+   * @param aDefences the defences to set
    */
-  protected void setDefences(int[] defences) {
-    this.defences = defences;
+  protected void setDefences(int[] aDefences) {
+    defences = aDefences;
   }
 }

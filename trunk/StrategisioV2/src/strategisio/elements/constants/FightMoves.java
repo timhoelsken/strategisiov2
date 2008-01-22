@@ -2,9 +2,9 @@ package strategisio.elements.constants;
 
 /**
  * @author Tobias
- * 
+ *
  * has the constants for the attacks & defences in a fight
- * 
+ *
  */
 public class FightMoves {
 
