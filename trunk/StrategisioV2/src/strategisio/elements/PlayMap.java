@@ -62,10 +62,10 @@ public class PlayMap {
    */
   public void position(Movable aMovable, int anX, int aY) throws IllegalArgumentException {
     checkCoordinates(anX, aY);
-    Field tmpField = fields[anX][aY];
+    Field tmpField = fields[aY][anX];
     Movable tmpElement = tmpField.getSetter();
     if (tmpElement == null) {
-      fields[anX][aY].setSetter(aMovable);
+      fields[aY][anX].setSetter(aMovable);
     } else {
       // TODO already set => go anywhere!
       System.err.println("Go anywhere!");
@@ -73,7 +73,7 @@ public class PlayMap {
   }
 
   private void checkCoordinates(int anX, int aY) throws IllegalArgumentException {
-    if (anX < 0){
+    if (anX < 0) {
       throw new IllegalArgumentException("x value '" + anX + "' is less than 0");
     } else if (anX >= xDimension) {
       throw new IllegalArgumentException("x value '" + anX + "' equals or is greater than maximum value '" + xDimension + "'");
@@ -86,5 +86,37 @@ public class PlayMap {
 
   private void checkMap() {
     // TODO MapCheck
+  }
+
+  /**
+   * shows map on console
+   *
+   * @deprecated
+   */
+  public void showMap() {
+    String tmpFirstLine = "       ";
+    for (int i = 0; i < yDimension; i++) {
+      tmpFirstLine += (i+1) + "         ";
+    }
+    System.out.println(tmpFirstLine);
+
+    for (int i = 0; i < yDimension; i++) {
+      System.out.println();
+      String tmpFieldRow = "  " + (i+1) + "   ";
+      for (int j = 0; j < xDimension; j++) {
+        if (fields[i][j].getSetter() != null) {
+          Movable tmpMovable = fields[i][j].getSetter();
+          String tmpMovableName = tmpMovable.getClass().toString();
+          tmpMovableName = tmpMovableName.substring(tmpMovableName.lastIndexOf('.') + 1);
+          while (tmpMovableName.length() != 10) {
+            tmpMovableName += " ";
+          }
+          tmpFieldRow += tmpMovableName;
+        } else {
+          tmpFieldRow += "          ";
+        }
+      }
+      System.out.println(tmpFieldRow);
+    }
   }
 }

@@ -106,5 +106,7 @@ public class Game {
         i--;
       }
     }
+
+    tmpPlayMap.showMap();
   }
 }
