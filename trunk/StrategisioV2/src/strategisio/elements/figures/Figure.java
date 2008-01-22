@@ -2,6 +2,7 @@ package strategisio.elements.figures;
 
 import strategisio.elements.Movable;
 
+
 /**
  * Abstract class for all figures
  */
@@ -23,7 +24,7 @@ public abstract class Figure implements Movable {
 
   private int[] defences;
 
-  private String id;
+  private char id;
 
   /**
    * @return the normalSteps
@@ -140,14 +141,14 @@ public abstract class Figure implements Movable {
   /**
    * @return the id
    */
-  public String getId() {
+  public char getId() {
     return id;
   }
 
   /**
    * @param aId the id to set
    */
-  public void setId(String aId) {
+  public void setId(char aId) {
     id = aId;
   }
 }

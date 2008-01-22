@@ -90,8 +90,6 @@ public class PlayMap {
 
   /**
    * shows map on console
-   *
-   * @deprecated
    */
   public void showMap() {
     String tmpFirstLine = "       ";
@@ -108,6 +106,11 @@ public class PlayMap {
           Movable tmpMovable = fields[i][j].getSetter();
           String tmpMovableName = tmpMovable.getClass().toString();
           tmpMovableName = tmpMovableName.substring(tmpMovableName.lastIndexOf('.') + 1);
+          if (tmpMovable.getId() == 'A') {
+            tmpMovableName = tmpMovableName.toUpperCase();
+          } else { // 'B'
+            tmpMovableName = tmpMovableName.toLowerCase();
+          }
           while (tmpMovableName.length() != 10) {
             tmpMovableName += " ";
           }

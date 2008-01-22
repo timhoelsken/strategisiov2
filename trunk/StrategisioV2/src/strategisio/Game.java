@@ -33,8 +33,8 @@ public class Game {
   public Game(int aMapSize, String aTeamName, String anotherTeamName) {
     playMap = new PlayMap(aMapSize);
 
-    team1 = new Team(aTeamName);
-    team2 = new Team(anotherTeamName);
+    team1 = new Team('A', aTeamName);
+    team2 = new Team('B', anotherTeamName);
   }
 
   // private void move(Figure aFigure, int anX, int aY) {

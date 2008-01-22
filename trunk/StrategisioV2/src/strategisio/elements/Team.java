@@ -22,7 +22,9 @@ import strategisio.elements.items.Trap;
  */
 public class Team {
 
-  private String id;
+  private char id;
+
+  private String name;
 
   private ArrayList<Figure> figures;
 
@@ -32,10 +34,13 @@ public class Team {
    * constructor
    *
    * @param anId
-   *            a unique id for the team
+   *    a unique id for the team
+   * @param aName
+   *    a name for the team
    */
-  public Team(String anId) {
+  public Team(char anId, String aName) {
     id = anId;
+    name = aName;
 
     // TODO dynamic fill has to be implemented
     final int tmpNoOfFighters = 2;
@@ -113,15 +118,29 @@ public class Team {
   /**
    * @return the id
    */
-  public String getId() {
+  public char getId() {
     return id;
   }
 
   /**
    * @param aId the id to set
    */
-  public void setId(String aId) {
+  public void setId(char aId) {
     id = aId;
+  }
+
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * @param aName the name to set
+   */
+  public void setName(String aName) {
+    name = aName;
   }
 
   /**

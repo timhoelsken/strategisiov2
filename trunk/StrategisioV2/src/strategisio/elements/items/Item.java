@@ -7,19 +7,19 @@ import strategisio.elements.Movable;
  */
 public abstract class Item implements Movable {
 
-  private String id;
+  private char id;
 
   /**
    * @return the id
    */
-  public String getId() {
+  public char getId() {
     return id;
   }
 
   /**
    * @param aId the id to set
    */
-  public void setId(String aId) {
+  public void setId(char aId) {
     id = aId;
   }
 }

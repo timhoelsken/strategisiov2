@@ -8,7 +8,7 @@ package strategisio.elements;
 public interface Movable {
 
   /**
-   * a id to assign Movable to a team
+   * @return the team id
    */
-  public String id = null;
+  char getId();
 }
