@@ -4,7 +4,7 @@ import strategisio.elements.Movable;
 
 /**
  *
- * represents a Field on the PlayMap can hold a PlayElement
+ * represents a Field on the PlayMap can hold a Movable
  *
  */
 public abstract class Field {
