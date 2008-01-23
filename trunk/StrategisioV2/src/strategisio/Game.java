@@ -108,12 +108,5 @@ public class Game {
     }
 
     tmpPlayMap.showMap();
-
-//    // activate to see that the objects in the ArrayList are the same as on the map
-//    // the figures of teamB will be shown with only one capital letter because id 'C' is unknown
-//    for (int i = 0; i < tmpFigures.size(); i++) {
-//      tmpFigures.get(i).setId('C');
-//    }
-//    tmpPlayMap.showMap();
   }
 }
