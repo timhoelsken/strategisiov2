@@ -184,11 +184,28 @@ public class PlayMap {
     return fields[aY][anX];
   }
 
+  /**
+   * Gets the setter out of the field (deletes it)
+   *
+   * @param anX
+   * @param aY
+   * @return the setter from the specified field
+   */
+  public Movable fetchSetter(int anX, int aY) {
+    Movable tmpMovable = getSetter(anX, aY);
+    delSetter(anX, aY);
+    return tmpMovable;
+  }
+
   private Movable getSetter(int anX, int aY) {
     Field tmpField = getField(anX, aY);
     Movable tmpMovable = tmpField.getSetter();
     return tmpMovable;
   }
+
+  private void delSetter(int anX, int aY) {
+    Field tmpField = getField(anX, aY);
+    tmpField.setSetter(null);  }
 
   /**
    * shows map on console
