@@ -22,7 +22,7 @@ public class Fighter extends Figure {
 
     setGroundAuthority(Ground.GRASS);
 
-    int[] tmpFightMoves = new int[] { FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
+    int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
     setAttacks(tmpFightMoves);
     setDefences(tmpFightMoves);
   }

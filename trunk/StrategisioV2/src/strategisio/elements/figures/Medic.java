@@ -22,9 +22,9 @@ public class Medic extends Figure {
 
     setGroundAuthority(Ground.GRASS);
 
-    int[] tmpAttacks = new int[] { FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK };
+    int[] tmpAttacks = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setAttacks(tmpAttacks);
-    int[] tmpDefends = new int[] { FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
+    int[] tmpDefends = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
     setDefences(tmpDefends);
   }
 }

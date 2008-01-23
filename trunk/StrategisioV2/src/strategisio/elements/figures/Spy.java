@@ -22,9 +22,9 @@ public class Spy extends Figure {
 
     setGroundAuthority(Ground.GRASS);
 
-    int[] tmpAttacks = new int[] { FightMoves.BEAT, FightMoves.CUT };
+    int[] tmpAttacks = new int[] { FightMoves.HIT, FightMoves.CUT };
     setAttacks(tmpAttacks);
-    int[] tmpDefences = new int[] { FightMoves.BEAT, FightMoves.CUT, FightMoves.KICK };
+    int[] tmpDefences = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setDefences(tmpDefences);
   }
 }
