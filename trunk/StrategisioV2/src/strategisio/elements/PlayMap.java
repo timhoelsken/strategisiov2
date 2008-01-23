@@ -7,6 +7,7 @@ import strategisio.elements.fields.Mountain;
 import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
+import strategisio.elements.figures.Figure;
 
 /**
  *
@@ -69,14 +70,48 @@ public class PlayMap {
     fields[anX][aY] = tmpField;
   }
 
-  public Movable getMovable(int anX, int aY) throws WrongCoordinateException {
-    return getSetter(anX, aY);
+  /**
+   * Sets the Movable on the specified field. Checking is necessary before!
+   *
+   * @param aFigure
+   * @param anX
+   * @param aY
+   */
+  public void move(Figure aFigure, int anX, int aY) {
+    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+      Movable tmpEnemy = getSetter(anX, aY);
+      //TODO differentiate between items and figures
+    } else {
+      // move without problems
+      fields[aY][anX].setSetter(aFigure);
+    }
   }
 
-  private Movable getSetter(int anX, int aY) {
-    Field tmpField = fields[aY][anX];
-    Movable tmpMovable = tmpField.getSetter();
-    return tmpMovable;
+  /**
+   * Checks if it is allowed for the Figure to move on the field.
+   *
+   * @param aFigure
+   * @param anX
+   * @param aY
+   * @return
+   */
+  public boolean checkMovingPossibility(Figure aFigure, int anX, int aY) {
+    return (checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
+  }
+
+  /**
+   * Checks if the specified field is empty or filled by an enemy Movable.
+   */
+  private boolean checkIfIsEmptyOrEnemy(Figure aFigure, int anX, int aY) {
+    return (checkIfIsEmpty(anX, aY) || (checkIfIsEnemy(aFigure, anX, aY))) ? true : false;
+  }
+
+  /**
+   * Checks if there is an enemy on this field.
+   */
+  private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
+    Movable tmpFieldMovable = getSetter(anX, aY);
+    return (aFigure.getId() == tmpFieldMovable.getId()) ? false : true;
   }
 
   /**
@@ -91,14 +126,15 @@ public class PlayMap {
   }
 
   /**
-   * Checks if specified field is free and if the ground fits to the given Movable.
+   * Checks if specified field is free and if the ground fits to the given
+   * Movable.
    *
    * @param aMovable
    * @param anX
    * @param aY
    * @return
    */
-  public boolean checkInitialPositionPossibility(Movable aMovable, int anX, int aY) {
+  public boolean checkPositioningPossibility(Movable aMovable, int anX, int aY) {
     return (checkIfIsEmpty(anX, aY) && checkGround(aMovable, anX, aY)) ? true : false;
   }
 
@@ -142,6 +178,12 @@ public class PlayMap {
 
   private int getYDimension() {
     return fields[0].length;
+  }
+
+  private Movable getSetter(int anX, int aY) {
+    Field tmpField = fields[anX][aY];
+    Movable tmpMovable = tmpField.getSetter();
+    return tmpMovable;
   }
 
   /**

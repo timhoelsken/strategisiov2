@@ -79,7 +79,7 @@ public class Game {
     int tmpY = 0;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
@@ -93,7 +93,7 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
@@ -112,7 +112,7 @@ public class Game {
     tmpY = tmpMapSize - 1;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
@@ -126,7 +126,7 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
