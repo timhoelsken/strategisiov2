@@ -40,7 +40,7 @@ public class PlayMap {
   }
 
   private void initFields(int anXDimension, int aYDimension) {
-    fields = new Field[anXDimension][aYDimension];
+    fields = new Field[aYDimension][anXDimension];
   }
 
   /**
@@ -52,7 +52,7 @@ public class PlayMap {
    * @throws UnknownFieldTypeException
    * @throws WrongCoordinateException
    */
-  public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException, WrongCoordinateException {
+  public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException {
     Field tmpField;
     switch (aFieldType) {
       case Ground.GRASS:
@@ -67,7 +67,7 @@ public class PlayMap {
       default:
         throw new UnknownFieldTypeException(aFieldType + " is not a valid field type");
     }
-    fields[anX][aY] = tmpField;
+    fields[aY][anX] = tmpField;
   }
 
   /**
@@ -81,9 +81,10 @@ public class PlayMap {
     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Movable tmpEnemy = getSetter(anX, aY);
       //TODO differentiate between items and figures
+      tmpEnemy.getId(); // to avoid warning :)
     } else {
       // move without problems
-      fields[aY][anX].setSetter(aFigure);
+      getField(anX, aY).setSetter(aFigure);
     }
   }
 
@@ -122,7 +123,7 @@ public class PlayMap {
    * @param aY
    */
   public void position(Movable aMovable, int anX, int aY) {
-    fields[aY][anX].setSetter(aMovable);
+    getField(anX, aY).setSetter(aMovable);
   }
 
   /**
@@ -142,7 +143,7 @@ public class PlayMap {
    * Checks if the given Movable fits on the ground of the specified field
    */
   private boolean checkGround(Movable aMovable, int anX, int aY) {
-    Field tmpField = fields[aY][anX];
+    Field tmpField = getField(anX, aY);
     if (tmpField instanceof Mountain) {
       if (aMovable instanceof Climber) {
         return true;
@@ -173,31 +174,33 @@ public class PlayMap {
   }
 
   private int getXDimension() {
-    return fields.length;
-  }
-
-  private int getYDimension() {
     return fields[0].length;
   }
 
+  private int getYDimension() {
+    return fields.length;
+  }
+
+  private Field getField(int anX, int aY) {
+    return fields[aY][anX];
+  }
+
   private Movable getSetter(int anX, int aY) {
-    Field tmpField = fields[anX][aY];
+    Field tmpField = getField(anX, aY);
     Movable tmpMovable = tmpField.getSetter();
     return tmpMovable;
   }
 
   /**
    * shows map on console
-   *
-   * @deprecated
    */
   public void showMap() {
     System.out.println();
     System.out.println();
     String tmpFirstLine = "       ";
-    for (int i = 0; i < getYDimension(); i++) {
-      tmpFirstLine += (i + 1);
-      if ((i + 1) < 10) {
+    for (int i = 0; i < getXDimension(); i++) {
+      tmpFirstLine += i;
+      if (i < 10) {
         tmpFirstLine += "         ";
       } else {
         tmpFirstLine += "        ";
@@ -205,17 +208,17 @@ public class PlayMap {
     }
     System.out.println(tmpFirstLine);
 
-    for (int i = 0; i < getYDimension(); i++) {
+    for (int y = 0; y < getYDimension(); y++) {
       System.out.println();
-      String tmpFieldRow = "  " + (i + 1);
-      if ((i + 1) < 10) {
+      String tmpFieldRow = "  " + y;
+      if (y < 10) {
         tmpFieldRow += "   ";
       } else {
         tmpFieldRow += "  ";
       }
-      for (int j = 0; j < getXDimension(); j++) {
-        if (fields[i][j].getSetter() != null) {
-          Movable tmpMovable = fields[i][j].getSetter();
+      for (int x = 0; x < getXDimension(); x++) {
+        if (getSetter(x, y) != null) {
+          Movable tmpMovable = getSetter(x, y);
           String tmpMovableName = tmpMovable.getClass().toString();
           tmpMovableName = tmpMovableName.substring(tmpMovableName.lastIndexOf('.') + 1);
           if (tmpMovable.getId() == 'A') {
