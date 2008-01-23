@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.UnknownFieldTypeException;
-import strategisio.elements.WrongCoordinateException;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
@@ -51,8 +50,6 @@ public class Game {
       for (int j = 0; j < aYDimension; j++) {
         try {
           playMap.setFieldType(i, j, Ground.GRASS);
-        } catch (WrongCoordinateException e) {
-          e.printStackTrace();
         } catch (UnknownFieldTypeException e) {
           e.printStackTrace();
         }
@@ -93,8 +90,8 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
-          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
           i--;
@@ -113,9 +110,9 @@ public class Game {
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
         if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
-          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+          tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
         } else {
-          tmpX++;
+          tmpX--;
           i--;
         }
       } catch (Exception e) {
@@ -126,10 +123,10 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
-          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
         } else {
-          tmpX++;
+          tmpX--;
           i--;
         }
       } catch (Exception e) {
