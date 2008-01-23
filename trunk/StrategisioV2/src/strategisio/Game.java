@@ -79,10 +79,13 @@ public class Game {
     int tmpY = 0;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        // TODO only fits for grass fields
-        // test the return value!
-        tmpPlayMap.positionInitially(tmpItems.get(i), tmpX++, tmpY);
-      } catch (WrongCoordinateException e) {
+        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        } else {
+          tmpX++;
+          i--;
+        }
+      } catch (Exception e) {
         tmpX = 0;
         tmpY++;
         i--;
@@ -90,8 +93,13 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        tmpPlayMap.positionInitially(tmpFigures.get(i), tmpX++, tmpY);
-      } catch (WrongCoordinateException e) {
+        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        } else {
+          tmpX++;
+          i--;
+        }
+      } catch (Exception e) {
         tmpX = 0;
         tmpY++;
         i--;
@@ -104,8 +112,13 @@ public class Game {
     tmpY = tmpMapSize - 1;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        tmpPlayMap.positionInitially(tmpItems.get(i), tmpX--, tmpY);
-      } catch (WrongCoordinateException e) {
+        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        } else {
+          tmpX++;
+          i--;
+        }
+      } catch (Exception e) {
         tmpX = tmpMapSize - 1;
         tmpY--;
         i--;
@@ -113,8 +126,13 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        tmpPlayMap.positionInitially(tmpFigures.get(i), tmpX--, tmpY);
-      } catch (WrongCoordinateException e) {
+        if (tmpPlayMap.checkInitialPositionPossibility(tmpItems.get(i), tmpX, tmpY)){
+          tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        } else {
+          tmpX++;
+          i--;
+        }
+      } catch (Exception e) {
         tmpX = tmpMapSize - 1;
         tmpY--;
         i--;

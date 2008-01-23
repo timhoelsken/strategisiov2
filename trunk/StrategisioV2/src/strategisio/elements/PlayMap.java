@@ -7,7 +7,6 @@ import strategisio.elements.fields.Mountain;
 import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
-import strategisio.elements.figures.Figure;
 
 /**
  *
@@ -53,7 +52,6 @@ public class PlayMap {
    * @throws WrongCoordinateException
    */
   public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException, WrongCoordinateException {
-    checkCoordinates(anX, aY);
     Field tmpField;
     switch (aFieldType) {
       case Ground.GRASS:
@@ -71,39 +69,7 @@ public class PlayMap {
     fields[anX][aY] = tmpField;
   }
 
-  /**
-   * positioning method for items and figures (at the beginning of the game)
-   *
-   * @param aMovable
-   * @param anX
-   * @param aY
-   * @return true if Movable was set
-   * @throws WrongCoordinateException
-   * @throws IllegalArgumentException
-   *             if coordinates are not applicable
-   */
-  public boolean positionInitially(Movable aMovable, int anX, int aY) throws WrongCoordinateException {
-    checkCoordinates(anX, aY);
-    if (checkPositionPossibilityFor(aMovable, anX, aY)) {
-      setSetter(aMovable, anX, aY);
-      return true;
-    }
-    return false;
-  }
-
-  public void position(Movable aMovable, int anX, int aY) throws WrongCoordinateException {
-    checkCoordinates(anX, aY);
-    if (checkPositionPossibilityFor(aMovable, anX, aY)) {
-
-    }
-  }
-
-  public boolean checkPositionPossibilityFor(Movable aMovable, int anX, int aY) {
-    return (checkGroundFor(aMovable, anX, aY) && checkIfSet(anX, aY)) ? true : false;
-  }
-
   public Movable getMovable(int anX, int aY) throws WrongCoordinateException {
-    checkCoordinates(anX, aY);
     return getSetter(anX, aY);
   }
 
@@ -113,7 +79,33 @@ public class PlayMap {
     return tmpMovable;
   }
 
-  private boolean checkGroundFor(Movable aMovable, int anX, int aY) {
+  /**
+   * Sets the Movable on the specified field. Checking is necessary before!
+   *
+   * @param aMovable
+   * @param anX
+   * @param aY
+   */
+  public void position(Movable aMovable, int anX, int aY) {
+    fields[aY][anX].setSetter(aMovable);
+  }
+
+  /**
+   * Checks if specified field is free and if the ground fits to the given Movable.
+   *
+   * @param aMovable
+   * @param anX
+   * @param aY
+   * @return
+   */
+  public boolean checkInitialPositionPossibility(Movable aMovable, int anX, int aY) {
+    return (checkIfIsEmpty(anX, aY) && checkGround(aMovable, anX, aY)) ? true : false;
+  }
+
+  /**
+   * Checks if the given Movable fits on the ground of the specified field
+   */
+  private boolean checkGround(Movable aMovable, int anX, int aY) {
     Field tmpField = fields[aY][anX];
     if (tmpField instanceof Mountain) {
       if (aMovable instanceof Climber) {
@@ -132,28 +124,15 @@ public class PlayMap {
     }
   }
 
-  private boolean checkIfSet(int anX, int aY) {
+  /**
+   * Checks if the specified field is empty
+   */
+  private boolean checkIfIsEmpty(int anX, int aY) {
     Movable tmpMovable = getSetter(anX, aY);
     if (tmpMovable == null) {
       return true;
     } else {
       return false;
-    }
-  }
-
-  private void setSetter(Movable aMovable, int anX, int aY) {
-    fields[aY][anX].setSetter(aMovable);
-  }
-
-  private void checkCoordinates(int anX, int aY) throws WrongCoordinateException {
-    if (anX < 0) {
-      throw new WrongCoordinateException("x value '" + anX + "' is less than 0");
-    } else if (anX >= getXDimension()) {
-      throw new WrongCoordinateException("x value '" + anX + "' equals or is greater than maximum value '" + getXDimension() + "'");
-    } else if (aY < 0) {
-      throw new WrongCoordinateException("y value '" + aY + "'  less than 0");
-    } else if (aY >= getYDimension()) {
-      throw new WrongCoordinateException("y value '" + aY + "'  equals or is greater than maximum value '" + getYDimension() + "'");
     }
   }
 
