@@ -9,9 +9,9 @@ package strategisio.elements.constants;
 public class FightMoves {
 
   /**
-   * BEAT
+   * HIT
    */
-  public static final int BEAT = 0;
+  public static final int HIT = 0;
 
   /**
    * KICK
