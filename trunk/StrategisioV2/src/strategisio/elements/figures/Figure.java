@@ -12,9 +12,7 @@ public abstract class Figure implements Movable {
 
   private int diagonalSteps;
 
-  private int horizontalView;
-
-  private int verticalView;
+  private int normalView;
 
   private int diagonalView;
 
@@ -55,31 +53,17 @@ public abstract class Figure implements Movable {
   }
 
   /**
-   * @return the horizontalView
+   * @return the normalView
    */
-  protected int getHorizontalView() {
-    return horizontalView;
+  protected int getNormalView() {
+    return normalView;
   }
 
   /**
-   * @param aHorizontalView the horizontalView to set
+   * @param aNormalView the normalView to set
    */
-  protected void setHorizontalView(int aHorizontalView) {
-    horizontalView = aHorizontalView;
-  }
-
-  /**
-   * @return the verticalView
-   */
-  protected int getVerticalView() {
-    return verticalView;
-  }
-
-  /**
-   * @param aVerticalView the verticalView to set
-   */
-  protected void setVerticalView(int aVerticalView) {
-    verticalView = aVerticalView;
+  protected void setNormalView(int aNormalView) {
+    normalView = aNormalView;
   }
 
   /**

@@ -17,8 +17,7 @@ public class Medic extends Figure {
     setNormalSteps(1);
     setDiagonalSteps(1);
 
-    setHorizontalView(1);
-    setVerticalView(1);
+    setNormalView(1);
     setDiagonalView(0);
 
     setGroundAuthority(Ground.GRASS);
