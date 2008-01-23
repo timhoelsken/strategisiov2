@@ -1,0 +1,13 @@
+ TD# |  Issue
+ 004 |  Evaluate positioning methods
+
+===================================
+= UseCase "Initially Positioning" =
+===================================
+checkGround(M, x, y) => checks if Movable is allowed to be on field
+checkIfIsSet(x, y)   => checks if any Movable is on a field
+=> one method that checks if both conditions are true:
+	checkIfIsSettable(M, x, y)
+
+position(M, x, y)    => sets Movable on field
+=> check is done before, positioning possible in every case
