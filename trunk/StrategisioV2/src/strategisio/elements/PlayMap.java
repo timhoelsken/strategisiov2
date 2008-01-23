@@ -50,7 +50,6 @@ public class PlayMap {
    * @param aY
    * @param aFieldType
    * @throws UnknownFieldTypeException
-   * @throws WrongCoordinateException
    */
   public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException {
     Field tmpField;
