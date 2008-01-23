@@ -113,7 +113,6 @@ public class PlayMapTest extends TestCase {
 
     tmpFighter = (Fighter) playMap.fetchSetter(0, 1);
     assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 0, 0));
-    playMap.showMap();
   }
 
   /**
