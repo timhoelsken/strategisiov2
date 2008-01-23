@@ -7,7 +7,7 @@ package strategisio.elements;
  * @author Tobias
  *
  */
-public class WrongCoordinateException extends IllegalArgumentException {
+public class WrongCoordinateException extends Exception {
 
   /**
    * serialVersionUID

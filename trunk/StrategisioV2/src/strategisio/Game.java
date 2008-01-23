@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
+import strategisio.elements.UnknownFieldTypeException;
 import strategisio.elements.WrongCoordinateException;
+import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
 
@@ -32,21 +34,31 @@ public class Game {
    *            name for team 2
    */
   public Game(int aMapSize, String aTeamName, String anotherTeamName) {
-    playMap = new PlayMap(aMapSize);
+    // TODO make ready for xml input instead of mapsize only
+    initMap(aMapSize);
 
     teamA = new Team('A', aTeamName);
     teamB = new Team('B', anotherTeamName);
   }
 
-  // private void move(Figure aFigure, int anX, int aY) {
-  // Field tmpField = playMap.getFields()[anX][aY];
-  // Movable tmpElement = tmpField.getSetter();
-  // if (tmpElement == null) {
-  // playMap.getFields()[anX][aY].setSetter(aFigure);
-  // } else {
-  // // TODO already set => fight!
-  // }
-  // }
+  private void initMap(int aMapSize) {
+    initMap(aMapSize, aMapSize);
+  }
+
+  private void initMap(int anXDimension, int aYDimension) {
+    playMap = new PlayMap(anXDimension, aYDimension);
+    for (int i = 0; i < anXDimension; i++) {
+      for (int j = 0; j < aYDimension; j++) {
+        try {
+          playMap.setFieldType(i, j, Ground.GRASS);
+        } catch (WrongCoordinateException e) {
+          e.printStackTrace();
+        } catch (UnknownFieldTypeException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
 
   /**
    * start it here
@@ -67,7 +79,9 @@ public class Game {
     int tmpY = 0;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
+        // TODO only fits for grass fields
+        // test the return value!
+        tmpPlayMap.positionInitially(tmpItems.get(i), tmpX++, tmpY);
       } catch (WrongCoordinateException e) {
         tmpX = 0;
         tmpY++;
@@ -76,7 +90,7 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
+        tmpPlayMap.positionInitially(tmpFigures.get(i), tmpX++, tmpY);
       } catch (WrongCoordinateException e) {
         tmpX = 0;
         tmpY++;
@@ -90,7 +104,7 @@ public class Game {
     tmpY = tmpMapSize - 1;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
+        tmpPlayMap.positionInitially(tmpItems.get(i), tmpX--, tmpY);
       } catch (WrongCoordinateException e) {
         tmpX = tmpMapSize - 1;
         tmpY--;
@@ -99,7 +113,7 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
+        tmpPlayMap.positionInitially(tmpFigures.get(i), tmpX--, tmpY);
       } catch (WrongCoordinateException e) {
         tmpX = tmpMapSize - 1;
         tmpY--;

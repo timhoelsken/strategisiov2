@@ -1,7 +1,13 @@
 package strategisio.elements;
 
+import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.fields.Grass;
+import strategisio.elements.fields.Mountain;
+import strategisio.elements.fields.Water;
+import strategisio.elements.figures.Climber;
+import strategisio.elements.figures.Diver;
+import strategisio.elements.figures.Figure;
 
 /**
  *
@@ -9,9 +15,6 @@ import strategisio.elements.fields.Grass;
  *
  */
 public class PlayMap {
-
-  private int xDimension;
-  private int yDimension;
 
   private Field[][] fields;
 
@@ -22,9 +25,7 @@ public class PlayMap {
    *            for size of the map (aDimension^2)
    */
   public PlayMap(int aDimension) {
-    xDimension = aDimension;
-    yDimension = aDimension;
-    initMap();
+    initFields(aDimension, aDimension);
   }
 
   /**
@@ -35,20 +36,39 @@ public class PlayMap {
    *            for size of the map (anXDimension x aYDimension)
    */
   public PlayMap(int anXDimension, int aYDimension) {
-    xDimension = anXDimension;
-    yDimension = aYDimension;
-    initMap();
+    initFields(anXDimension, aYDimension);
   }
 
-  private void initMap() {
-    // TODO dynamic fill has to be implemented
-    fields = new Field[xDimension][yDimension];
-    for (int i = 0; i < fields.length; i++) {
-      for (int j = 0; j < fields[i].length; j++) {
-        fields[i][j] = new Grass();
-      }
+  private void initFields(int anXDimension, int aYDimension) {
+    fields = new Field[anXDimension][aYDimension];
+  }
+
+  /**
+   * sets field type for specified field
+   *
+   * @param anX
+   * @param aY
+   * @param aFieldType
+   * @throws UnknownFieldTypeException
+   * @throws WrongCoordinateException
+   */
+  public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException, WrongCoordinateException {
+    checkCoordinates(anX, aY);
+    Field tmpField;
+    switch (aFieldType) {
+      case Ground.GRASS:
+        tmpField = new Grass();
+        break;
+      case Ground.MOUNTAIN:
+        tmpField = new Mountain();
+        break;
+      case Ground.WATER:
+        tmpField = new Water();
+        break;
+      default:
+        throw new UnknownFieldTypeException(aFieldType + " is not a valid field type");
     }
-    checkMap();
+    fields[anX][aY] = tmpField;
   }
 
   /**
@@ -57,47 +77,106 @@ public class PlayMap {
    * @param aMovable
    * @param anX
    * @param aY
+   * @return true if Movable was set
+   * @throws WrongCoordinateException
    * @throws IllegalArgumentException
    *             if coordinates are not applicable
    */
-  public void position(Movable aMovable, int anX, int aY) throws IllegalArgumentException {
+  public boolean positionInitially(Movable aMovable, int anX, int aY) throws WrongCoordinateException {
     checkCoordinates(anX, aY);
-    Field tmpField = fields[aY][anX];
-    Movable tmpElement = tmpField.getSetter();
-    if (tmpElement == null) {
-      fields[aY][anX].setSetter(aMovable);
-    } else {
-      // TODO already set => go anywhere!
-      System.err.println("Go anywhere!");
+    if (checkPositionPossibilityFor(aMovable, anX, aY)) {
+      setSetter(aMovable, anX, aY);
+      return true;
     }
+    return false;
+  }
+
+  public void position(Movable aMovable, int anX, int aY) throws WrongCoordinateException {
+    checkCoordinates(anX, aY);
+    if (checkPositionPossibilityFor(aMovable, anX, aY)) {
+
+    }
+  }
+
+  public boolean checkPositionPossibilityFor(Movable aMovable, int anX, int aY) {
+    return (checkGroundFor(aMovable, anX, aY) && checkIfSet(anX, aY)) ? true : false;
+  }
+
+  public Movable getMovable(int anX, int aY) throws WrongCoordinateException {
+    checkCoordinates(anX, aY);
+    return getSetter(anX, aY);
+  }
+
+  private Movable getSetter(int anX, int aY) {
+    Field tmpField = fields[aY][anX];
+    Movable tmpMovable = tmpField.getSetter();
+    return tmpMovable;
+  }
+
+  private boolean checkGroundFor(Movable aMovable, int anX, int aY) {
+    Field tmpField = fields[aY][anX];
+    if (tmpField instanceof Mountain) {
+      if (aMovable instanceof Climber) {
+        return true;
+      } else {
+        return false;
+      }
+    } else if (tmpField instanceof Water) {
+      if (aMovable instanceof Diver) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  private boolean checkIfSet(int anX, int aY) {
+    Movable tmpMovable = getSetter(anX, aY);
+    if (tmpMovable == null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private void setSetter(Movable aMovable, int anX, int aY) {
+    fields[aY][anX].setSetter(aMovable);
   }
 
   private void checkCoordinates(int anX, int aY) throws WrongCoordinateException {
     if (anX < 0) {
       throw new WrongCoordinateException("x value '" + anX + "' is less than 0");
-    } else if (anX >= xDimension) {
-      throw new WrongCoordinateException("x value '" + anX + "' equals or is greater than maximum value '" + xDimension + "'");
+    } else if (anX >= getXDimension()) {
+      throw new WrongCoordinateException("x value '" + anX + "' equals or is greater than maximum value '" + getXDimension() + "'");
     } else if (aY < 0) {
       throw new WrongCoordinateException("y value '" + aY + "'  less than 0");
-    } else if (aY >= yDimension) {
-      throw new WrongCoordinateException("y value '" + aY + "'  equals or is greater than maximum value '" + yDimension + "'");
+    } else if (aY >= getYDimension()) {
+      throw new WrongCoordinateException("y value '" + aY + "'  equals or is greater than maximum value '" + getYDimension() + "'");
     }
   }
 
-  private void checkMap() {
-    // TODO MapCheck
+  private int getXDimension() {
+    return fields.length;
+  }
+
+  private int getYDimension() {
+    return fields[0].length;
   }
 
   /**
    * shows map on console
+   *
+   * @deprecated
    */
   public void showMap() {
     System.out.println();
     System.out.println();
     String tmpFirstLine = "       ";
-    for (int i = 0; i < yDimension; i++) {
-      tmpFirstLine += (i+1);
-      if ((i+1) < 10) {
+    for (int i = 0; i < getYDimension(); i++) {
+      tmpFirstLine += (i + 1);
+      if ((i + 1) < 10) {
         tmpFirstLine += "         ";
       } else {
         tmpFirstLine += "        ";
@@ -105,15 +184,15 @@ public class PlayMap {
     }
     System.out.println(tmpFirstLine);
 
-    for (int i = 0; i < yDimension; i++) {
+    for (int i = 0; i < getYDimension(); i++) {
       System.out.println();
-      String tmpFieldRow = "  " + (i+1);
-      if ((i+1) < 10) {
+      String tmpFieldRow = "  " + (i + 1);
+      if ((i + 1) < 10) {
         tmpFieldRow += "   ";
       } else {
         tmpFieldRow += "  ";
       }
-      for (int j = 0; j < xDimension; j++) {
+      for (int j = 0; j < getXDimension(); j++) {
         if (fields[i][j].getSetter() != null) {
           Movable tmpMovable = fields[i][j].getSetter();
           String tmpMovableName = tmpMovable.getClass().toString();

@@ -2,8 +2,7 @@
 To Do's
 =================
  TD# |  Issue
- 002 |  Discussion about architecture
- 003 |  Put coordinates in Movable?!
+ 004 |  Evaluate positioning methods
 
 
 
@@ -15,5 +14,7 @@ To Do's
 =================
 Done
 =================
- TD# | 	Issue       | Date
- 001 |  Codereview  | 2008-19-01
+ TD# | 	Issue       						 | Date
+ 001 |  Codereview  						 | 2008-01-19
+ 002 |  Discussion about architecture 		 | 2008-01-23
+ 003 |  Coordinates are not to be in Movable | 2008-01-23
