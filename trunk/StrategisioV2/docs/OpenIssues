@@ -15,7 +15,8 @@ To Do's
 =================
 Done
 =================
- TD# | 	Issue       						 | Date
- 001 |  Codereview  						 | 2008-01-19
- 002 |  Discussion about architecture 		 | 2008-01-23
- 003 |  Coordinates are not to be in Movable | 2008-01-23
+ TD# | 	Issue       						 						   |  Processor		  | Date
+ 001 |  Codereview  						 						   |  				  | 2008-01-19
+ 002 |  Discussion about architecture 		 						   |	              | 2008-01-23
+ 003 |  Coordinates are not to be in Movable 						   |	              | 2008-01-23
+ 006 |  Do we really need the checkCoordinates method, if yes - where? |  WDWRT           | 2008-01-23
