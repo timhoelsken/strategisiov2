@@ -1,11 +1,11 @@
 package strategisio.elements.items;
 
-import strategisio.elements.Movable;
+import strategisio.elements.Placeable;
 
 /**
  * abstract class for all items
  */
-public abstract class Item implements Movable {
+public abstract class Item implements Placeable {
 
   private char id;
 

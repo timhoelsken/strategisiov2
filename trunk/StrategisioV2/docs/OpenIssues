@@ -2,10 +2,13 @@
 To Do's
 =================
  TD# |  Issue															  |  Processor
- 004 |  Evaluate positioning methods									  |	 WDWRT
+ 004 |  Evaluate positioning methods (check newChecker in PlayMap)		  |	 WDWRT
  005 |  Saving areas for positioning Movables initially (new attributes?!)|
- 007 |  Unit-Tests :)													  |  WDHSK/WDWRT
- 008 |  acceptedGround not needed?                                        |
+ 007 |  Unit-Tests (especially combat!) :)													  |  WDHSK/WDWRT
+ 009 |  Game does not throw Exception! Why? see inline docu	Game		  |  WDHSK
+ 010 |  Create Display Interface instead of abstract class				  |  WDHSK
+ 011 |  Distinguished between checkFigure and checkItem... 				  |  WDHSK
+ 		Interface usable? See PlayMap
 
 
 
@@ -21,3 +24,4 @@ Done
  002 |  Discussion about architecture 		 						   |  WDHSK/WDWRT     | 2008-01-23
  003 |  Coordinates are not to be in Movable 						   |  WDHSK/WDWRT     | 2008-01-23
  006 |  Do we really need the checkCoordinates method, if yes - where? |  WDWRT           | 2008-01-23
+ 008 |  acceptedGround not needed? -> It is needed now				   |  WDHSK			  | 2008-01-24

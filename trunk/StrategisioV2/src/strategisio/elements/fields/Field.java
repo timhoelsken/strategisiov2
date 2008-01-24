@@ -1,27 +1,27 @@
 package strategisio.elements.fields;
 
-import strategisio.elements.Movable;
+import strategisio.elements.Placeable;
 
 /**
  *
- * represents a Field on the PlayMap can hold a Movable
+ * represents a Field on the PlayMap can hold a placeAble
  *
  */
 public abstract class Field {
 
-  private Movable setter = null;
+  private Placeable setter = null;
 
   /**
    * @return the setter
    */
-  public Movable getSetter() {
+  public Placeable getSetter() {
     return setter;
   }
 
   /**
    * @param aSetter the setter to set
    */
-  public void setSetter(Movable aSetter) {
+  public void setSetter(Placeable aSetter) {
     setter = aSetter;
   }
 }

@@ -5,7 +5,7 @@ package strategisio.elements;
  * groups figures & items
  *
  */
-public interface Movable {
+public interface Placeable {
 
   /**
    * @return the team id

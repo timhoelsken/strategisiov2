@@ -1,12 +1,12 @@
 package strategisio.elements.figures;
 
-import strategisio.elements.Movable;
+import strategisio.elements.Placeable;
 
 
 /**
  * Abstract class for all figures
  */
-public abstract class Figure implements Movable {
+public abstract class Figure implements Placeable {
 
   private int normalSteps;
 
@@ -27,7 +27,7 @@ public abstract class Figure implements Movable {
   /**
    * @return the normalSteps
    */
-  protected int getNormalSteps() {
+  public int getNormalSteps() {
     return normalSteps;
   }
 
@@ -41,7 +41,7 @@ public abstract class Figure implements Movable {
   /**
    * @return the diagonalSteps
    */
-  protected int getDiagonalSteps() {
+  public int getDiagonalSteps() {
     return diagonalSteps;
   }
 
@@ -83,7 +83,7 @@ public abstract class Figure implements Movable {
   /**
    * @return the groundAuthority
    */
-  protected int getGroundAuthority() {
+  public int getGroundAuthority() {
     return groundAuthority;
   }
 
@@ -97,7 +97,7 @@ public abstract class Figure implements Movable {
   /**
    * @return the attacks
    */
-  protected int[] getAttacks() {
+  public int[] getAttacks() {
     return attacks;
   }
 
@@ -111,7 +111,7 @@ public abstract class Figure implements Movable {
   /**
    * @return the defences
    */
-  protected int[] getDefences() {
+  public int[] getDefences() {
     return defences;
   }
 

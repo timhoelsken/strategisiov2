@@ -8,15 +8,17 @@ import strategisio.elements.UnknownFieldTypeException;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
+import strategisio.visualization.*;
 
 /**
- *
+ * 
  * contains all Game elements
- *
+ * 
  */
 public class Game {
 
   private PlayMap playMap;
+  private Display Displayer = new ConsoleView();
 
   private Team teamA;
 
@@ -24,7 +26,7 @@ public class Game {
 
   /**
    * standard constructor
-   *
+   * 
    * @param aMapSize
    *            size of the map
    * @param aTeamName
@@ -59,7 +61,7 @@ public class Game {
 
   /**
    * start it here
-   *
+   * 
    * @param args
    */
   public static void main(String[] args) {
@@ -76,7 +78,7 @@ public class Game {
     int tmpY = 0;
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkItemPositioningPossibility(tmpItems.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
@@ -90,7 +92,7 @@ public class Game {
     }
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkFigurePositioningPossibility(tmpFigures.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
         } else {
           tmpX++;
@@ -103,13 +105,15 @@ public class Game {
       }
     }
 
+    
     tmpFigures = tmpGame.teamB.getFigures();
     tmpItems = tmpGame.teamB.getItems();
     tmpX = tmpMapSize - 1;
     tmpY = tmpMapSize - 1;
+    
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkItemPositioningPossibility(tmpItems.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
         } else {
           tmpX--;
@@ -121,13 +125,21 @@ public class Game {
         i--;
       }
     }
+    /*
+     * Problem with the exception! why ever! runs an endless loop due to i--
+     */
     for (int i = 0; i < tmpFigures.size(); i++) {
       try {
-        if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)){
+        if (tmpPlayMap.checkFigurePositioningPossibility(tmpFigures.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
+          if (tmpX < 0){
+            tmpX = tmpMapSize - 1;
+            tmpY--;
+          }
         } else {
           tmpX--;
-          i--;
+          // i--;
+          tmpY--; //added
         }
       } catch (Exception e) {
         tmpX = tmpMapSize - 1;
@@ -135,7 +147,6 @@ public class Game {
         i--;
       }
     }
-
-    tmpPlayMap.showMap();
+   tmpGame.Displayer.showMap(tmpPlayMap);
   }
 }
