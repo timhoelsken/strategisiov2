@@ -6,6 +6,7 @@ import strategisio.elements.fields.Grass;
 import strategisio.elements.fields.Mountain;
 import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Figure;
+import strategisio.exceptions.UnknownFieldTypeException;
 
 /**
  *

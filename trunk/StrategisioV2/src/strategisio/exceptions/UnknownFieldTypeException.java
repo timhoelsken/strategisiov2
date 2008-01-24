@@ -1,7 +1,7 @@
 /**
  *
  */
-package strategisio.elements;
+package strategisio.exceptions;
 
 /**
  * @author Tobias
@@ -14,11 +14,17 @@ public class UnknownFieldTypeException extends Exception {
    */
   private static final long serialVersionUID = 870265889291660961L;
 
-  UnknownFieldTypeException(){
+  /**
+   *
+   */
+  public UnknownFieldTypeException(){
     super();
   }
 
-  UnknownFieldTypeException(String aMessage){
+  /**
+   * @param aMessage
+   */
+  public UnknownFieldTypeException(String aMessage){
     super(aMessage);
   }
 }

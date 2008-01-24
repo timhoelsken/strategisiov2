@@ -8,7 +8,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 import strategisio.elements.PlayMap;
-import strategisio.elements.UnknownFieldTypeException;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
@@ -16,6 +15,7 @@ import strategisio.elements.figures.Fighter;
 import strategisio.elements.figures.Spy;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
+import strategisio.exceptions.UnknownFieldTypeException;
 
 /**
  * @author Tobias

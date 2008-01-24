@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
-import strategisio.elements.UnknownFieldTypeException;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
+import strategisio.exceptions.UnknownFieldTypeException;
 import strategisio.visualization.*;
 
 /**
