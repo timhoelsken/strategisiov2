@@ -1,5 +1,7 @@
 package strategisio.elements;
 
+import java.util.ArrayList;
+
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.fields.Grass;
@@ -168,12 +170,70 @@ public class PlayMap {
    * Does the check before move().
    *
    * @param aFigure
+   * @param anOldX
+   * @param anOldY
+   *            where the figure comes from (anOldX/anOldY)
+   * @param aNewX
+   * @param aNewY
+   *            where it wants to go to (aNewX/aNewY)
+   * @return true if moving to the specified field is possible
+   */
+  public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
+    return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure,
+        anOldX, anOldY)) ? true : false;
+  }
+
+  /**
+   * Returns all possibilities to move to
+   *
+   * @param aFigure
    * @param anX
    * @param aY
-   * @return
+   *            where the figure remains at the moment
+   * @return an array of coordinates where a figure could be placed
    */
-  public boolean checkMovingPossibility(Figure aFigure, int anX, int aY) {
-    return (checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
+  public int[][] getMovingArea(Figure aFigure, int anX, int aY) {
+    ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
+
+    // TODO not nice but works without further effort :)
+    for (int y = 0; y < getYDimension(); y++) {
+      for (int x = 0; x < getXDimension(); x++) {
+        if (checkMovingPossibility(aFigure, anX, aY, x, y)) {
+          int[] tmpCoordinates = new int[2];
+          tmpCoordinates[0] = anX;
+          tmpCoordinates[1] = aY;
+          tmpMovingArea.add(tmpCoordinates);
+        }
+      }
+    }
+    return (int[][]) tmpMovingArea.toArray();
+  }
+
+  /**
+   * Checks if the figure could reach the field
+   */
+  private boolean checkIfIsReachable(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
+    int tmpNormalSteps = aFigure.getNormalSteps();
+    // TODO check blocking fields (like mountain for a non-climber or water vor
+    // a non-diver
+    if (anOldX == aNewX && anOldY == aNewY) {
+      // same field
+      return true;
+    } else if (anOldX == aNewX) {
+      // vertical move
+      return checkIfIsReachable(anOldY, aNewY, tmpNormalSteps) ? true : false;
+    } else if (anOldY == aNewY) {
+      // horizontal move
+      return checkIfIsReachable(anOldX, aNewX, tmpNormalSteps) ? true : false;
+    } else {
+      // diagonal move
+      int tmpDiagonalSteps = aFigure.getDiagonalSteps();
+      return (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps) && checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) ? true : false;
+    }
+  }
+
+  private boolean checkIfIsReachable(int anOldCoordinate, int aNewCoordinate, int aStepNumber) {
+    return Math.abs(anOldCoordinate - aNewCoordinate) <= aStepNumber;
   }
 
   /**
@@ -229,13 +289,6 @@ public class PlayMap {
   }
 
   /**
-   * Checks if the given coordinates are inside of the map dimensions
-   */
-  private boolean checkCoordinates(int anX, int aY) {
-    return (anX < 0 || anX > getXDimension() || aY < 0 || aY > getYDimension()) ? false : true;
-  }
-
-  /**
    *
    * @return the xDimension
    */
@@ -250,7 +303,6 @@ public class PlayMap {
   public int getYDimension() {
     return fields.length;
   }
-
 
   // /**
   // * Is called with the current field coordinates! Use to calculate moving
@@ -268,113 +320,10 @@ public class PlayMap {
   // }
 
   // /**
-  // *
-  // * AREA
-  // *
-  // * including logic of moving not further then possible (ground)
-  // *
-  // * @param aFigure
-  // * @param anX
-  // * @param aY
-  // * @return an array of fields where a figure could be placed
+  // * Checks if the given coordinates are inside of the map dimensions
   // */
-  // private int[][] getMovingArea(Figure aFigure, int anX, int aY) {
-  //
-  // int tmpNormalSteps = aFigure.getNormalSteps();
-  // int tmpDiagonalSteps = aFigure.getDiagonalSteps();
-  // int[][] tmpMovingArea = new int[tmpNormalSteps * 4 + tmpDiagonalSteps *
-  // 4][1];
-  // int j = 0;
-  //
-  // // All fields to the left
-  // for (int i = 1; i <= tmpNormalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY)) {
-  // tmpMovingArea[j][0] = anX - i;
-  // tmpMovingArea[j][1] = aY;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All fields to the right
-  // for (int i = 1; i <= tmpNormalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY)) {
-  // tmpMovingArea[j][0] = anX + i;
-  // tmpMovingArea[j][1] = aY;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All fields to the bottom
-  // for (int i = 1; i <= tmpNormalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX, aY + i)) {
-  // tmpMovingArea[j][0] = anX;
-  // tmpMovingArea[j][1] = aY + i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All fields to the top
-  // for (int i = 1; i <= tmpNormalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX, aY - i)) {
-  // tmpMovingArea[j][0] = anX;
-  // tmpMovingArea[j][1] = aY - i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // if (tmpDiagonalSteps > 0) {
-  // // All diagonal fields top right
-  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY - i)) {
-  // tmpMovingArea[j][0] = anX + i;
-  // tmpMovingArea[j][1] = aY - i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All diagonal fields bottom right
-  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY + i)) {
-  // tmpMovingArea[j][0] = anX + i;
-  // tmpMovingArea[j][1] = aY + i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All diagonal fields bottom left
-  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY + i)) {
-  // tmpMovingArea[j][0] = anX - i;
-  // tmpMovingArea[j][1] = aY + i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  //
-  // // All diagonal fields top left
-  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
-  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY - i)) {
-  // tmpMovingArea[j][0] = anX - i;
-  // tmpMovingArea[j][1] = aY - i;
-  // j++;
-  // } else {
-  // i = tmpNormalSteps + 1;
-  // }
-  // }
-  // }
-  // return tmpMovingArea;
-  // }
+  // private boolean checkCoordinates(int anX, int aY) {
+  // return (anX < 0 || anX > getXDimension() || aY < 0 || aY > getYDimension())
+  // ? false : true;
+  //}
 }
