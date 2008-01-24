@@ -1,6 +1,22 @@
  TD# |  Issue
  004 |  Evaluate positioning methods
 
+Summary:
+	Initially Positioning
+		Ground fits?
+		Field is empty?
+			=> position()
+
+	Moving During Game
+		Ground fits?
+		Field is reachable for figure?
+			Field is in focus
+			No missFields between figure and new field
+		Field is empty or enemy on the field?
+
+
+
+
 ===================================
 = UseCase "Initially Positioning" =
 ===================================

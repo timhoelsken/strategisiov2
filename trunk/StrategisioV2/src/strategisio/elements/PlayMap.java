@@ -180,7 +180,7 @@ public class PlayMap {
    */
   public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
     return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure,
-        anOldX, anOldY)) ? true : false;
+        aNewX, aNewY)) ? true : false;
   }
 
   /**
