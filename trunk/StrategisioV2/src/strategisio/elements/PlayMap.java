@@ -70,7 +70,8 @@ public class PlayMap {
   }
 
   /**
-   * Positions the Placeable (initially) on the specified field. Checking is necessary before!
+   * Positions the placeable (initially) on the specified field. Checking with
+   * checkPositioningPossibility() is necessary before!
    *
    * @param aPlaceable
    * @param anX
@@ -93,204 +94,15 @@ public class PlayMap {
   }
 
   /**
-   *
-   * SINGLE FIELD
-   *
-   * including logic of ground or teamMate in the way
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   * @return true if it is possible to place a figure within the distance
+   * Checks if the specified field is empty
    */
-  public boolean checkFigurePositioningPossibility(Figure aFigure, int anX, int aY) {
-    return (checkCoordinates(anX, aY) && checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
-  }
-
-  /**
-   *
-   * SINGLE FIELD
-   *
-   * including logic of ground or teamMate in the way
-   *
-   * @param aPlaceable
-   *
-   * @param anX
-   * @param aY
-   * @return true if it is possible to place a figure within the distance
-   */
-  public boolean checkItemPositioningPossibility(Placeable aPlaceable, int anX, int aY) {
-    return (checkIfIsEmpty(anX, aY) && checkGround(aPlaceable, anX, aY)) ? true : false;
-  }
-
-  /**
-   * Checks if it is allowed for the Figure to move on the field. FOR INITIAL
-   * SETTING
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   * @return
-   */
-  public boolean checkMovingPossibility(Figure aFigure, int anX, int aY) {
-    return (checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
-  }
-
-  /**
-   * Is called with the current field coordinates! Use to calculate moving area.
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   */
-  public void selectFieldToMoveTo(Figure aFigure, int anX, int aY) {
-    int[][] tmpMovingArea = getMovingArea(aFigure, anX, aY);
-    int i = 0;
-    // TODO some game logic
-    move(aFigure, tmpMovingArea[i][0], tmpMovingArea[i][1]);
-  }
-
-  /**
-   * Moves the figure onto the specified field. Checking is necessary before!
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   */
-  private void move(Figure aFigure, int anX, int aY) {
-    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
-      Placeable tmpEnemy = getSetter(anX, aY);
-      // TODO differentiate between items and figures
-      tmpEnemy.getId(); // to avoid warning :)
+  private boolean checkIfIsEmpty(int anX, int aY) {
+    Placeable tmpPlaceable = getSetter(anX, aY);
+    if (tmpPlaceable == null) {
+      return true;
     } else {
-      // move without problems
-      getField(anX, aY).setSetter(aFigure);
+      return false;
     }
-  }
-
-  /**
-   *
-   * AREA
-   *
-   * including logic of moving not further then possible (ground)
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   * @return an array of fields where a figure could be placed
-   */
-  private int[][] getMovingArea(Figure aFigure, int anX, int aY) {
-
-    int tmpNormalSteps = aFigure.getNormalSteps();
-    int tmpDiagonalSteps = aFigure.getDiagonalSteps();
-    int[][] tmpMovingArea = new int[tmpNormalSteps * 4 + tmpDiagonalSteps * 4][1];
-    int j = 0;
-
-    // All fields to the left
-    for (int i = 1; i <= tmpNormalSteps; i++) {
-      if (checkFigurePositioningPossibility(aFigure, anX - i, aY)) {
-        tmpMovingArea[j][0] = anX - i;
-        tmpMovingArea[j][1] = aY;
-        j++;
-      } else {
-        i = tmpNormalSteps + 1;
-      }
-    }
-
-    // All fields to the right
-    for (int i = 1; i <= tmpNormalSteps; i++) {
-      if (checkFigurePositioningPossibility(aFigure, anX + i, aY)) {
-        tmpMovingArea[j][0] = anX + i;
-        tmpMovingArea[j][1] = aY;
-        j++;
-      } else {
-        i = tmpNormalSteps + 1;
-      }
-    }
-
-    // All fields to the bottom
-    for (int i = 1; i <= tmpNormalSteps; i++) {
-      if (checkFigurePositioningPossibility(aFigure, anX, aY + i)) {
-        tmpMovingArea[j][0] = anX;
-        tmpMovingArea[j][1] = aY + i;
-        j++;
-      } else {
-        i = tmpNormalSteps + 1;
-      }
-    }
-
-    // All fields to the top
-    for (int i = 1; i <= tmpNormalSteps; i++) {
-      if (checkFigurePositioningPossibility(aFigure, anX, aY - i)) {
-        tmpMovingArea[j][0] = anX;
-        tmpMovingArea[j][1] = aY - i;
-        j++;
-      } else {
-        i = tmpNormalSteps + 1;
-      }
-    }
-
-    if (tmpDiagonalSteps > 0) {
-      // All diagonal fields top right
-      for (int i = 1; i <= tmpDiagonalSteps; i++) {
-        if (checkFigurePositioningPossibility(aFigure, anX + i, aY - i)) {
-          tmpMovingArea[j][0] = anX + i;
-          tmpMovingArea[j][1] = aY - i;
-          j++;
-        } else {
-          i = tmpNormalSteps + 1;
-        }
-      }
-
-      // All diagonal fields bottom right
-      for (int i = 1; i <= tmpDiagonalSteps; i++) {
-        if (checkFigurePositioningPossibility(aFigure, anX + i, aY + i)) {
-          tmpMovingArea[j][0] = anX + i;
-          tmpMovingArea[j][1] = aY + i;
-          j++;
-        } else {
-          i = tmpNormalSteps + 1;
-        }
-      }
-
-      // All diagonal fields bottom left
-      for (int i = 1; i <= tmpDiagonalSteps; i++) {
-        if (checkFigurePositioningPossibility(aFigure, anX - i, aY + i)) {
-          tmpMovingArea[j][0] = anX - i;
-          tmpMovingArea[j][1] = aY + i;
-          j++;
-        } else {
-          i = tmpNormalSteps + 1;
-        }
-      }
-
-      // All diagonal fields top left
-      for (int i = 1; i <= tmpDiagonalSteps; i++) {
-        if (checkFigurePositioningPossibility(aFigure, anX - i, aY - i)) {
-          tmpMovingArea[j][0] = anX - i;
-          tmpMovingArea[j][1] = aY - i;
-          j++;
-        } else {
-          i = tmpNormalSteps + 1;
-        }
-      }
-    }
-    return tmpMovingArea;
-  }
-
-  /**
-   * Checks if the specified field is empty or filled by an enemy placeAble.
-   */
-  private boolean checkIfIsEmptyOrEnemy(Figure aFigure, int anX, int aY) {
-    return (checkIfIsEmpty(anX, aY) || (checkIfIsEnemy(aFigure, anX, aY))) ? true : false;
-  }
-
-  /**
-   * Checks if there is an enemy on this field.
-   */
-  private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
-    Placeable tmpFieldPlaceable = getSetter(anX, aY);
-    return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
   }
 
   /**
@@ -334,15 +146,50 @@ public class PlayMap {
   }
 
   /**
-   * Checks if the specified field is empty
+   * Moves the figure (during the game) onto the specified field. Checking with
+   * checkMovingPossibility() is necessary before!
+   *
+   * @param aFigure
+   * @param anX
+   * @param aY
    */
-  private boolean checkIfIsEmpty(int anX, int aY) {
-    Placeable tmpPlaceable = getSetter(anX, aY);
-    if (tmpPlaceable == null) {
-      return true;
+  public void move(Figure aFigure, int anX, int aY) {
+    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+      Placeable tmpEnemy = getSetter(anX, aY);
+      // TODO differentiate between items and figures
+      tmpEnemy.getId(); // to avoid warning :)
     } else {
-      return false;
+      // move without problems
+      getField(anX, aY).setSetter(aFigure);
     }
+  }
+
+  /**
+   * Does the check before move().
+   *
+   * @param aFigure
+   * @param anX
+   * @param aY
+   * @return
+   */
+  public boolean checkMovingPossibility(Figure aFigure, int anX, int aY) {
+    return (checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
+  }
+
+  /**
+   * Checks if the specified field is empty or filled by an enemy placeable.
+   */
+  private boolean checkIfIsEmptyOrEnemy(Figure aFigure, int anX, int aY) {
+    return (checkIfIsEmpty(anX, aY) || (checkIfIsEnemy(aFigure, anX, aY))) ? true : false;
+  }
+
+  /**
+   * Checks if there's an enemy on this field. Field has to be set to use this
+   * method.
+   */
+  private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
+    Placeable tmpFieldPlaceable = getSetter(anX, aY);
+    return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
   }
 
   private Field getField(int anX, int aY) {
@@ -350,10 +197,9 @@ public class PlayMap {
   }
 
   /**
-   *
    * @param anX
    * @param aY
-   * @return Placeable
+   * @return the setter of the specified field (might be NULL)
    */
   public Placeable getSetter(int anX, int aY) {
     Field tmpField = getField(anX, aY);
@@ -362,7 +208,7 @@ public class PlayMap {
   }
 
   /**
-   * Gets the setter out of the field (deletes it)
+   * Gets the setter out of the field (deletes it from the map)
    *
    * @param anX
    * @param aY
@@ -374,9 +220,19 @@ public class PlayMap {
     return tmpPlaceable;
   }
 
+  /**
+   * Deletes the setter from the field
+   */
   private void delSetter(int anX, int aY) {
     Field tmpField = getField(anX, aY);
     tmpField.setSetter(null);
+  }
+
+  /**
+   * Checks if the given coordinates are inside of the map dimensions
+   */
+  private boolean checkCoordinates(int anX, int aY) {
+    return (anX < 0 || anX > getXDimension() || aY < 0 || aY > getYDimension()) ? false : true;
   }
 
   /**
@@ -395,18 +251,130 @@ public class PlayMap {
     return fields.length;
   }
 
-  /**
-   * Checks if the given coordinates are inside of the map Dimensions
-   *
-   * @param anX
-   * @param aY
-   * @return true when coordinates are inside of the map Dimensions
-   */
-  private boolean checkCoordinates(int anX, int aY) {
-    if (anX < 0 || anX > getXDimension() || aY < 0 || aY > getYDimension()) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+
+  // /**
+  // * Is called with the current field coordinates! Use to calculate moving
+  // area.
+  // *
+  // * @param aFigure
+  // * @param anX
+  // * @param aY
+  // */
+  // public void selectFieldToMoveTo(Figure aFigure, int anX, int aY) {
+  // int[][] tmpMovingArea = getMovingArea(aFigure, anX, aY);
+  // int i = 0;
+  // // TODO some game logic
+  // move(aFigure, tmpMovingArea[i][0], tmpMovingArea[i][1]);
+  // }
+
+  // /**
+  // *
+  // * AREA
+  // *
+  // * including logic of moving not further then possible (ground)
+  // *
+  // * @param aFigure
+  // * @param anX
+  // * @param aY
+  // * @return an array of fields where a figure could be placed
+  // */
+  // private int[][] getMovingArea(Figure aFigure, int anX, int aY) {
+  //
+  // int tmpNormalSteps = aFigure.getNormalSteps();
+  // int tmpDiagonalSteps = aFigure.getDiagonalSteps();
+  // int[][] tmpMovingArea = new int[tmpNormalSteps * 4 + tmpDiagonalSteps *
+  // 4][1];
+  // int j = 0;
+  //
+  // // All fields to the left
+  // for (int i = 1; i <= tmpNormalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY)) {
+  // tmpMovingArea[j][0] = anX - i;
+  // tmpMovingArea[j][1] = aY;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All fields to the right
+  // for (int i = 1; i <= tmpNormalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY)) {
+  // tmpMovingArea[j][0] = anX + i;
+  // tmpMovingArea[j][1] = aY;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All fields to the bottom
+  // for (int i = 1; i <= tmpNormalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX, aY + i)) {
+  // tmpMovingArea[j][0] = anX;
+  // tmpMovingArea[j][1] = aY + i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All fields to the top
+  // for (int i = 1; i <= tmpNormalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX, aY - i)) {
+  // tmpMovingArea[j][0] = anX;
+  // tmpMovingArea[j][1] = aY - i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // if (tmpDiagonalSteps > 0) {
+  // // All diagonal fields top right
+  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY - i)) {
+  // tmpMovingArea[j][0] = anX + i;
+  // tmpMovingArea[j][1] = aY - i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All diagonal fields bottom right
+  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX + i, aY + i)) {
+  // tmpMovingArea[j][0] = anX + i;
+  // tmpMovingArea[j][1] = aY + i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All diagonal fields bottom left
+  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY + i)) {
+  // tmpMovingArea[j][0] = anX - i;
+  // tmpMovingArea[j][1] = aY + i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  //
+  // // All diagonal fields top left
+  // for (int i = 1; i <= tmpDiagonalSteps; i++) {
+  // if (checkFigurePositioningPossibility(aFigure, anX - i, aY - i)) {
+  // tmpMovingArea[j][0] = anX - i;
+  // tmpMovingArea[j][1] = aY - i;
+  // j++;
+  // } else {
+  // i = tmpNormalSteps + 1;
+  // }
+  // }
+  // }
+  // return tmpMovingArea;
+  // }
 }

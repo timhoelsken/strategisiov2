@@ -48,11 +48,11 @@ public class PlayMapTest extends TestCase {
     Item tmpItem = new Flag();
 
     playMap.setFieldType(0, 0, Ground.GRASS);
-    assertTrue("Should be possible to set a flag on a grass field.", playMap.checkItemPositioningPossibility(tmpItem, 0, 0));
+    assertTrue("Should be possible to set a flag on a grass field.", playMap.checkPositioningPossibility(tmpItem, 0, 0));
     playMap.setFieldType(0, 0, Ground.MOUNTAIN);
-    assertFalse("Should not be possible to set a flag on a mountain field.", playMap.checkItemPositioningPossibility(tmpItem, 0, 0));
+    assertFalse("Should not be possible to set a flag on a mountain field.", playMap.checkPositioningPossibility(tmpItem, 0, 0));
     playMap.setFieldType(0, 0, Ground.WATER);
-    assertFalse("Should not be possible to set a flag on a water field.", playMap.checkItemPositioningPossibility(tmpItem, 0, 0));
+    assertFalse("Should not be possible to set a flag on a water field.", playMap.checkPositioningPossibility(tmpItem, 0, 0));
   }
 
   /**
@@ -67,21 +67,21 @@ public class PlayMapTest extends TestCase {
     playMap.setFieldType(0, 2, Ground.WATER);
 
     Fighter tmpFighter = new Fighter();
-    assertTrue("Should be possible to set a fighter on a grass field.", playMap.checkFigurePositioningPossibility(tmpFighter, 0, 0));
-    assertFalse("Should not be possible to set a fighter on a mountain field.", playMap.checkFigurePositioningPossibility(tmpFighter, 0, 1));
-    assertFalse("Should not be possible to set a fighter on a water field.", playMap.checkFigurePositioningPossibility(tmpFighter, 0, 2));
+    assertTrue("Should be possible to set a fighter on a grass field.", playMap.checkPositioningPossibility(tmpFighter, 0, 0));
+    assertFalse("Should not be possible to set a fighter on a mountain field.", playMap.checkPositioningPossibility(tmpFighter, 0, 1));
+    assertFalse("Should not be possible to set a fighter on a water field.", playMap.checkPositioningPossibility(tmpFighter, 0, 2));
     playMap.position(tmpFighter, 0, 0);
 
     Climber tmpClimber = new Climber();
-    assertFalse("Should be a fighter there.", playMap.checkFigurePositioningPossibility(tmpClimber, 0, 0));
-    assertTrue("Should be possible to set a climber on a mountain field.", playMap.checkFigurePositioningPossibility(tmpClimber, 0, 1));
-    assertFalse("Should not be possible to set a climber on a water field.", playMap.checkFigurePositioningPossibility(tmpClimber, 0, 2));
+    assertFalse("Should be a fighter there.", playMap.checkPositioningPossibility(tmpClimber, 0, 0));
+    assertTrue("Should be possible to set a climber on a mountain field.", playMap.checkPositioningPossibility(tmpClimber, 0, 1));
+    assertFalse("Should not be possible to set a climber on a water field.", playMap.checkPositioningPossibility(tmpClimber, 0, 2));
     playMap.position(tmpClimber, 0, 1);
 
     Diver tmpDiver = new Diver();
-    assertFalse("Should be a fighter there.", playMap.checkFigurePositioningPossibility(tmpDiver, 0, 0));
-    assertFalse("Should not be possible to set a diver on a mountain field.", playMap.checkFigurePositioningPossibility(tmpDiver, 0, 1));
-    assertTrue("Should be possible to set a climber on a water field.", playMap.checkFigurePositioningPossibility(tmpDiver, 0, 2));
+    assertFalse("Should be a fighter there.", playMap.checkPositioningPossibility(tmpDiver, 0, 0));
+    assertFalse("Should not be possible to set a diver on a mountain field.", playMap.checkPositioningPossibility(tmpDiver, 0, 1));
+    assertTrue("Should be possible to set a climber on a water field.", playMap.checkPositioningPossibility(tmpDiver, 0, 2));
     playMap.position(tmpDiver, 0, 2);
   }
 
@@ -103,7 +103,7 @@ public class PlayMapTest extends TestCase {
     //playMap.move(tmpFighter, 0, 1);
 
     Spy tmpSpy = new Spy();
-    assertTrue("The field should be free now.", playMap.checkFigurePositioningPossibility(tmpSpy, 0, 0));
+    assertTrue("The field should be free now.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
     playMap.position(tmpSpy, 0, 0);
 
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
