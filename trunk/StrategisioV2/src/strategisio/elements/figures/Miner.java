@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- *
+ * 
  * the miner
  */
 public class Miner extends Figure {

@@ -20,7 +20,7 @@ import strategisio.visualization.ConsoleDisplay;
 
 /**
  * @author Tobias
- *
+ * 
  */
 public class PlayMapTest extends TestCase {
 
@@ -45,6 +45,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning an item on all three grounds.
+   * 
    * @throws UnknownFieldTypeException
    */
   public void testPositioningItems() throws UnknownFieldTypeException {
@@ -61,6 +62,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning every kind of figures on grass.
+   * 
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
@@ -83,6 +85,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning figures on all three grounds.
+   * 
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFigures() throws UnknownFieldTypeException {
@@ -113,6 +116,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests moving figures of the same team (NULL) on grass.
+   * 
    * @throws UnknownFieldTypeException
    */
   public void testMovingFigures() throws UnknownFieldTypeException {
@@ -151,7 +155,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Start the PlayMapTests here.
-   *
+   * 
    * @param args
    */
   public static void main(String[] args) {

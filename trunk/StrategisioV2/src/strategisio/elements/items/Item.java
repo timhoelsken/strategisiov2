@@ -17,7 +17,8 @@ public abstract class Item implements Placeable {
   }
 
   /**
-   * @param aId the id to set
+   * @param aId
+   *            the id to set
    */
   public void setId(char aId) {
     id = aId;

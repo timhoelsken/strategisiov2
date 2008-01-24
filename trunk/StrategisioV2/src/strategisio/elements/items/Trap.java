@@ -4,7 +4,7 @@ import strategisio.elements.figures.Figure;
 
 /**
  * @author Tobias
- *
+ * 
  * the trap
  */
 public class Trap extends Item {
@@ -19,7 +19,8 @@ public class Trap extends Item {
   }
 
   /**
-   * @param aCatched the catched to set
+   * @param aCatched
+   *            the catched to set
    */
   protected void setCatched(Figure aCatched) {
     catched = aCatched;

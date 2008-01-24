@@ -3,9 +3,9 @@ package strategisio.elements.fields;
 import strategisio.elements.Placeable;
 
 /**
- *
+ * 
  * represents a Field on the PlayMap can hold a placeAble
- *
+ * 
  */
 public abstract class Field {
 
@@ -19,7 +19,8 @@ public abstract class Field {
   }
 
   /**
-   * @param aSetter the setter to set
+   * @param aSetter
+   *            the setter to set
    */
   public void setSetter(Placeable aSetter) {
     setter = aSetter;

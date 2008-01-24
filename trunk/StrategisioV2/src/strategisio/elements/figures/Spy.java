@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- *
+ * 
  * the spy
  */
 public class Spy extends Figure {

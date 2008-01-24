@@ -3,14 +3,14 @@ package strategisio.elements;
 import strategisio.elements.figures.*;
 
 /**
- *
+ * 
  * @author Tim
- *
+ * 
  */
 public class Combat {
 
   /**
-   *
+   * 
    * @param anAttacker
    * @param aDefender
    * @return the winner of a fight
@@ -35,7 +35,7 @@ public class Combat {
   }
 
   /**
-   *
+   * 
    * @param anAttacker
    * @param aDefender
    * @return the winner of a fight

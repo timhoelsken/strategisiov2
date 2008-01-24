@@ -10,7 +10,7 @@ import junit.textui.TestRunner;
 
 /**
  * @author Tobias
- *
+ * 
  */
 public class AllTests extends TestCase {
 
@@ -25,7 +25,7 @@ public class AllTests extends TestCase {
 
   /**
    * Start the PlayMapTests here.
-   *
+   * 
    * @param args
    */
   public static void main(String[] args) {

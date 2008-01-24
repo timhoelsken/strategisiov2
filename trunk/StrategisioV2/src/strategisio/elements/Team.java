@@ -16,9 +16,9 @@ import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
 
 /**
- *
+ * 
  * represents a player's Team
- *
+ * 
  */
 public class Team {
 
@@ -32,11 +32,11 @@ public class Team {
 
   /**
    * constructor
-   *
+   * 
    * @param anId
-   *    a unique id for the team
+   *            a unique id for the team
    * @param aName
-   *    a name for the team
+   *            a name for the team
    */
   public Team(char anId, String aName) {
     id = anId;
@@ -123,7 +123,8 @@ public class Team {
   }
 
   /**
-   * @param aId the id to set
+   * @param aId
+   *            the id to set
    */
   public void setId(char aId) {
     id = aId;
@@ -137,7 +138,8 @@ public class Team {
   }
 
   /**
-   * @param aName the name to set
+   * @param aName
+   *            the name to set
    */
   public void setName(String aName) {
     name = aName;
@@ -151,7 +153,8 @@ public class Team {
   }
 
   /**
-   * @param aFigures the figures to set
+   * @param aFigures
+   *            the figures to set
    */
   public void setFigures(ArrayList<Figure> aFigures) {
     figures = aFigures;
@@ -165,7 +168,8 @@ public class Team {
   }
 
   /**
-   * @param aItems the items to set
+   * @param aItems
+   *            the items to set
    */
   public void setItems(ArrayList<Item> aItems) {
     items = aItems;

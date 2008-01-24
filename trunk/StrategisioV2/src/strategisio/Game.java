@@ -11,9 +11,9 @@ import strategisio.exceptions.UnknownFieldTypeException;
 import strategisio.visualization.*;
 
 /**
- *
+ * 
  * contains all game elements
- *
+ * 
  */
 public class Game {
 
@@ -27,7 +27,7 @@ public class Game {
 
   /**
    * standard constructor
-   *
+   * 
    * @param aMapSize
    *            size of the map
    * @param aTeamName
@@ -62,7 +62,7 @@ public class Game {
 
   /**
    * start it here
-   *
+   * 
    * @param args
    */
   public static void main(String[] args) {
@@ -77,16 +77,16 @@ public class Game {
     PlayMap tmpPlayMap = tmpGame.playMap;
     int tmpX = 0;
     int tmpY = 0;
-    //////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////
     // INFO: for-loops will run endlessly if the map is to small!
-    //////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
         if (tmpPlayMap.checkPositioningPossibility(tmpItems.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpItems.get(i), tmpX++, tmpY);
         } else {
           i--;
-          if (tmpX < 1){
+          if (tmpX < 1) {
             tmpX = tmpMapSize - 1;
             tmpY--;
           } else {
@@ -105,7 +105,7 @@ public class Game {
           tmpPlayMap.position(tmpFigures.get(i), tmpX++, tmpY);
         } else {
           i--;
-          if (tmpX < 1){
+          if (tmpX < 1) {
             tmpX = tmpMapSize - 1;
             tmpY--;
           } else {
@@ -119,7 +119,6 @@ public class Game {
       }
     }
 
-
     tmpFigures = tmpGame.teamB.getFigures();
     tmpItems = tmpGame.teamB.getItems();
     tmpX = tmpMapSize - 1;
@@ -131,7 +130,7 @@ public class Game {
           tmpPlayMap.position(tmpItems.get(i), tmpX--, tmpY);
         } else {
           i--;
-          if (tmpX < 1){
+          if (tmpX < 1) {
             tmpX = tmpMapSize - 1;
             tmpY--;
           } else {
@@ -148,13 +147,13 @@ public class Game {
       try {
         if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
-          if (tmpX < 0){
+          if (tmpX < 0) {
             tmpX = tmpMapSize - 1;
             tmpY--;
           }
         } else {
           i--;
-          if (tmpX < 1){
+          if (tmpX < 1) {
             tmpX = tmpMapSize - 1;
             tmpY--;
           } else {
@@ -167,7 +166,7 @@ public class Game {
         i--;
       }
     }
-   tmpGame.displayer.display(tmpPlayMap);
+    tmpGame.displayer.display(tmpPlayMap);
   }
 
   /**
@@ -178,7 +177,8 @@ public class Game {
   }
 
   /**
-   * @param aDisplayer the displayer to set
+   * @param aDisplayer
+   *            the displayer to set
    */
   public void setDisplayer(Displayable aDisplayer) {
     displayer = aDisplayer;

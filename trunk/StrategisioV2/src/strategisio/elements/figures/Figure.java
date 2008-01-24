@@ -2,7 +2,6 @@ package strategisio.elements.figures;
 
 import strategisio.elements.Placeable;
 
-
 /**
  * Abstract class for all figures
  */
@@ -32,7 +31,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aNormalSteps the normalSteps to set
+   * @param aNormalSteps
+   *            the normalSteps to set
    */
   protected void setNormalSteps(int aNormalSteps) {
     normalSteps = aNormalSteps;
@@ -46,7 +46,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aDiagonalSteps the diagonalSteps to set
+   * @param aDiagonalSteps
+   *            the diagonalSteps to set
    */
   protected void setDiagonalSteps(int aDiagonalSteps) {
     diagonalSteps = aDiagonalSteps;
@@ -60,7 +61,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aNormalView the normalView to set
+   * @param aNormalView
+   *            the normalView to set
    */
   protected void setNormalView(int aNormalView) {
     normalView = aNormalView;
@@ -74,7 +76,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aDiagonalView the diagonalView to set
+   * @param aDiagonalView
+   *            the diagonalView to set
    */
   protected void setDiagonalView(int aDiagonalView) {
     diagonalView = aDiagonalView;
@@ -88,7 +91,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aGroundAuthorities the groundAuthorities to set
+   * @param aGroundAuthorities
+   *            the groundAuthorities to set
    */
   protected void setGroundAuthorities(int[] aGroundAuthorities) {
     groundAuthorities = aGroundAuthorities;
@@ -102,7 +106,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aAttacks the attacks to set
+   * @param aAttacks
+   *            the attacks to set
    */
   protected void setAttacks(int[] aAttacks) {
     attacks = aAttacks;
@@ -116,7 +121,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aDefences the defences to set
+   * @param aDefences
+   *            the defences to set
    */
   protected void setDefences(int[] aDefences) {
     defences = aDefences;
@@ -130,7 +136,8 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @param aId the id to set
+   * @param aId
+   *            the id to set
    */
   public void setId(char aId) {
     id = aId;
