@@ -13,6 +13,6 @@ public interface Displayable {
    *  To paint the given map on the screen
    * @param aPlayMap
    */
-  public void showMap(PlayMap aPlayMap);
+  public void display(PlayMap aPlayMap);
 
 }

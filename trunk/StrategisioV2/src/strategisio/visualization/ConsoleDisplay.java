@@ -16,7 +16,7 @@ public class ConsoleDisplay implements Displayable {
    *
    * @param aPlayMap
    */
-  public void showMap(PlayMap aPlayMap) {
+  public void display(PlayMap aPlayMap) {
     System.out.println();
     System.out.println();
     String tmpFirstLine = "       ";

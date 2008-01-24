@@ -16,6 +16,7 @@ import strategisio.elements.figures.Spy;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.exceptions.UnknownFieldTypeException;
+import strategisio.visualization.ConsoleDisplay;
 
 /**
  * @author Tobias
@@ -24,6 +25,9 @@ import strategisio.exceptions.UnknownFieldTypeException;
 public class PlayMapTest extends TestCase {
 
   private PlayMap playMap;
+
+  @SuppressWarnings("unused")
+  private ConsoleDisplay console = new ConsoleDisplay();
 
   /**
    * All things that should happen before each test in this class.
@@ -56,7 +60,7 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
-   * Tests positioning one kind of every figure on grass.
+   * Tests positioning every kind of figures on grass.
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
@@ -121,20 +125,20 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpFighter, 0, 0);
     tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
 
-    assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 1));
+    assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 0, 0, 1));
     playMap.move(tmpFighter, 0, 1);
-
+    console.display(playMap);
     Spy tmpSpy = new Spy();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
     playMap.position(tmpSpy, 0, 0);
 
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
-    assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 1));
-    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0));
+    assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 1));
+    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 0));
     playMap.position(tmpSpy, 0, 0);
 
     tmpFighter = (Fighter) playMap.fetchSetter(0, 1);
-    assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 0, 0));
+    assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 0, 1, 0, 0));
   }
 
   /**

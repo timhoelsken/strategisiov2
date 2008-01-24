@@ -167,7 +167,7 @@ public class Game {
         i--;
       }
     }
-   tmpGame.displayer.showMap(tmpPlayMap);
+   tmpGame.displayer.display(tmpPlayMap);
   }
 
   /**
