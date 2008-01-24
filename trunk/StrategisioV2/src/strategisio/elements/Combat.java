@@ -3,78 +3,74 @@ package strategisio.elements;
 import strategisio.elements.figures.*;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class Combat {
 
   /**
-   * 
-   * @param anAttackPlaceable
-   * @param aDefendPlaceable
+   *
+   * @param anAttacker
+   * @param aDefender
    * @return the winner of a fight
    */
-  public Placeable init(Placeable anAttackPlaceable, Placeable aDefendPlaceable) {
-    Placeable tmpPlaceable;
-    Figure tmpAttacker = (Figure) anAttackPlaceable;
-    Figure tmpDefender = (Figure) aDefendPlaceable;
+  public Figure init(Figure anAttacker, Figure aDefender) {
+    Figure tmpPlaceable;
+    Figure tmpAttacker = anAttacker;
+    Figure tmpDefender = aDefender;
     int[] tmpAttackerAttacks = tmpAttacker.getAttacks();
     int[] tmpAttackerDefences = tmpAttacker.getDefences();
     int[] tmpDefenderAttacks = tmpDefender.getAttacks();
     int[] tmpDefenderDefences = tmpDefender.getDefences();
-    
+
     if (tmpAttackerAttacks.length == 4 && tmpDefenderDefences.length < 4) {
-      tmpPlaceable = anAttackPlaceable;
+      tmpPlaceable = anAttacker;
     } else if (tmpDefenderAttacks.length == 4 && tmpAttackerDefences.length < 4) {
-      tmpPlaceable = aDefendPlaceable;
+      tmpPlaceable = aDefender;
     } else {
-      tmpPlaceable = fight(anAttackPlaceable, aDefendPlaceable);
+      tmpPlaceable = fight(anAttacker, aDefender);
     }
     return tmpPlaceable;
   }
 
   /**
-   * 
-   * @param anAttackPlaceable
-   * @param aDefendPlaceable
+   *
+   * @param anAttacker
+   * @param aDefender
    * @return the winner of a fight
    */
-  private Placeable fight(Placeable anAttackPlaceable, Placeable aDefendPlaceable) {
-    int tmpAttackPlaceablesAttack, tmpAttackPlaceablesDefence;
-    int tmpDefendPlaceablesAttack, tmpDefendPlaceablesDefence;
-    Placeable tmpWinner = null;
+  private Figure fight(Figure anAttacker, Figure aDefender) {
+    int tmpAttackerAttack, tmpAttackerDefence;
+    int tmpDefenderAttack, tmpDefenderDefence;
+    Figure tmpWinner = null;
     boolean tmpFighting = true;
 
     while (tmpFighting) {
+      tmpAttackerAttack = chooseAttack(anAttacker);
+      tmpAttackerDefence = chooseDefence(anAttacker);
+      tmpDefenderAttack = chooseAttack(aDefender);
+      tmpDefenderDefence = chooseDefence(aDefender);
 
-      tmpAttackPlaceablesAttack = chooseAttack(anAttackPlaceable);
-      tmpAttackPlaceablesDefence = chooseDefence(anAttackPlaceable);
-      tmpDefendPlaceablesAttack = chooseAttack(aDefendPlaceable);
-      tmpDefendPlaceablesDefence = chooseDefence(aDefendPlaceable);
-
-      // Fight logic
-      if (tmpAttackPlaceablesAttack == tmpDefendPlaceablesDefence && tmpDefendPlaceablesAttack == tmpAttackPlaceablesDefence) {
-        // tie
+      // fight logic
+      if (tmpAttackerAttack == tmpDefenderDefence && tmpDefenderAttack == tmpAttackerDefence) {
+        // draw (don't know the word 'tie')
       } else {
-        if (tmpAttackPlaceablesAttack == tmpDefendPlaceablesDefence) {
-          // DefendPlaceable did win
-          tmpWinner = aDefendPlaceable;
+        if (tmpAttackerAttack == tmpDefenderDefence) {
+          tmpWinner = aDefender;
           tmpFighting = false;
-        } else if (tmpDefendPlaceablesAttack == tmpAttackPlaceablesDefence) {
-          // AttackPlaceable did win
-          tmpWinner = anAttackPlaceable;
+        } else if (tmpDefenderAttack == tmpAttackerDefence) {
+          tmpWinner = anAttacker;
           tmpFighting = false;
         } else {
-          // tie
+          // draw (uuuuuuuh a reasonable empty else block - for a comment) xD
         }
-
       }
     }
     return tmpWinner;
   }
 
-  private int chooseAttack(Placeable aPlaceable) {
+  private int chooseAttack(Figure aFigure) {
 
     int tmpAttack = 0;
     // TODO interaction with player
@@ -82,11 +78,11 @@ public class Combat {
     return tmpAttack;
   }
 
-  private int chooseDefence(Placeable aPlaceable) {
+  private int chooseDefence(Figure aFigure) {
 
     int tmpDefence = 0;
     // TODO interaction with player
-    
+
     return tmpDefence;
   }
 }
