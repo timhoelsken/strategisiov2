@@ -8,9 +8,9 @@ import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Figure;
 
 /**
- * 
+ *
  * the PlayMap
- * 
+ *
  */
 public class PlayMap {
 
@@ -18,7 +18,7 @@ public class PlayMap {
 
   /**
    * creates a quadratic map
-   * 
+   *
    * @param aDimension
    *            for size of the map (aDimension^2)
    */
@@ -28,7 +28,7 @@ public class PlayMap {
 
   /**
    * creates a map
-   * 
+   *
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
@@ -43,7 +43,7 @@ public class PlayMap {
 
   /**
    * sets field type for specified field
-   * 
+   *
    * @param anX
    * @param aY
    * @param aFieldType
@@ -70,7 +70,7 @@ public class PlayMap {
   /**
    * Is called with the current field coordinates! Are used to calculate moving
    * area.
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -84,7 +84,7 @@ public class PlayMap {
 
   /**
    * Sets the placeAble on the specified field. Checking is necessary before!
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -103,7 +103,7 @@ public class PlayMap {
   /**
    * Checks if it is allowed for the Figure to move on the field. FOR INITIAL
    * SETTING
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -130,7 +130,7 @@ public class PlayMap {
 
   /**
    * Sets the placeAble on the specified field. Checking is necessary before!
-   * 
+   *
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -148,7 +148,7 @@ public class PlayMap {
       return true;
     }
     else{
-      
+
     if (aPlaceable instanceof Figure) {
       Figure tmpFigure = (Figure) aPlaceable;
         if (tmpField instanceof Mountain && tmpFigure.getGroundAuthority() == 1) {
@@ -157,11 +157,11 @@ public class PlayMap {
           return true;
         } else {
           return false;
-        } 
+        }
       }
     return false;
 
-    } 
+    }
   }
 
   /**
@@ -178,7 +178,7 @@ public class PlayMap {
 
   /**
    * Checks if the given coordinates are inside of the map Dimensions
-   * 
+   *
    * @param anX
    * @param aY
    * @return true when coordinates are inside of the map Dimensions
@@ -192,7 +192,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the xDimension
    */
   public int getXDimension() {
@@ -200,7 +200,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the yDimension
    */
   public int getYDimension() {
@@ -213,7 +213,7 @@ public class PlayMap {
 
   /**
    * Gets the setter out of the field (deletes it)
-   * 
+   *
    * @param anX
    * @param aY
    * @return the setter from the specified field
@@ -225,7 +225,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return a placeAble
@@ -242,11 +242,11 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * SINGLE FIELD
-   * 
+   *
    * including logic of ground or teamMate in the way
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -255,28 +255,28 @@ public class PlayMap {
   public boolean checkFigurePositioningPossibility(Figure aFigure, int anX, int aY) {
     return (checkCoordinates(anX, aY) && checkGround(aFigure, anX, aY) && checkIfIsEmptyOrEnemy(aFigure, anX, aY)) ? true : false;
   }
-  
+
   /**
-   * 
+   *
    * SINGLE FIELD
-   * 
+   *
    * including logic of ground or teamMate in the way
-   * @param aPlaceable 
-   * 
+   * @param aPlaceable
+   *
    * @param anX
    * @param aY
    * @return true if it is possible to place a figure within the distance
    */
   public boolean checkItemPositioningPossibility(Placeable aPlaceable, int anX, int aY) {
-    return (checkCoordinates(anX, aY) && checkGround(aPlaceable, anX, aY)) ? true : false;
+    return (checkIfIsEmpty(anX, aY) && checkGround(aPlaceable, anX, aY)) ? true : false;
   }
 
   /**
-   * 
+   *
    * AREA
-   * 
+   *
    * including logic of moving not further then possible (ground)
-   * 
+   *
    * @return an array of fields where a figure could be placed
    * @param aFigure
    * @param anX

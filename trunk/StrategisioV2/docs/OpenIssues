@@ -4,7 +4,7 @@ To Do's
  TD# |  Issue															  |  Processor
  004 |  Evaluate positioning methods (check newChecker in PlayMap)		  |	 WDWRT
  005 |  Saving areas for positioning Movables initially (new attributes?!)|
- 007 |  Unit-Tests (especially combat!) :)													  |  WDHSK/WDWRT
+ 007 |  Unit-Tests (especially combat!) :)								  |  WDHSK/WDWRT
  009 |  Game does not throw Exception! Why? see inline docu	Game		  |  WDHSK
  010 |  Create Display Interface instead of abstract class				  |  WDHSK
  011 |  Distinguished between checkFigure and checkItem... 				  |  WDHSK

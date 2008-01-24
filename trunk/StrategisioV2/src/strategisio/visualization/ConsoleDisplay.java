@@ -5,15 +5,15 @@ import strategisio.elements.*;
 
 /**
  * for displaying the game in the console
- * 
+ *
  * @author Tim
- * 
+ *
  */
-public class ConsoleView extends Display {
+public class ConsoleDisplay implements Displayable {
 
   /**
    * displays the map in the console
-   * 
+   *
    * @param aPlayMap
    */
   public void showMap(PlayMap aPlayMap) {
