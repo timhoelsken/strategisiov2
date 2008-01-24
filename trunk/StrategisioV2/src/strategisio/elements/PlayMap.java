@@ -70,7 +70,7 @@ public class PlayMap {
   }
 
   /**
-   * Sets the placeAble on the specified field. Checking is necessary before!
+   * Positions the Placeable (initially) on the specified field. Checking is necessary before!
    *
    * @param aPlaceable
    * @param anX
@@ -80,6 +80,14 @@ public class PlayMap {
     getField(anX, aY).setSetter(aPlaceable);
   }
 
+  /**
+   * Does the check before position().
+   *
+   * @param aPlaceable
+   * @param anX
+   * @param aY
+   * @return true if positioning is allowed here
+   */
   public boolean checkPositioningPossibility(Placeable aPlaceable, int anX, int aY) {
     return (checkIfIsEmpty(anX, aY) && checkGround(aPlaceable, anX, aY)) ? true : false;
   }
