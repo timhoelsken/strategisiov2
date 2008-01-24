@@ -162,7 +162,7 @@ public class PlayMap {
       tmpEnemy.getId(); // to avoid warning :)
     } else {
       // move without problems
-      getField(anX, aY).setSetter(aFigure);
+      position(aFigure, anX, aY);
     }
   }
 

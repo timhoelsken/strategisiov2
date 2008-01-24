@@ -133,7 +133,7 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpSpy, 0, 0);
     console.display(playMap);
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
-    console.display(playMap);
+
     assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 1));
     assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 0));
     playMap.position(tmpSpy, 0, 0);
