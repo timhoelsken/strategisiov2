@@ -16,7 +16,7 @@ public abstract class Figure implements Placeable {
 
   private int diagonalView;
 
-  private int groundAuthority;
+  private int[] groundAuthorities;
 
   private int[] attacks;
 
@@ -81,17 +81,17 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * @return the groundAuthority
+   * @return the groundAuthorities
    */
-  public int getGroundAuthority() {
-    return groundAuthority;
+  protected int[] getGroundAuthorities() {
+    return groundAuthorities;
   }
 
   /**
-   * @param aGroundAuthority the groundAuthority to set
+   * @param aGroundAuthorities the groundAuthorities to set
    */
-  protected void setGroundAuthority(int aGroundAuthority) {
-    groundAuthority = aGroundAuthority;
+  protected void setGroundAuthorities(int[] aGroundAuthorities) {
+    groundAuthorities = aGroundAuthorities;
   }
 
   /**

@@ -20,7 +20,7 @@ public class Climber extends Figure {
     setNormalView(1);
     setDiagonalView(0);
 
-    setGroundAuthority(Ground.MOUNTAIN);
+    setGroundAuthorities(new int[] { Ground.GRASS, Ground.MOUNTAIN });
 
     int[] tmpAttacks = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setAttacks(tmpAttacks);

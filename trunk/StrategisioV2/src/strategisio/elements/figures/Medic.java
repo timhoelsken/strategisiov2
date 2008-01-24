@@ -20,7 +20,7 @@ public class Medic extends Figure {
     setNormalView(1);
     setDiagonalView(0);
 
-    setGroundAuthority(Ground.GRASS);
+    setGroundAuthorities(new int[] { Ground.GRASS });
 
     // Removed defend Shot, according to anleitung.html
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };

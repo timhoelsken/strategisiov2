@@ -20,7 +20,7 @@ public class Fighter extends Figure {
     setNormalView(1);
     setDiagonalView(1);
 
-    setGroundAuthority(Ground.GRASS);
+    setGroundAuthorities(new int[] { Ground.GRASS });
 
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
     setAttacks(tmpFightMoves);
