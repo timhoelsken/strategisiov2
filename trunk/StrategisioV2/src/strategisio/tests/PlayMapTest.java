@@ -56,6 +56,28 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
+   * Tests positioning one kind of every figure on grass.
+   * @throws UnknownFieldTypeException
+   */
+  public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
+    playMap = new PlayMap(1, 3);
+
+    playMap.setFieldType(0, 0, Ground.GRASS);
+    playMap.setFieldType(0, 1, Ground.GRASS);
+    playMap.setFieldType(0, 2, Ground.GRASS);
+
+    Fighter tmpFighter = new Fighter();
+    Climber tmpClimber = new Climber();
+    Diver tmpDiver = new Diver();
+    assertTrue("Should be possible to set a fighter on a grass field.", playMap.checkPositioningPossibility(tmpFighter, 0, 0));
+    assertTrue("Should be possible to set a climber on a grass field.", playMap.checkPositioningPossibility(tmpClimber, 0, 1));
+    assertTrue("Should be possible to set a diver on a grass field.", playMap.checkPositioningPossibility(tmpDiver, 0, 2));
+    playMap.position(tmpFighter, 0, 0);
+    playMap.position(tmpClimber, 0, 1);
+    playMap.position(tmpDiver, 0, 2);
+  }
+
+  /**
    * Tests positioning figures on all three grounds.
    * @throws UnknownFieldTypeException
    */
@@ -99,11 +121,11 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpFighter, 0, 0);
     tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
 
-    //assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 1));
-    //playMap.move(tmpFighter, 0, 1);
+    assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 1));
+    playMap.move(tmpFighter, 0, 1);
 
     Spy tmpSpy = new Spy();
-    assertTrue("The field should be free now.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
+    assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
     playMap.position(tmpSpy, 0, 0);
 
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
