@@ -83,7 +83,7 @@ public abstract class Figure implements Placeable {
   /**
    * @return the groundAuthorities
    */
-  protected int[] getGroundAuthorities() {
+  public int[] getGroundAuthorities() {
     return groundAuthorities;
   }
 
