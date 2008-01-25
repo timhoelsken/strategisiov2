@@ -20,7 +20,7 @@ import strategisio.visualization.ConsoleDisplay;
 
 /**
  * @author Tobias
- * 
+ *
  */
 public class PlayMapTest extends TestCase {
 
@@ -45,7 +45,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning an item on all three grounds.
-   * 
+   *
    * @throws UnknownFieldTypeException
    */
   public void testPositioningItems() throws UnknownFieldTypeException {
@@ -62,7 +62,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning every kind of figures on grass.
-   * 
+   *
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
@@ -90,7 +90,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Tests positioning figures on all three grounds.
-   * 
+   *
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFigures() throws UnknownFieldTypeException {
@@ -120,11 +120,11 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
-   * Tests moving figures of the same team (NULL) on grass.
-   * 
+   * Tests moving figures of the same team (NULL) vertically on grass.
+   *
    * @throws UnknownFieldTypeException
    */
-  public void testMovingFigures() throws UnknownFieldTypeException {
+  public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldTypeException {
     playMap = new PlayMap(1, 2);
 
     playMap.setFieldType(0, 0, Ground.GRASS);
@@ -152,6 +152,38 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
+   * Tests moving figures of the same team (NULL) horizontally on grass.
+   *
+   * @throws UnknownFieldTypeException
+   */
+  public void testMovingFiguresHorizontallyOnGrass() throws UnknownFieldTypeException {
+    playMap = new PlayMap(2, 1);
+
+    playMap.setFieldType(0, 0, Ground.GRASS);
+    playMap.setFieldType(1, 0, Ground.GRASS);
+
+    Fighter tmpFighter = new Fighter();
+    playMap.position(tmpFighter, 0, 0);
+    tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
+    console.display(playMap);
+    assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 0, 1, 0));
+    playMap.move(tmpFighter, 1, 0);
+
+    Spy tmpSpy = new Spy();
+    assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
+    playMap.position(tmpSpy, 0, 0);
+    console.display(playMap);
+    tmpSpy = (Spy) playMap.fetchSetter(0, 0);
+
+    assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 1, 0));
+    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 0));
+    playMap.position(tmpSpy, 0, 0);
+
+    tmpFighter = (Fighter) playMap.fetchSetter(1, 0);
+    assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 1, 0, 0, 0));
+  }
+
+  /**
    * @return the test suite
    */
   public static Test suite() {
@@ -160,7 +192,7 @@ public class PlayMapTest extends TestCase {
 
   /**
    * Start the PlayMapTests here.
-   * 
+   *
    * @param args
    */
   public static void main(String[] args) {
