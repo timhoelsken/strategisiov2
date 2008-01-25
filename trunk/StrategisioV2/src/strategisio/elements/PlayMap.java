@@ -154,15 +154,18 @@ public class PlayMap {
    * @param aFigure
    * @param anX
    * @param aY
+   * @return true
    */
-  public void move(Figure aFigure, int anX, int aY) {
+  public boolean move(Figure aFigure, int anX, int aY) {
     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Placeable tmpEnemy = getSetter(anX, aY);
       // TODO differentiate between items and figures
       tmpEnemy.getId(); // to avoid warning :)
+      return false;
     } else {
       // move without problems
       position(aFigure, anX, aY);
+      return true;
     }
   }
 
@@ -179,8 +182,7 @@ public class PlayMap {
    * @return true if moving to the specified field is possible
    */
   public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-    return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure,
-        aNewX, aNewY)) ? true : false;
+    return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure, aNewX, aNewY)) ? true : false;
   }
 
   /**
@@ -214,21 +216,96 @@ public class PlayMap {
    */
   private boolean checkIfIsReachable(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
     int tmpNormalSteps = aFigure.getNormalSteps();
-    // TODO check blocking fields (like mountain for a non-climber or water vor
-    // a non-diver
+    // TODO Have fun to understand THIS logic! Really weird....
     if (anOldX == aNewX && anOldY == aNewY) {
       // same field
       return true;
     } else if (anOldX == aNewX) {
       // vertical move
-      return checkIfIsReachable(anOldY, aNewY, tmpNormalSteps) ? true : false;
+      Field tmpField;
+      if (checkIfIsReachable(anOldY, aNewY, tmpNormalSteps)) {
+        if (aNewY - anOldY > 0) {
+          for (int i = 1; i <= Math.abs(aNewY - anOldY); i++) {
+            tmpField = getField(anOldX, anOldY + i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        } else {
+          for (int i = 1; i <= Math.abs(aNewY - anOldY); i++) {
+            tmpField = getField(anOldX, anOldY - i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+      return false;
     } else if (anOldY == aNewY) {
       // horizontal move
-      return checkIfIsReachable(anOldX, aNewX, tmpNormalSteps) ? true : false;
+      Field tmpField;
+      if (checkIfIsReachable(anOldX, aNewX, tmpNormalSteps)) {
+        if (aNewX - anOldX > 0) {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX + i, anOldY);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        } else {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX - i, anOldY);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+      return false;
     } else {
       // diagonal move
+      Field tmpField;
       int tmpDiagonalSteps = aFigure.getDiagonalSteps();
-      return (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps) && checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) ? true : false;
+      if (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps) && checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) {
+        if (aNewX - anOldX > 0 && aNewY - anOldY > 0) {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX + i, anOldY + i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        } else if (aNewX - anOldX > 0 && aNewY - anOldY < 0) {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX + i, anOldY - i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        } else if (aNewX - anOldX < 0 && aNewY - anOldY > 0) {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX - i, anOldY + i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        } else {
+          for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
+            tmpField = getField(anOldX - i, anOldY - i);
+            if (!checkGround(aFigure, tmpField.getGround())) {
+              return false;
+            }
+          }
+          return true;
+        }
+      }
+      return false;
     }
   }
 
