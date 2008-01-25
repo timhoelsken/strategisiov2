@@ -11,6 +11,24 @@ public abstract class Field {
 
   private Placeable setter = null;
 
+  private int ground;
+
+  /**
+   * @return the ground
+   */
+  public int getGround() {
+    return ground;
+  }
+ 
+  
+  /**
+   * @param aGround the ground to set
+   */
+  protected void setGround(int aGround) {
+    ground = aGround;
+  }
+
+
   /**
    * @return the setter
    */

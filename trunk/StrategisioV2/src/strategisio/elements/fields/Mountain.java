@@ -1,5 +1,7 @@
 package strategisio.elements.fields;
 
+import strategisio.elements.constants.Ground;
+
 /**
  * @author Tobias
  * 
@@ -7,4 +9,10 @@ package strategisio.elements.fields;
  */
 public class Mountain extends Field {
 
+  /**
+   * standard constructor
+   */
+  public Mountain() {
+   setGround(Ground.MOUNTAIN);
+  }
 }
