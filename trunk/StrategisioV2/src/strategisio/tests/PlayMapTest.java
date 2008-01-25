@@ -85,6 +85,7 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpClimber, 0, 1);
     playMap.position(tmpDiver, 0, 2);
     tmpFighter = (Fighter)playMap.fetchSetter(0, 0);
+    //TODO tim writes an extra test for that (grrr...)
     assertTrue("Should be possible to move a fighter on a grass field.", playMap.move(tmpFighter, 1, 1));
   }
 
