@@ -27,7 +27,7 @@ import strategisio.elements.items.Trap;
 import strategisio.exceptions.UnknownFieldTypeException;
 
 /**
-
+ *
  * the playmap
  */
 public class PlayMap {
@@ -55,16 +55,16 @@ public class PlayMap {
 	public PlayMap(int anXDimension, int aYDimension) {
 		initFields(anXDimension, aYDimension);
 	}
-	
+
 	// TODO attributes for initially positioning?!
-    /**
-     * creates a via XML File
-     *
-     * @param aFile
-     */
-    public PlayMap(File aFile) {
-        initFields(aFile);
-    }
+	/**
+	 * creates a via XML File
+	 *
+	 * @param aFile
+	 */
+	public PlayMap(File aFile) {
+		initFields(aFile);
+	}
 
 	/**
 	 * sets field type for specified field
@@ -98,72 +98,69 @@ public class PlayMap {
 
 	/**
 	 * Reads an XML-File to fill the map
-	 * 
+	 *
 	 * @param aFile
 	 */
-	private void initFields(File aFile){
-	 //TODO Reading an XML file
-	   Document tmpDocument = getDocumentFrom(aFile);
-	  /*
-       * Read XML file from path, save data to field collection
-       * 
-       */
+	private void initFields(File aFile) {
+		// TODO Reading an XML file
+		Document tmpDocument = getDocumentFrom(aFile);
+		/*
+		 * Read XML file from path, save data to field collection
+		 *
+		 */
 
-      NodeList tmpFieldList = tmpDocument.getElementsByTagName("field");
-      Node tmpNode;
-      NodeList tmpChilds;
+		NodeList tmpFieldList = tmpDocument.getElementsByTagName("field");
+		Node tmpNode;
+		NodeList tmpChilds;
 
-      
-      //int x = 0;
+		// int x = 0;
 
-      // GANZ DOLL BÄH !!!
-      //int z = (int) Math.sqrt((double) tmpFieldList.getLength());
+		// GANZ DOLL BÄH !!!
+		// int z = (int) Math.sqrt((double) tmpFieldList.getLength());
 
-      /*
-       * Structure in XML has to be the same as it is here. see mapdummy.xml
-       * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
-       */
-	  
-      for (int y = 0; y < tmpFieldList.getLength(); y++) {
-          tmpNode = tmpFieldList.item(y);
-          tmpChilds = tmpNode.getChildNodes();
+		/*
+		 * Structure in XML has to be the same as it is here. see mapdummy.xml
+		 * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
+		 */
 
-          tmpChilds.notify(); //just to avoid WARNINGS :)
-          /*
-          if ((y % z == 0) && y > 0) {
-              x += 1;
-              fields[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
-                      tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
-          } else {
-            fields[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
-                      tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
-          }
-          */
-      }
+		for (int y = 0; y < tmpFieldList.getLength(); y++) {
+			tmpNode = tmpFieldList.item(y);
+			tmpChilds = tmpNode.getChildNodes();
+
+			tmpChilds.notify(); // just to avoid WARNINGS :)
+			/*
+			 * if ((y % z == 0) && y > 0) { x += 1; fields[x][(y - (x * z))] =
+			 * new Field(tmpChilds.item(0).getTextContent(), new Figure(
+			 * tmpChilds.item(1).getTextContent()), new
+			 * Item(tmpChilds.item(2).getTextContent())); } else { fields[x][(y -
+			 * (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new
+			 * Figure( tmpChilds.item(1).getTextContent()), new
+			 * Item(tmpChilds.item(2).getTextContent())); }
+			 */
+		}
 	}
-	
-	
+
 	/**
 	 * Reads an XML file into a w3c Document
-	 * 
-     * @author Tim
-     * @param aFile
-     * @return w3c Document
-     */
-    private Document getDocumentFrom(File aFile) {
-        DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
-        Document tmpDocument = null;
+	 *
+	 * @author Tim
+	 * @param aFile
+	 * @return w3c Document
+	 */
+	private Document getDocumentFrom(File aFile) {
+		DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
+		Document tmpDocument = null;
 
-        try {
-            DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
-            tmpDocument = tmpBuilder.parse(aFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		try {
+			DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
+			tmpDocument = tmpBuilder.parse(aFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        return tmpDocument;
-    }
-    
+		return tmpDocument;
+	}
+
 	/**
 	 * Positions the placeable (initially) on the specified field. Checking with
 	 * checkPositioningPossibility() is necessary before!
@@ -228,75 +225,83 @@ public class PlayMap {
 		return false;
 	}
 
-  /**
-   * Moves the figure (during the game) onto the specified field. Checking with
-   * checkMovingPossibility() is necessary before!
-   *
-   * @param aFigure
-   * @param anX
-   * @param aY
-   */
-  public void move(Figure aFigure, int anX, int aY) {
-    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
-      Placeable tmpEnemy = getSetter(anX, aY);
-      // if there is an enemy Figure, a fight has to start
-      if (tmpEnemy instanceof Figure) {
-        Combat tmpCombat = new Combat();
-        tmpEnemy = fetchSetter(anX, aY);
-        // the winner of the fight is placed on the field
-        Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
-        position(tmpWinner, anX, aY);
-      }
-      // if there is an enemy Item, we have to do some more logic
-      else if (tmpEnemy instanceof Item) {
-        Item tmpItem = (Item) tmpEnemy;
-        if (tmpItem instanceof FakeFlag) {
-          // in case of a FakeFlag, the flag is fetched from the field an the figure is placed on the field
-          fetchSetter(anX, aY);
-          position(aFigure, anX, aY);
-        } else if (tmpItem instanceof Trap) {
-          // in case of a Trap, we first look if there is a catched figure in it
-          Trap tmpTrap = (Trap) tmpItem;
-          Figure tmpCatched = tmpTrap.getCatched();
-          if (tmpCatched == null) {
-            // if the moving figure is a medic, we disable the trap
-            if (aFigure instanceof Medic) {
-              fetchSetter(anX, aY);
-              position(aFigure, anX, aY);
-            } else {
-              // else the moving figure is caught
-              // TODO Figure catched
-            }
-          } else {
-            // if the trap has a catched figure, and the moving figure is a medic, the trap is disabled and the
-            // catched figure is placed on the selected field. The medic stays on his initial field.
-            if (aFigure instanceof Medic) {
-              fetchSetter(anX, aY);
-              position(tmpTrap.getCatched(), anX, aY);
-              // TODO Medic needs old coordinates, because he stays on the same mapfield when freeing a catched figure
-            }
-          }
-        } else if (tmpItem instanceof Bomb) {
-          // in case of a Bomb, a Figure is bombed away, except the Figure is a Miner...
-          if (aFigure instanceof Miner) {
-            // ... then the bomb is taken away and the miner moves to the field
-            fetchSetter(anX, aY);
-            position(aFigure, anX, aY);
-          } else {
-            fetchSetter(anX, aY);
-          }
+	/**
+	 * Moves the figure (during the game) onto the specified field. Checking
+	 * with checkMovingPossibility() is necessary before!
+	 *
+	 * @param aFigure
+	 * @param anX
+	 * @param aY
+	 */
+	public void move(Figure aFigure, int anX, int aY) {
+		if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+			Placeable tmpEnemy = getSetter(anX, aY);
+			// if there is an enemy Figure, a fight has to start
+			if (tmpEnemy instanceof Figure) {
+				Combat tmpCombat = new Combat();
+				tmpEnemy = fetchSetter(anX, aY);
+				// the winner of the fight is placed on the field
+				Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
+				position(tmpWinner, anX, aY);
+			}
+			// if there is an enemy Item, we have to do some more logic
+			else if (tmpEnemy instanceof Item) {
+				Item tmpItem = (Item) tmpEnemy;
+				if (tmpItem instanceof FakeFlag) {
+					// in case of a FakeFlag, the flag is fetched from the field
+					// an the figure is placed on the field
+					fetchSetter(anX, aY);
+					position(aFigure, anX, aY);
+				} else if (tmpItem instanceof Trap) {
+					// in case of a Trap, we first look if there is a catched
+					// figure in it
+					Trap tmpTrap = (Trap) tmpItem;
+					Figure tmpCatched = tmpTrap.getCatched();
+					if (tmpCatched == null) {
+						// if the moving figure is a medic, we disable the trap
+						if (aFigure instanceof Medic) {
+							fetchSetter(anX, aY);
+							position(aFigure, anX, aY);
+						} else {
+							// else the moving figure is caught
+							// TODO Figure catched
+						}
+					} else {
+						// if the trap has a catched figure, and the moving
+						// figure is a medic, the trap is disabled and the
+						// catched figure is placed on the selected field. The
+						// medic stays on his initial field.
+						if (aFigure instanceof Medic) {
+							fetchSetter(anX, aY);
+							position(tmpTrap.getCatched(), anX, aY);
+							// TODO Medic needs old coordinates, because he
+							// stays on the same mapfield when freeing a catched
+							// figure
+						}
+					}
+				} else if (tmpItem instanceof Bomb) {
+					// in case of a Bomb, a Figure is bombed away, except the
+					// Figure is a Miner...
+					if (aFigure instanceof Miner) {
+						// ... then the bomb is taken away and the miner moves
+						// to the field
+						fetchSetter(anX, aY);
+						position(aFigure, anX, aY);
+					} else {
+						fetchSetter(anX, aY);
+					}
 
-        } else if (tmpItem instanceof Flag) {
-          // TODO Logic (Method) what if Figure finds Flag
-        }
-      }
+				} else if (tmpItem instanceof Flag) {
+					// TODO Logic (Method) what if Figure finds Flag
+				}
+			}
 
-    } else {
-      // move without problems
-      position(aFigure, anX, aY);
+		} else {
+			// move without problems
+			position(aFigure, anX, aY);
 
-    }
-  }
+		}
+	}
 
 	/**
 	 * Does the check before move().
@@ -343,16 +348,50 @@ public class PlayMap {
 	}
 
 	/**
+	 * Checks if the figure could reach the field (checks the direction)
+	 */
+	private boolean checkIfIsReachable(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
+		if (anOldX == aNewX && anOldY == aNewY) {
+			// same field
+			return true;
+		} else if (anOldX == aNewX) {
+			// vertical move
+			if (checkIfDistanceIsSolvable(anOldY, aNewY, aFigure.getNormalSteps())) {
+				return checkIfIsReachableForNonDiagonalMove(aFigure, anOldY, aNewY);
+			}
+			return false;
+		} else if (anOldY == aNewY) {
+			// horizontal move
+			if (checkIfDistanceIsSolvable(anOldX, aNewX, aFigure.getNormalSteps())) {
+				return checkIfIsReachableForNonDiagonalMove(aFigure, anOldX, aNewX);
+			}
+			return false;
+		} else {
+			// diagonal move
+			// one check lasts (decided to check the change of x-coordinate)
+			if (checkIfDistanceIsSolvable(anOldX, aNewX, aFigure.getDiagonalSteps())) {
+				return checkIfIsReachableForDiagonalMove(aFigure, anOldX, anOldY, aNewX, aNewY);
+			}
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if the figure could reach the field (checks the distance between
+	 * the old and the new one and if the figures has enough steps to move
+	 * there)
+	 */
+	private boolean checkIfDistanceIsSolvable(int anOldCoordinate, int aNewCoordinate, int aStepNumber) {
+		return Math.abs(anOldCoordinate - aNewCoordinate) <= aStepNumber;
+	}
+
+	/**
 	 * Checks if the figure could reach the field (checks the fields between the
 	 * old and the new one)
 	 */
-	private boolean checkIfIsReachable(Figure aFigure, int anOldCoordinate, int aNewCoordinate) {
-		int tmpDirection;
-		if (aNewCoordinate - anOldCoordinate > 0) {
-			tmpDirection = Direction.DOWN_OR_RIGHT;
-		} else { // == 0 not possible (same field? - checked before)
-			tmpDirection = Direction.UP_OR_LEFT;
-		}
+	private boolean checkIfIsReachableForNonDiagonalMove(Figure aFigure, int anOldCoordinate,
+			int aNewCoordinate) {
+		int tmpDirection = detectDirection(anOldCoordinate, aNewCoordinate);
 		Field tmpField;
 		for (int i = 1; i < Math.abs(aNewCoordinate - anOldCoordinate); i++) {
 			tmpField = getField(anOldCoordinate, aNewCoordinate + (i * tmpDirection));
@@ -364,72 +403,38 @@ public class PlayMap {
 	}
 
 	/**
-	 * Checks if the figure could reach the field (checks the direction)
+	 * Checks if the figure could diagonally reach the field (checks the fields
+	 * between the old and the new one)
 	 */
-	private boolean checkIfIsReachable(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-		int tmpNormalSteps = aFigure.getNormalSteps();
-		// TODO Have fun to understand THIS logic! Really weird....
-		if (anOldX == aNewX && anOldY == aNewY) {
-			// same field
-			return true;
-		} else if (anOldX == aNewX) {
-			// vertical move
-			if (checkIfIsReachable(anOldY, aNewY, tmpNormalSteps)) {
-				return checkIfIsReachable(aFigure, anOldY, aNewY);
+	private boolean checkIfIsReachableForDiagonalMove(Figure aFigure, int anOldX, int anOldY, int aNewX,
+			int aNewY) {
+		int tmpHorizontalDirection = detectDirection(anOldX, aNewX);
+		int tmpVerticalDirection = detectDirection(anOldY, aNewY);
+		Field tmpField;
+		for (int i = 1; i < Math.abs(aNewX - anOldX); i++) {
+			tmpField = getField(anOldX + (i * tmpHorizontalDirection), anOldY + (i * tmpVerticalDirection));
+			if (!checkGround(aFigure, tmpField.getGround())) {
+				return false;
 			}
-			return false;
-		} else if (anOldY == aNewY) {
-			// horizontal move
-			if (checkIfIsReachable(anOldY, aNewY, tmpNormalSteps)) {
-				return checkIfIsReachable(aFigure, anOldY, aNewY);
-			}
-			return false;
-		} else {
-			// diagonal move
-			Field tmpField;
-			int tmpDiagonalSteps = aFigure.getDiagonalSteps();
-			if (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps)
-					&& checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) {
-				if (aNewX - anOldX > 0 && aNewY - anOldY > 0) {
-					for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
-						tmpField = getField(anOldX + i, anOldY + i);
-						if (!checkGround(aFigure, tmpField.getGround())) {
-							return false;
-						}
-					}
-					return true;
-				} else if (aNewX - anOldX > 0 && aNewY - anOldY < 0) {
-					for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
-						tmpField = getField(anOldX + i, anOldY - i);
-						if (!checkGround(aFigure, tmpField.getGround())) {
-							return false;
-						}
-					}
-					return true;
-				} else if (aNewX - anOldX < 0 && aNewY - anOldY > 0) {
-					for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
-						tmpField = getField(anOldX - i, anOldY + i);
-						if (!checkGround(aFigure, tmpField.getGround())) {
-							return false;
-						}
-					}
-					return true;
-				} else {
-					for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
-						tmpField = getField(anOldX - i, anOldY - i);
-						if (!checkGround(aFigure, tmpField.getGround())) {
-							return false;
-						}
-					}
-					return true;
-				}
-			}
-			return false;
 		}
+		return true;
 	}
 
-	private boolean checkIfIsReachable(int anOldCoordinate, int aNewCoordinate, int aStepNumber) {
-		return Math.abs(anOldCoordinate - aNewCoordinate) <= aStepNumber;
+	/**
+	 * Checks if the direction from old coordinate to new coordinate
+	 *
+	 * @throws IllegalArgumentException
+	 *             if the coordinates are equal
+	 */
+	private int detectDirection(int anOldCoordinate, int aNewCoordinate) throws IllegalArgumentException {
+		if (aNewCoordinate - anOldCoordinate > 0) {
+			return Direction.DOWN_OR_RIGHT;
+		} else if (aNewCoordinate - anOldCoordinate < 0) {
+			return Direction.UP_OR_LEFT;
+		} else {
+			throw new IllegalArgumentException(
+					"Method does not support the direction detect for equal coordinates.");
+		}
 	}
 
 	/**
@@ -445,6 +450,7 @@ public class PlayMap {
 	 */
 	private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
 		Placeable tmpFieldPlaceable = getSetter(anX, aY);
+		// TODO medic - trap special
 		return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
 	}
 
