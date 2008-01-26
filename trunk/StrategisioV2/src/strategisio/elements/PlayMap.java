@@ -393,7 +393,7 @@ public class PlayMap {
 		int tmpDirection = detectDirection(anOldCoordinate, aNewCoordinate);
 		Field tmpField;
 		for (int i = 1; i < Math.abs(aNewCoordinate - anOldCoordinate); i++) {
-			tmpField = getField(anOldCoordinate, aNewCoordinate + (i * tmpDirection));
+			tmpField = getField(anOldCoordinate, anOldCoordinate + (i * tmpDirection));
 			if (!checkGround(aFigure, tmpField.getGround())) {
 				return false;
 			}
