@@ -67,12 +67,11 @@ public class PlayMapTest extends TestCase {
    * @throws UnknownFieldTypeException
    */
   public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
-    playMap = new PlayMap(2, 3);
+    playMap = new PlayMap(1, 3);
 
     playMap.setFieldType(0, 0, Ground.GRASS);
     playMap.setFieldType(0, 1, Ground.GRASS);
     playMap.setFieldType(0, 2, Ground.GRASS);
-    
 
     Fighter tmpFighter = new Fighter();
     Climber tmpClimber = new Climber();
@@ -84,11 +83,9 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpClimber, 0, 1);
     playMap.position(tmpDiver, 0, 2);
     tmpFighter = (Fighter)playMap.fetchSetter(0, 0);
-    //TODO tim writes an extra test for that (grrr...)
-    //assertTrue("Should be possible to move a fighter on a grass field.", playMap.move(tmpFighter, 1, 1));
   }
 
-  
+
   /**
    * Tests positioning figures on all three grounds.
    *
