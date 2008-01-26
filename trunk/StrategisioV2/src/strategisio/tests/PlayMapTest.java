@@ -12,6 +12,7 @@ import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
+import strategisio.elements.figures.Medic;
 import strategisio.elements.figures.Spy;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
@@ -134,22 +135,21 @@ public class PlayMapTest extends TestCase {
     Fighter tmpFighter = new Fighter();
     playMap.position(tmpFighter, 0, 0);
     tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
-    console.display(playMap);
+
     assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 0, 0, 1));
     playMap.move(tmpFighter, 0, 1);
 
     Spy tmpSpy = new Spy();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
     playMap.position(tmpSpy, 0, 0);
-    console.display(playMap);
+
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
 
     assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 1));
     assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 0));
-    playMap.position(tmpSpy, 0, 0);
 
     tmpFighter = (Fighter) playMap.fetchSetter(0, 1);
-    assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 0, 1, 0, 0));
+    assertTrue("Should be able to back again because spy is gone.", playMap.checkMovingPossibility(tmpFighter, 0, 1, 0, 0));
   }
 
   /**
@@ -166,23 +166,58 @@ public class PlayMapTest extends TestCase {
     Fighter tmpFighter = new Fighter();
     playMap.position(tmpFighter, 0, 0);
     tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
-    console.display(playMap);
+
     assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(tmpFighter, 0, 0, 1, 0));
     playMap.move(tmpFighter, 1, 0);
 
     Spy tmpSpy = new Spy();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
     playMap.position(tmpSpy, 0, 0);
-    console.display(playMap);
+
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
 
     assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 1, 0));
     assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0, 0, 0));
-    playMap.position(tmpSpy, 0, 0);
 
     tmpFighter = (Fighter) playMap.fetchSetter(1, 0);
-    assertFalse("Field should be filled by the spy.", playMap.checkMovingPossibility(tmpFighter, 1, 0, 0, 0));
+    assertTrue("Should be able to back again because spy is gone.", playMap.checkMovingPossibility(tmpFighter, 1, 0, 0, 0));
   }
+
+  /**
+   * Tests moving medics of the same team (NULL) diagonally on grass.
+   *
+   * @throws UnknownFieldTypeException
+   */
+  public void testMovingMedicsDiagonallyOnGrass() throws UnknownFieldTypeException {
+    playMap = new PlayMap(2, 2);
+
+    playMap.setFieldType(0, 0, Ground.GRASS);
+    playMap.setFieldType(0, 1, Ground.GRASS);
+    playMap.setFieldType(1, 0, Ground.GRASS);
+    playMap.setFieldType(1, 1, Ground.GRASS);
+
+    Medic tmpMedic1 = new Medic();
+    playMap.position(tmpMedic1, 0, 0);
+    tmpMedic1 = (Medic) playMap.fetchSetter(0, 0);
+
+    assertTrue("Should be possible to move the medic on an empty field.", playMap.checkMovingPossibility(tmpMedic1, 0, 0, 1, 1));
+    playMap.move(tmpMedic1, 1, 1);
+
+    Medic tmpMedic2 = new Medic();
+    assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpMedic2, 0, 0));
+    playMap.position(tmpMedic2, 0, 0);
+
+    tmpMedic2 = (Medic) playMap.fetchSetter(0, 0);
+
+    assertFalse("Field should be filled by the other medic.", playMap.checkMovingPossibility(tmpMedic2, 0, 0, 1, 1));
+    assertTrue("Should be allowed to move on an empty field.", playMap.checkMovingPossibility(tmpMedic2, 0, 0, 0, 1));
+    playMap.position(tmpMedic2, 0, 1);
+
+    tmpMedic1 = (Medic) playMap.fetchSetter(1, 1);
+    assertTrue("Should be able to back again because other medic is on other field.", playMap.checkMovingPossibility(tmpMedic1, 1, 1, 0, 0));
+
+  }
+
 
   /**
    * @return the test suite
