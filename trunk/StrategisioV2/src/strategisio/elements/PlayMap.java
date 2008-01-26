@@ -1,6 +1,14 @@
 package strategisio.elements;
 
+import java.io.File;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import strategisio.elements.constants.Direction;
 import strategisio.elements.constants.Ground;
@@ -47,6 +55,16 @@ public class PlayMap {
 	public PlayMap(int anXDimension, int aYDimension) {
 		initFields(anXDimension, aYDimension);
 	}
+	
+	// TODO attributes for initially positioning?!
+    /**
+     * creates a via XML File
+     *
+     * @param aFile
+     */
+    public PlayMap(File aFile) {
+        initFields(aFile);
+    }
 
 	/**
 	 * sets field type for specified field
@@ -78,6 +96,74 @@ public class PlayMap {
 		fields = new Field[aYDimension][anXDimension];
 	}
 
+	/**
+	 * Reads an XML-File to fill the map
+	 * 
+	 * @param aFile
+	 */
+	private void initFields(File aFile){
+	 //TODO Reading an XML file
+	   Document tmpDocument = getDocumentFrom(aFile);
+	  /*
+       * Read XML file from path, save data to field collection
+       * 
+       */
+
+      NodeList tmpFieldList = tmpDocument.getElementsByTagName("field");
+      Node tmpNode;
+      NodeList tmpChilds;
+
+      
+      //int x = 0;
+
+      // GANZ DOLL BÄH !!!
+      //int z = (int) Math.sqrt((double) tmpFieldList.getLength());
+
+      /*
+       * Structure in XML has to be the same as it is here. see mapdummy.xml
+       * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
+       */
+	  
+      for (int y = 0; y < tmpFieldList.getLength(); y++) {
+          tmpNode = tmpFieldList.item(y);
+          tmpChilds = tmpNode.getChildNodes();
+
+          tmpChilds.notify(); //just to avoid WARNINGS :)
+          /*
+          if ((y % z == 0) && y > 0) {
+              x += 1;
+              fields[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
+                      tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
+          } else {
+            fields[x][(y - (x * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
+                      tmpChilds.item(1).getTextContent()), new Item(tmpChilds.item(2).getTextContent()));
+          }
+          */
+      }
+	}
+	
+	
+	/**
+	 * Reads an XML file into a w3c Document
+	 * 
+     * @author Tim
+     * @param aFile
+     * @return w3c Document
+     */
+    private Document getDocumentFrom(File aFile) {
+        DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
+        Document tmpDocument = null;
+
+        try {
+            DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
+            tmpDocument = tmpBuilder.parse(aFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tmpDocument;
+    }
+    
 	/**
 	 * Positions the placeable (initially) on the specified field. Checking with
 	 * checkPositioningPossibility() is necessary before!
