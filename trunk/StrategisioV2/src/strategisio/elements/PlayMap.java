@@ -127,27 +127,6 @@ public class PlayMap {
   }
 
   /**
-   * Reads an XML file into a w3c Document
-   *
-   * @author Tim
-   * @param aFile
-   * @return w3c Document
-   */
-  private Document getDocumentFrom(File aFile) {
-    DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
-    Document tmpDocument = null;
-
-    try {
-      DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
-      tmpDocument = tmpBuilder.parse(aFile);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return tmpDocument;
-  }
-
-  /**
    * Positions the placeable (initially) on the specified field. Checking with
    * checkPositioningPossibility() is necessary before!
    *
@@ -485,5 +464,26 @@ public class PlayMap {
    */
   public int getYDimension() {
     return fields.length;
+  }
+
+  /**
+   * Reads an XML file into a w3c Document
+   *
+   * @author Tim
+   * @param aFile
+   * @return w3c Document
+   */
+  private Document getDocumentFrom(File aFile) {
+    DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
+    Document tmpDocument = null;
+
+    try {
+      DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
+      tmpDocument = tmpBuilder.parse(aFile);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return tmpDocument;
   }
 }
