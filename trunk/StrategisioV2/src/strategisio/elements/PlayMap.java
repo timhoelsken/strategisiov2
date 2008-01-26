@@ -298,7 +298,6 @@ public class PlayMap {
   public int[][] getMovingArea(Figure aFigure, int anX, int aY) {
     ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
 
-    // TODO not nice but works without further effort :)
     for (int y = 0; y < getYDimension(); y++) {
       for (int x = 0; x < getXDimension(); x++) {
         if (checkMovingPossibility(aFigure, anX, aY, x, y)) {
