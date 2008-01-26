@@ -56,7 +56,6 @@ public class PlayMap {
 		initFields(anXDimension, aYDimension);
 	}
 
-	// TODO attributes for initially positioning?!
 	/**
 	 * creates a via XML File
 	 *
