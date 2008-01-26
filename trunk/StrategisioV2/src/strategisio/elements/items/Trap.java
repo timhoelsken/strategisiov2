@@ -14,7 +14,7 @@ public class Trap extends Item {
   /**
    * @return the catched
    */
-  protected Figure getCatched() {
+  public Figure getCatched() {
     return catched;
   }
 
