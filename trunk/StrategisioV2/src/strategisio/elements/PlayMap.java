@@ -110,6 +110,7 @@ public class PlayMap {
    */
   public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException {
     Field tmpField;
+    //TODO make this generic (somehow?!)
     switch (aFieldType) {
       case Ground.GRASS:
         tmpField = new Grass();
