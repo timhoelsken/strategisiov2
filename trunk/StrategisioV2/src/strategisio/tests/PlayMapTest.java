@@ -287,7 +287,7 @@ public class PlayMapTest extends TestCase {
     assertFalse("Should not be possible to move the Fighter behind the mountain field.", playMap
         .checkMovingPossibility(tmpTestFigure, 0, 0, 2, 2));
   }
-  
+
   /**
    * @return the test suite
    */

@@ -13,6 +13,6 @@ public class Water extends Field {
    * standard constructor
    */
   public Water() {
-   setGround(Ground.WATER);
+    setGround(Ground.WATER);
   }
 }

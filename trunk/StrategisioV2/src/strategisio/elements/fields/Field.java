@@ -19,15 +19,14 @@ public abstract class Field {
   public int getGround() {
     return ground;
   }
- 
-  
+
   /**
-   * @param aGround the ground to set
+   * @param aGround
+   *            the ground to set
    */
   protected void setGround(int aGround) {
     ground = aGround;
   }
-
 
   /**
    * @return the setter

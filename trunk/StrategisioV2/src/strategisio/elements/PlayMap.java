@@ -281,8 +281,8 @@ public class PlayMap {
    * @return true if moving to the specified field is possible
    */
   public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-    return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure, aNewX,
-        aNewY)) ? true : false;
+    return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
+        aFigure, aNewX, aNewY)) ? true : false;
   }
 
   /**
@@ -368,7 +368,8 @@ public class PlayMap {
    * Checks if the figure could diagonally reach the field (checks the fields
    * between the old and the new one)
    */
-  private boolean checkIfIsReachableForDiagonalMove(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
+  private boolean checkIfIsReachableForDiagonalMove(Figure aFigure, int anOldX, int anOldY, int aNewX,
+      int aNewY) {
     int tmpHorizontalDirection = detectDirection(anOldX, aNewX);
     int tmpVerticalDirection = detectDirection(anOldY, aNewY);
     Field tmpField;

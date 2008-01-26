@@ -13,6 +13,6 @@ public class Mountain extends Field {
    * standard constructor
    */
   public Mountain() {
-   setGround(Ground.MOUNTAIN);
+    setGround(Ground.MOUNTAIN);
   }
 }

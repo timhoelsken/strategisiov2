@@ -13,6 +13,6 @@ public class Grass extends Field {
    * standard constructor
    */
   public Grass() {
-   setGround(Ground.GRASS);
+    setGround(Ground.GRASS);
   }
 }
