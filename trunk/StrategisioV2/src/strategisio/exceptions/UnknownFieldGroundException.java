@@ -7,7 +7,7 @@ package strategisio.exceptions;
  * @author Tobias
  * 
  */
-public class UnknownFieldTypeException extends Exception {
+public class UnknownFieldGroundException extends Exception {
 
   /**
    * 
@@ -17,14 +17,14 @@ public class UnknownFieldTypeException extends Exception {
   /**
    * 
    */
-  public UnknownFieldTypeException() {
+  public UnknownFieldGroundException() {
     super();
   }
 
   /**
    * @param aMessage
    */
-  public UnknownFieldTypeException(String aMessage) {
+  public UnknownFieldGroundException(String aMessage) {
     super(aMessage);
   }
 }

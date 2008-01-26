@@ -24,7 +24,7 @@ import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
-import strategisio.exceptions.UnknownFieldTypeException;
+import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
  *
@@ -105,13 +105,13 @@ public class PlayMap {
    *
    * @param anX
    * @param aY
-   * @param aFieldType
-   * @throws UnknownFieldTypeException
+   * @param aFieldGround
+   * @throws UnknownFieldGroundException
    */
-  public void setFieldType(int anX, int aY, int aFieldType) throws UnknownFieldTypeException {
+  public void setFieldGround(int anX, int aY, int aFieldGround) throws UnknownFieldGroundException {
     Field tmpField;
     //TODO make this generic (somehow?!)
-    switch (aFieldType) {
+    switch (aFieldGround) {
       case Ground.GRASS:
         tmpField = new Grass();
         break;
@@ -122,7 +122,7 @@ public class PlayMap {
         tmpField = new Water();
         break;
       default:
-        throw new UnknownFieldTypeException(aFieldType + " is not a valid field type");
+        throw new UnknownFieldGroundException(aFieldGround + " is not a valid field type");
     }
     fields[aY][anX] = tmpField;
   }

@@ -7,7 +7,7 @@ import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
-import strategisio.exceptions.UnknownFieldTypeException;
+import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.*;
 
 /**
@@ -52,8 +52,8 @@ public class Game {
     for (int i = 0; i < anXDimension; i++) {
       for (int j = 0; j < aYDimension; j++) {
         try {
-          playMap.setFieldType(i, j, Ground.GRASS);
-        } catch (UnknownFieldTypeException e) {
+          playMap.setFieldGround(i, j, Ground.GRASS);
+        } catch (UnknownFieldGroundException e) {
           e.printStackTrace();
         }
       }

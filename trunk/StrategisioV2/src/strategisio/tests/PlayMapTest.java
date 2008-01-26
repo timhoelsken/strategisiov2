@@ -16,7 +16,7 @@ import strategisio.elements.figures.Medic;
 import strategisio.elements.figures.Spy;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
-import strategisio.exceptions.UnknownFieldTypeException;
+import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
 /**
@@ -47,19 +47,19 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests positioning an item on all three grounds.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testPositioningItems() throws UnknownFieldTypeException {
+  public void testPositioningItems() throws UnknownFieldGroundException {
     playMap = new PlayMap(1);
     Item tmpItem = new Flag();
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
     assertTrue("Should be possible to set a flag on a grass field.", playMap.checkPositioningPossibility(
         tmpItem, 0, 0));
-    playMap.setFieldType(0, 0, Ground.MOUNTAIN);
+    playMap.setFieldGround(0, 0, Ground.MOUNTAIN);
     assertFalse("Should not be possible to set a flag on a mountain field.", playMap
         .checkPositioningPossibility(tmpItem, 0, 0));
-    playMap.setFieldType(0, 0, Ground.WATER);
+    playMap.setFieldGround(0, 0, Ground.WATER);
     assertFalse("Should not be possible to set a flag on a water field.", playMap.checkPositioningPossibility(
         tmpItem, 0, 0));
   }
@@ -67,14 +67,14 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests positioning every kind of figures on grass.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testPositioningFiguresOnGrass() throws UnknownFieldTypeException {
+  public void testPositioningFiguresOnGrass() throws UnknownFieldGroundException {
     playMap = new PlayMap(1, 3);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.GRASS);
-    playMap.setFieldType(0, 2, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
 
     Fighter tmpFighter = new Fighter();
     Climber tmpClimber = new Climber();
@@ -94,14 +94,14 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests positioning figures on all three grounds.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testPositioningFigures() throws UnknownFieldTypeException {
+  public void testPositioningFigures() throws UnknownFieldGroundException {
     playMap = new PlayMap(1, 3);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.MOUNTAIN);
-    playMap.setFieldType(0, 2, Ground.WATER);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.MOUNTAIN);
+    playMap.setFieldGround(0, 2, Ground.WATER);
 
     Fighter tmpFighter = new Fighter();
     assertTrue("Should be possible to set a fighter on a grass field.", playMap.checkPositioningPossibility(
@@ -132,13 +132,13 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests moving figures of the same team (NULL) vertically on grass.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldTypeException {
+  public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldGroundException {
     playMap = new PlayMap(1, 2);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
 
     Fighter tmpFighter = new Fighter();
     playMap.position(tmpFighter, 0, 0);
@@ -166,13 +166,13 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests moving figures of the same team (NULL) horizontally on grass.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testMovingFiguresHorizontallyOnGrass() throws UnknownFieldTypeException {
+  public void testMovingFiguresHorizontallyOnGrass() throws UnknownFieldGroundException {
     playMap = new PlayMap(2, 1);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(1, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
 
     Fighter tmpFighter = new Fighter();
     playMap.position(tmpFighter, 0, 0);
@@ -200,15 +200,15 @@ public class PlayMapTest extends TestCase {
   /**
    * Tests moving medics of the same team (NULL) diagonally on grass.
    * 
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    */
-  public void testMovingMedicsDiagonallyOnGrass() throws UnknownFieldTypeException {
+  public void testMovingMedicsDiagonallyOnGrass() throws UnknownFieldGroundException {
     playMap = new PlayMap(2, 2);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.GRASS);
-    playMap.setFieldType(1, 0, Ground.GRASS);
-    playMap.setFieldType(1, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.GRASS);
 
     Medic tmpMedic1 = new Medic();
     playMap.position(tmpMedic1, 0, 0);
@@ -237,15 +237,15 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    * 
    */
-  public void testGroundMovingTest() throws UnknownFieldTypeException {
+  public void testGroundMovingTest() throws UnknownFieldGroundException {
     playMap = new PlayMap(1, 3);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.MOUNTAIN);
-    playMap.setFieldType(0, 2, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.MOUNTAIN);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
 
     Fighter tmpFighter = new Fighter();
     playMap.position(tmpFighter, 0, 0);
@@ -260,21 +260,21 @@ public class PlayMapTest extends TestCase {
   }
 
   /**
-   * @throws UnknownFieldTypeException
+   * @throws UnknownFieldGroundException
    * 
    */
-  public void testGroundDiagonalMovingTest() throws UnknownFieldTypeException {
+  public void testGroundDiagonalMovingTest() throws UnknownFieldGroundException {
     playMap = new PlayMap(3, 3);
 
-    playMap.setFieldType(0, 0, Ground.GRASS);
-    playMap.setFieldType(0, 1, Ground.GRASS);
-    playMap.setFieldType(0, 2, Ground.GRASS);
-    playMap.setFieldType(1, 0, Ground.GRASS);
-    playMap.setFieldType(1, 1, Ground.MOUNTAIN);
-    playMap.setFieldType(1, 2, Ground.GRASS);
-    playMap.setFieldType(2, 0, Ground.GRASS);
-    playMap.setFieldType(2, 1, Ground.GRASS);
-    playMap.setFieldType(2, 2, Ground.GRASS);
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.MOUNTAIN);
+    playMap.setFieldGround(1, 2, Ground.GRASS);
+    playMap.setFieldGround(2, 0, Ground.GRASS);
+    playMap.setFieldGround(2, 1, Ground.GRASS);
+    playMap.setFieldGround(2, 2, Ground.GRASS);
 
     TestFigure tmpTestFigure = new TestFigure();
     playMap.position(tmpTestFigure, 0, 0);
