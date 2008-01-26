@@ -12,17 +12,19 @@ import strategisio.elements.items.Item;
 import strategisio.exceptions.UnknownFieldTypeException;
 
 /**
- * 
- * the PlayMap
- * 
+ *
+ * the playmap
+ *
  */
 public class PlayMap {
 
   private Field[][] fields;
 
+  //TODO attributes for initially positioning?!
+
   /**
    * creates a quadratic map
-   * 
+   *
    * @param aDimension
    *            for size of the map (aDimension^2)
    */
@@ -32,7 +34,7 @@ public class PlayMap {
 
   /**
    * creates a map
-   * 
+   *
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
@@ -43,7 +45,7 @@ public class PlayMap {
 
   /**
    * sets field type for specified field
-   * 
+   *
    * @param anX
    * @param aY
    * @param aFieldType
@@ -74,7 +76,7 @@ public class PlayMap {
   /**
    * Positions the placeable (initially) on the specified field. Checking with
    * checkPositioningPossibility() is necessary before!
-   * 
+   *
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -85,7 +87,7 @@ public class PlayMap {
 
   /**
    * Does the check before position().
-   * 
+   *
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -150,7 +152,7 @@ public class PlayMap {
   /**
    * Moves the figure (during the game) onto the specified field. Checking with
    * checkMovingPossibility() is necessary before!
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -179,7 +181,7 @@ public class PlayMap {
 
   /**
    * Does the check before move().
-   * 
+   *
    * @param aFigure
    * @param anOldX
    * @param anOldY
@@ -195,7 +197,7 @@ public class PlayMap {
 
   /**
    * Returns all possibilities to move to
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -354,7 +356,7 @@ public class PlayMap {
 
   /**
    * Gets the setter out of the field (deletes it from the map)
-   * 
+   *
    * @param anX
    * @param aY
    * @return the setter from the specified field
@@ -374,7 +376,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the xDimension
    */
   public int getXDimension() {
@@ -382,7 +384,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the yDimension
    */
   public int getYDimension() {
