@@ -159,7 +159,15 @@ public class PlayMap {
   public boolean move(Figure aFigure, int anX, int aY) {
     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Placeable tmpEnemy = getSetter(anX, aY);
-      // TODO differentiate between items and figures
+      if (tmpEnemy instanceof Figure){
+        Combat tmpCombat = new Combat();
+        tmpEnemy = fetchSetter(anX, aY);
+        Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
+        position(tmpWinner, anX, aY);
+      }
+      else{
+        // TODO check what Item and what to do with it
+      }
       tmpEnemy.getId(); // to avoid warning :)
       return false;
     } else {
