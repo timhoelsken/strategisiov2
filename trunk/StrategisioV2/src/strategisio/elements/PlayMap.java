@@ -8,20 +8,20 @@ import strategisio.elements.fields.Grass;
 import strategisio.elements.fields.Mountain;
 import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Figure;
-import strategisio.elements.items.Item;
+import strategisio.elements.figures.Medic;
+import strategisio.elements.figures.*;
+import strategisio.elements.items.*;
 import strategisio.exceptions.UnknownFieldTypeException;
 
 /**
- *
+
  * the playmap
- *
  */
 public class PlayMap {
 
   private Field[][] fields;
 
   //TODO attributes for initially positioning?!
-
   /**
    * creates a quadratic map
    *
@@ -144,26 +144,66 @@ public class PlayMap {
    * @param aFigure
    * @param anX
    * @param aY
-   * @return true
    */
-  public boolean move(Figure aFigure, int anX, int aY) {
+  public void move(Figure aFigure, int anX, int aY) {
     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Placeable tmpEnemy = getSetter(anX, aY);
-      if (tmpEnemy instanceof Figure){
+      // if there is an enemy Figure, a fight has to start
+      if (tmpEnemy instanceof Figure) {
         Combat tmpCombat = new Combat();
         tmpEnemy = fetchSetter(anX, aY);
+        // the winner of the fight is placed on the field
         Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
         position(tmpWinner, anX, aY);
+      } 
+      // if there is an enemy Item, we have to do some more logic
+      else if (tmpEnemy instanceof Item) {
+        Item tmpItem = (Item) tmpEnemy;
+        if (tmpItem instanceof FakeFlag) {
+          // in case of a FakeFlag, the flag is fetched from the field an the figure is placed on the field
+          fetchSetter(anX, aY);
+          position(aFigure, anX, aY);
+        } else if (tmpItem instanceof Trap) {
+          // in case of a Trap, we first look if there is a catched figure in it
+          Trap tmpTrap = (Trap) tmpItem;
+          Figure tmpCatched = tmpTrap.getCatched();
+          if (tmpCatched == null) {
+            // if the moving figure is a medic, we disable the trap
+            if (aFigure instanceof Medic) {
+              fetchSetter(anX, aY);
+              position(aFigure, anX, aY);
+            } else {
+              // else the moving figure is caught
+              // TODO Figure catched
+            }
+          } else {
+            // if the trap has a catched figure, and the moving figure is a medic, the trap is disabled and the
+            // catched figure is placed on the selected field. The medic stays on his initial field.
+            if (aFigure instanceof Medic) {
+              fetchSetter(anX, aY);
+              position(tmpTrap.getCatched(), anX, aY);
+              // TODO Medic needs old coordinates, because he stays on the same mapfield when freeing a catched figure
+            }
+          }
+        } else if (tmpItem instanceof Bomb) {
+          // in case of a Bomb, a Figure is bombed away, except the Figure is a Miner...
+          if (aFigure instanceof Miner) {
+            // ... then the bomb is taken away and the miner moves to the field
+            fetchSetter(anX, aY);
+            position(aFigure, anX, aY);
+          } else {
+            fetchSetter(anX, aY);
+          }
+          
+        } else if (tmpItem instanceof Flag) {
+          // TODO Logic (Method) what if Figure finds Flag
+        }
       }
-      else{
-        // TODO check what Item and what to do with it
-      }
-      tmpEnemy.getId(); // to avoid warning :)
-      return false;
+
     } else {
       // move without problems
       position(aFigure, anX, aY);
-      return true;
+
     }
   }
 
@@ -180,7 +220,8 @@ public class PlayMap {
    * @return true if moving to the specified field is possible
    */
   public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-    return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(aFigure, aNewX, aNewY)) ? true : false;
+    return (checkGround(aFigure, anOldX, anOldY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
+        aFigure, aNewX, aNewY)) ? true : false;
   }
 
   /**
@@ -268,7 +309,8 @@ public class PlayMap {
       // diagonal move
       Field tmpField;
       int tmpDiagonalSteps = aFigure.getDiagonalSteps();
-      if (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps) && checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) {
+      if (checkIfIsReachable(anOldX, aNewX, tmpDiagonalSteps)
+          && checkIfIsReachable(anOldY, aNewY, tmpDiagonalSteps)) {
         if (aNewX - anOldX > 0 && aNewY - anOldY > 0) {
           for (int i = 1; i <= Math.abs(aNewX - anOldX); i++) {
             tmpField = getField(anOldX + i, anOldY + i);
@@ -379,26 +421,4 @@ public class PlayMap {
     return fields.length;
   }
 
-  // /**
-  // * Is called with the current field coordinates! Use to calculate moving
-  // area.
-  // *
-  // * @param aFigure
-  // * @param anX
-  // * @param aY
-  // */
-  // public void selectFieldToMoveTo(Figure aFigure, int anX, int aY) {
-  // int[][] tmpMovingArea = getMovingArea(aFigure, anX, aY);
-  // int i = 0;
-  // // TODO some game logic
-  // move(aFigure, tmpMovingArea[i][0], tmpMovingArea[i][1]);
-  // }
-
-  // /**
-  // * Checks if the given coordinates are inside of the map dimensions
-  // */
-  // private boolean checkCoordinates(int anX, int aY) {
-  // return (anX < 0 || anX > getXDimension() || aY < 0 || aY > getYDimension())
-  // ? false : true;
-  // }
 }
