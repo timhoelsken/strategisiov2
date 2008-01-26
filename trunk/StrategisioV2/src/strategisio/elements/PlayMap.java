@@ -114,27 +114,15 @@ public class PlayMap {
    */
   private boolean checkGround(Placeable aPlaceable, int anX, int aY) {
     Field tmpField = getField(anX, aY);
-    if (tmpField instanceof Grass) {
-      if (aPlaceable instanceof Item) {
-        return true;
-      } else if (aPlaceable instanceof Figure) {
-        Figure tmpFigure = (Figure) aPlaceable;
-        return checkGround(tmpFigure, Ground.GRASS);
-      }
-    } else if (tmpField instanceof Mountain) {
-      if (aPlaceable instanceof Item) {
-        return false;
-      } else if (aPlaceable instanceof Figure) {
-        Figure tmpFigure = (Figure) aPlaceable;
-        return checkGround(tmpFigure, Ground.MOUNTAIN);
-      }
-    } else if (tmpField instanceof Water) {
-      if (aPlaceable instanceof Item) {
-        return false;
-      } else if (aPlaceable instanceof Figure) {
-        Figure tmpFigure = (Figure) aPlaceable;
-        return checkGround(tmpFigure, Ground.WATER);
-      }
+    if (aPlaceable instanceof Item) {
+    	if (tmpField instanceof Grass){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    } else if (aPlaceable instanceof Figure) {
+    	int tmpFieldGround = tmpField.getGround();
+    	return checkGround((Figure) aPlaceable, tmpFieldGround);
     }
     return false;
   }
