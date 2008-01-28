@@ -14,8 +14,6 @@ import strategisio.elements.constants.Direction;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.fields.Grass;
-import strategisio.elements.fields.Mountain;
-import strategisio.elements.fields.Water;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.figures.Medic;
 import strategisio.elements.figures.Miner;
@@ -27,17 +25,16 @@ import strategisio.elements.items.Trap;
 import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
- *
+ * 
  * the playmap
  */
 public class PlayMap {
 
   private Field[][] fields;
 
-  // TODO attributes for initially positioning?!
   /**
    * creates a quadratic map
-   *
+   * 
    * @param aDimension
    *            for size of the map (aDimension^2)
    */
@@ -47,7 +44,7 @@ public class PlayMap {
 
   /**
    * creates a map
-   *
+   * 
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
@@ -57,8 +54,8 @@ public class PlayMap {
   }
 
   /**
-   * creates a via XML File
-   *
+   * creates a map via XML File
+   * 
    * @param aFile
    */
   public PlayMap(File aFile) {
@@ -66,7 +63,7 @@ public class PlayMap {
     Document tmpDocument = getDocumentFrom(aFile);
     /*
      * Read XML file from path, save data to field collection
-     *
+     * 
      */
 
     NodeList tmpFieldList = tmpDocument.getElementsByTagName("field");
@@ -102,46 +99,32 @@ public class PlayMap {
 
   /**
    * sets field type for specified field
-   *
+   * 
    * @param anX
    * @param aY
    * @param aFieldGround
    * @throws UnknownFieldGroundException
    */
   public void setFieldGround(int anX, int aY, int aFieldGround) throws UnknownFieldGroundException {
-    Field tmpField;
-    //TODO make this generic (somehow?!)
-    switch (aFieldGround) {
-      case Ground.GRASS:
-        tmpField = new Grass();
-        break;
-      case Ground.MOUNTAIN:
-        tmpField = new Mountain();
-        break;
-      case Ground.WATER:
-        tmpField = new Water();
-        break;
-      default:
-        throw new UnknownFieldGroundException(aFieldGround + " is not a valid field type");
-    }
-    fields[aY][anX] = tmpField;
+    fields[aY][anX] = Ground.getFieldGround(aFieldGround);
   }
 
   /**
    * Positions the placeable (initially) on the specified field. Checking with
    * checkPositioningPossibility() is necessary before!
-   *
+   * 
    * @param aPlaceable
    * @param anX
    * @param aY
    */
   public void position(Placeable aPlaceable, int anX, int aY) {
     getField(anX, aY).setSetter(aPlaceable);
+    aPlaceable.setCurrentCoordinates(anX, aY);
   }
 
   /**
    * Does the check before position().
-   *
+   * 
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -194,7 +177,7 @@ public class PlayMap {
   /**
    * Moves the figure (during the game) onto the specified field. Checking with
    * checkMovingPossibility() is necessary before!
-   *
+   * 
    * @param aFigure
    * @param anX
    * @param aY
@@ -229,8 +212,7 @@ public class PlayMap {
               fetchSetter(anX, aY);
               position(aFigure, anX, aY);
             } else {
-              // else the moving figure is caught
-              // TODO Figure catched
+              tmpTrap.setCatched(aFigure);
             }
           } else {
             // if the trap has a catched figure, and the moving
@@ -240,7 +222,8 @@ public class PlayMap {
             if (aFigure instanceof Medic) {
               fetchSetter(anX, aY);
               position(tmpTrap.getCatched(), anX, aY);
-              // TODO Medic needs old coordinates, because he
+              int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+              position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
               // stays on the same mapfield when freeing a catched
               // figure
             }
@@ -271,24 +254,24 @@ public class PlayMap {
 
   /**
    * Does the check before move().
-   *
+   * 
    * @param aFigure
-   * @param anOldX
-   * @param anOldY
+   * @param tmpOldX
+   * @param tmpOldY
    *            where the figure comes from (anOldX/anOldY)
    * @param aNewX
    * @param aNewY
    *            where it wants to go to (aNewX/aNewY)
    * @return true if moving to the specified field is possible
    */
-  public boolean checkMovingPossibility(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-    return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, anOldX, anOldY, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
+  public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY) {
+    return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
         aFigure, aNewX, aNewY)) ? true : false;
   }
 
   /**
    * Returns all possibilities to move to
-   *
+   * 
    * @param aFigure
    * @param anX
    * @param aY
@@ -300,7 +283,7 @@ public class PlayMap {
 
     for (int y = 0; y < getYDimension(); y++) {
       for (int x = 0; x < getXDimension(); x++) {
-        if (checkMovingPossibility(aFigure, anX, aY, x, y)) {
+        if (checkMovingPossibility(aFigure, x, y)) {
           int[] tmpCoordinates = new int[2];
           tmpCoordinates[0] = anX;
           tmpCoordinates[1] = aY;
@@ -314,27 +297,28 @@ public class PlayMap {
   /**
    * Checks if the figure could reach the field (checks the direction)
    */
-  private boolean checkIfIsReachable(Figure aFigure, int anOldX, int anOldY, int aNewX, int aNewY) {
-    if (anOldX == aNewX && anOldY == aNewY) {
+  private boolean checkIfIsReachable(Figure aFigure, int aNewX, int aNewY) {
+    int[] tmpCoordinates = aFigure.getCurrentCoordinates();
+    if (tmpCoordinates[0] == aNewX && tmpCoordinates[1] == aNewY) {
       // same field
       return true;
-    } else if (anOldX == aNewX) {
+    } else if (tmpCoordinates[0] == aNewX) {
       // vertical move
-      if (checkIfDistanceIsSolvable(anOldY, aNewY, aFigure.getNormalSteps())) {
-        return checkIfIsReachableForNonDiagonalMove(aFigure, anOldY, aNewY);
+      if (checkIfDistanceIsSolvable(tmpCoordinates[1], aNewY, aFigure.getNormalSteps())) {
+        return checkIfIsReachableForNonDiagonalMove(aFigure, tmpCoordinates[1], aNewY);
       }
       return false;
-    } else if (anOldY == aNewY) {
+    } else if (tmpCoordinates[1] == aNewY) {
       // horizontal move
-      if (checkIfDistanceIsSolvable(anOldX, aNewX, aFigure.getNormalSteps())) {
-        return checkIfIsReachableForNonDiagonalMove(aFigure, anOldX, aNewX);
+      if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getNormalSteps())) {
+        return checkIfIsReachableForNonDiagonalMove(aFigure, tmpCoordinates[0], aNewX);
       }
       return false;
     } else {
       // diagonal move
       // one check lasts (decided to check the change of x-coordinate)
-      if (checkIfDistanceIsSolvable(anOldX, aNewX, aFigure.getDiagonalSteps())) {
-        return checkIfIsReachableForDiagonalMove(aFigure, anOldX, anOldY, aNewX, aNewY);
+      if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getDiagonalSteps())) {
+        return checkIfIsReachableForDiagonalMove(aFigure, aNewX, aNewY);
       }
       return false;
     }
@@ -368,13 +352,14 @@ public class PlayMap {
    * Checks if the figure could diagonally reach the field (checks the fields
    * between the old and the new one)
    */
-  private boolean checkIfIsReachableForDiagonalMove(Figure aFigure, int anOldX, int anOldY, int aNewX,
-      int aNewY) {
-    int tmpHorizontalDirection = detectDirection(anOldX, aNewX);
-    int tmpVerticalDirection = detectDirection(anOldY, aNewY);
+  private boolean checkIfIsReachableForDiagonalMove(Figure aFigure, int aNewX, int aNewY) {
+    int[] tmpCoordinates = aFigure.getCurrentCoordinates();
+    int tmpHorizontalDirection = detectDirection(tmpCoordinates[0], aNewX);
+    int tmpVerticalDirection = detectDirection(tmpCoordinates[1], aNewY);
     Field tmpField;
-    for (int i = 1; i < Math.abs(aNewX - anOldX); i++) {
-      tmpField = getField(anOldX + (i * tmpHorizontalDirection), anOldY + (i * tmpVerticalDirection));
+    for (int i = 1; i < Math.abs(aNewX - tmpCoordinates[0]); i++) {
+      tmpField = getField(tmpCoordinates[0] + (i * tmpHorizontalDirection), tmpCoordinates[1]
+          + (i * tmpVerticalDirection));
       if (!checkGround(aFigure, tmpField.getGround())) {
         return false;
       }
@@ -384,7 +369,7 @@ public class PlayMap {
 
   /**
    * Checks if the direction from old coordinate to new coordinate
-   *
+   * 
    * @throws IllegalArgumentException
    *             if the coordinates are equal
    */
@@ -411,8 +396,24 @@ public class PlayMap {
    */
   private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
     Placeable tmpFieldPlaceable = getSetter(anX, aY);
-    // TODO medic - trap special
-    return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
+
+    if (aFigure.getId() != tmpFieldPlaceable.getId()) {
+      if (tmpFieldPlaceable instanceof Trap) {
+        Trap tmpTrap = (Trap) tmpFieldPlaceable;
+        if (tmpTrap.getCatched() == null) {
+          return true;
+        } else {
+          if (aFigure instanceof Medic) {
+            return true;
+          }
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+
+    // return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
   }
 
   private Field getField(int anX, int aY) {
@@ -432,7 +433,7 @@ public class PlayMap {
 
   /**
    * Gets the setter out of the field (deletes it from the map)
-   *
+   * 
    * @param anX
    * @param aY
    * @return the setter from the specified field
@@ -452,7 +453,7 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * @return the xDimension
    */
   public int getXDimension() {
@@ -460,7 +461,7 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * @return the yDimension
    */
   public int getYDimension() {
@@ -469,7 +470,7 @@ public class PlayMap {
 
   /**
    * Reads an XML file into a w3c Document
-   *
+   * 
    * @author Tim
    * @param aFile
    * @return w3c Document

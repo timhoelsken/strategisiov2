@@ -111,7 +111,7 @@ public class Team {
       }
     }
     if (tmpFlagCounter < 0) {
-      // TODO Exception: just one flag allowed
+      // TODO just one flag allowed Exception! - But tell me why!!?
     }
   }
 

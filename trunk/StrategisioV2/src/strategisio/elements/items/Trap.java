@@ -22,7 +22,7 @@ public class Trap extends Item {
    * @param aCatched
    *            the catched to set
    */
-  protected void setCatched(Figure aCatched) {
+  public void setCatched(Figure aCatched) {
     catched = aCatched;
   }
 }

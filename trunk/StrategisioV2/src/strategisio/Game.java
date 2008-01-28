@@ -1,5 +1,6 @@
 package strategisio;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import strategisio.elements.PlayMap;
@@ -36,8 +37,21 @@ public class Game {
    *            name for team 2
    */
   public Game(int aMapSize, String aTeamName, String anotherTeamName) {
-    // TODO make ready for xml input instead of mapsize only
     initMap(aMapSize);
+    displayer = new ConsoleDisplay();
+    teamA = new Team('A', aTeamName);
+    teamB = new Team('B', anotherTeamName);
+  }
+  
+  /**
+   * 
+   * Constructor for generating a map via XML-file
+   * @param aFile
+   * @param aTeamName
+   * @param anotherTeamName
+   */
+  public Game(File aFile, String aTeamName, String anotherTeamName){
+    initMap(aFile);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName);
     teamB = new Team('B', anotherTeamName);
@@ -60,6 +74,10 @@ public class Game {
     }
   }
 
+  private void initMap(File aFile) {
+    playMap = new PlayMap(aFile);
+  }
+  
   /**
    * start it here
    * 
@@ -69,7 +87,10 @@ public class Game {
     int tmpMapSize = 9;
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
+    //TODO Create DTD and a correct map.xml
+    //File tmpFile = new File("misc/mapdummy.xml;");
     Game tmpGame = new Game(tmpMapSize, tmpTeam1, tmpTeam2);
+    //Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
 
     // TODO init fields by request
     ArrayList<Figure> tmpFigures = tmpGame.teamA.getFigures();
