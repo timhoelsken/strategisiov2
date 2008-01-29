@@ -3,13 +3,11 @@ package strategisio.elements;
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import strategisio.XmlReader;
 import strategisio.elements.constants.Direction;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
@@ -60,7 +58,8 @@ public class PlayMap {
    */
   public PlayMap(File aFile) {
     // TODO Reading an XML file
-    Document tmpDocument = getDocumentFrom(aFile);
+    XmlReader tmpReader = new XmlReader();
+    Document tmpDocument = tmpReader.getDocumentFrom(aFile);
     /*
      * Read XML file from path, save data to field collection
      * 
@@ -183,7 +182,7 @@ public class PlayMap {
    * @param aY
    */
   public void move(Figure aFigure, int anX, int aY) {
-    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Placeable tmpEnemy = getSetter(anX, aY);
       // if there is an enemy Figure, a fight has to start
       if (tmpEnemy instanceof Figure) {
@@ -209,23 +208,34 @@ public class PlayMap {
           if (tmpCatched == null) {
             // if the moving figure is a medic, we disable the trap
             if (aFigure instanceof Medic) {
-              fetchSetter(anX, aY);
-              position(aFigure, anX, aY);
+                fetchSetter(anX, aY);
+                position(aFigure, anX, aY);          
             } else {
               tmpTrap.setCatched(aFigure);
             }
           } else {
             // if the trap has a catched figure, and the moving
-            // figure is a medic, the trap is disabled and the
-            // catched figure is placed on the selected field. The
-            // medic stays on his initial field.
+            // figure is a medic, 
             if (aFigure instanceof Medic) {
-              fetchSetter(anX, aY);
-              position(tmpTrap.getCatched(), anX, aY);
-              int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
-              position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
-              // stays on the same mapfield when freeing a catched
-              // figure
+              if(aFigure.getId() != tmpTrap.getId()){
+                // the trap is disabled and the
+                // catched figure is placed on the selected field. The
+                // medic stays on his initial field, in case of an enemy trap!
+                fetchSetter(anX, aY);
+                position(tmpTrap.getCatched(), anX, aY);
+                int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+                position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
+                // stays on the same mapfield when freeing a catched
+                // figure
+              }
+              else{
+                // the trap stays enabled and the
+                // catched figure is defeated. The
+                // medic stays on his initial field, in case of an team trap!
+                tmpTrap.setCatched(null);
+                int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+                position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
+              }
             }
           }
         } else if (tmpItem instanceof Bomb) {
@@ -241,7 +251,13 @@ public class PlayMap {
           }
 
         } else if (tmpItem instanceof Flag) {
-          // TODO Logic (Method) what if Figure finds Flag
+          fetchSetter(anX, aY);
+          position(aFigure, anX, aY);
+          // TODO Logic (Method?) what if Figure finds Flag
+          /* The game ends here... maybe use a return param and then call
+           * a method in game? would be nasty...
+           * another way to end the game is defeat all enemies...
+           */ 
         }
       }
 
@@ -468,24 +484,5 @@ public class PlayMap {
     return fields.length;
   }
 
-  /**
-   * Reads an XML file into a w3c Document
-   * 
-   * @author Tim
-   * @param aFile
-   * @return w3c Document
-   */
-  private Document getDocumentFrom(File aFile) {
-    DocumentBuilderFactory tmpFactory = DocumentBuilderFactory.newInstance();
-    Document tmpDocument = null;
-
-    try {
-      DocumentBuilder tmpBuilder = tmpFactory.newDocumentBuilder();
-      tmpDocument = tmpBuilder.parse(aFile);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    return tmpDocument;
-  }
+  
 }

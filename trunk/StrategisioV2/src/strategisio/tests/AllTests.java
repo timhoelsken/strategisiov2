@@ -20,6 +20,7 @@ public class AllTests extends TestCase {
   public static Test suite() {
     TestSuite suite = new TestSuite();
     suite.addTestSuite(PlayMapTest.class);
+    suite.addTestSuite(CombatTest.class);
     return suite;
   }
 

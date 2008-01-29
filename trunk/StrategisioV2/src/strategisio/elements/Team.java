@@ -1,8 +1,12 @@
 package strategisio.elements;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.w3c.dom.Document;
+
+import strategisio.XmlReader;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
@@ -42,7 +46,82 @@ public class Team {
     id = anId;
     name = aName;
 
-    // TODO dynamic fill has to be implemented
+    final int tmpNoOfFighters = 2;
+    final int tmpNoOfClimbers = 2;
+    final int tmpNoOfDivers = 2;
+    final int tmpNoOfMedics = 2;
+    final int tmpNoOfSpys = 2;
+
+    figures = new ArrayList<Figure>();
+    for (int i = 0; i < tmpNoOfFighters; i++) {
+      Fighter tmpFighter = new Fighter();
+      tmpFighter.setId(anId);
+      figures.add(tmpFighter);
+    }
+    for (int i = 0; i < tmpNoOfClimbers; i++) {
+      Climber tmpClimber = new Climber();
+      tmpClimber.setId(anId);
+      figures.add(tmpClimber);
+    }
+    for (int i = 0; i < tmpNoOfDivers; i++) {
+      Diver tmpDiver = new Diver();
+      tmpDiver.setId(anId);
+      figures.add(tmpDiver);
+    }
+    for (int i = 0; i < tmpNoOfMedics; i++) {
+      Medic tmpMedic = new Medic();
+      tmpMedic.setId(anId);
+      figures.add(tmpMedic);
+    }
+    for (int i = 0; i < tmpNoOfSpys; i++) {
+      Spy tmpSpy = new Spy();
+      tmpSpy.setId(anId);
+      figures.add(tmpSpy);
+    }
+
+    final int tmpNoOfFakeFlags = 2;
+    final int tmpNoOfTraps = 2;
+    final int tmpNoOfBombs = 3;
+
+    items = new ArrayList<Item>();
+    Flag tmpFlag = new Flag();
+    tmpFlag.setId(anId);
+    items.add(tmpFlag);
+    for (int i = 0; i < tmpNoOfFakeFlags; i++) {
+      FakeFlag tmpFakeFlag = new FakeFlag();
+      tmpFakeFlag.setId(anId);
+      items.add(tmpFakeFlag);
+    }
+    for (int i = 0; i < tmpNoOfTraps; i++) {
+      Trap tmpTrap = new Trap();
+      tmpTrap.setId(anId);
+      items.add(tmpTrap);
+    }
+    for (int i = 0; i < tmpNoOfBombs; i++) {
+      Bomb tmpBomb = new Bomb();
+      tmpBomb.setId(anId);
+      items.add(tmpBomb);
+    }
+
+    checkTeam();
+  }
+  
+  /**
+   * constructor
+   * 
+   * @param anId
+   *            a unique id for the team
+   * @param aName
+   *            a name for the team
+   * @param aFile 
+   */
+  public Team(char anId, String aName, File aFile) {
+    id = anId;
+    name = aName;
+    XmlReader tmpReader = new XmlReader();
+    Document tmpDocument = tmpReader.getDocumentFrom(aFile);
+    // TODO Reading XML file
+    tmpDocument.normalize(); // to avoid warning :)
     final int tmpNoOfFighters = 2;
     final int tmpNoOfClimbers = 2;
     final int tmpNoOfDivers = 2;

@@ -16,5 +16,8 @@ public interface Displayable {
    * @param aPlayMap
    */
   public void display(PlayMap aPlayMap);
+  
+  // TODO show enemies in the view of a figure
+  // is this the right class for this logic??
 
 }

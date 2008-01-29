@@ -13,7 +13,10 @@ import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
 import strategisio.elements.figures.Medic;
+import strategisio.elements.figures.Miner;
 import strategisio.elements.figures.Spy;
+import strategisio.elements.items.Bomb;
+import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
@@ -291,34 +294,151 @@ public class PlayMapTest extends TestCase {
    * 
    */
   public void testMoveFigureOnTrap() throws UnknownFieldGroundException {
-    playMap = new PlayMap(3, 3);
+    playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
     playMap.setFieldGround(0, 1, Ground.GRASS);
-    playMap.setFieldGround(0, 2, Ground.GRASS);
     playMap.setFieldGround(1, 0, Ground.GRASS);
-    playMap.setFieldGround(1, 1, Ground.MOUNTAIN);
-    playMap.setFieldGround(1, 2, Ground.GRASS);
-    playMap.setFieldGround(2, 0, Ground.GRASS);
-    playMap.setFieldGround(2, 1, Ground.GRASS);
-    playMap.setFieldGround(2, 2, Ground.GRASS);
-
+    playMap.setFieldGround(1, 1, Ground.GRASS);
+    
     Trap tmpTrap = new Trap();
     Medic tmpMedic = new Medic();
     Spy tmpSpy = new Spy();
+    
     tmpTrap.setId('b');
     tmpMedic.setId('a');
     tmpSpy.setId('a');
+    
     playMap.position(tmpTrap, 0, 1);
     playMap.position(tmpSpy, 0, 0);
+    playMap.position(tmpMedic, 1, 0);
     playMap.move(tmpSpy, 0, 1);
+    
     tmpTrap = (Trap)playMap.getSetter(0, 1);
     assertTrue("Trap should be filled.", tmpTrap.getCatched()!= null);
     playMap.move(tmpMedic, 0, 1);
     assertTrue("Medic freed Spy.", playMap.getSetter(0, 1) instanceof Spy);
-    assertTrue("Medic stayed on his field", playMap.getSetter(0, 0) instanceof Medic);
+    assertTrue("Medic stayed on his field", playMap.getSetter(1, 0) instanceof Medic);
+    
   }
   
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   */
+  public void testMoveMedicOnEnemyTrap() throws UnknownFieldGroundException {
+    playMap = new PlayMap(2, 2);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.GRASS);
+
+
+    Trap tmpTrap = new Trap();
+    Medic tmpMedic = new Medic();
+
+    tmpTrap.setId('b');
+    tmpMedic.setId('a');
+
+    playMap.position(tmpMedic, 0, 0);
+    playMap.position(tmpTrap, 1, 0);
+       
+    assertTrue("Medic can destroy enemy trap", playMap.checkMovingPossibility(tmpMedic, 0, 1));
+    playMap.move(tmpMedic, 0, 1);
+    assertTrue("Medic destroyed trap", playMap.getSetter(0, 1) instanceof Medic);
+    
+  }
+  
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   */
+  public void testMoveMedicOnTeamTrap() throws UnknownFieldGroundException {
+    playMap = new PlayMap(2, 2);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.GRASS);
+
+    Trap tmpTrap = new Trap();
+    Medic tmpMedic = new Medic();
+    Spy tmpSpy = new Spy();
+
+    tmpTrap.setId('a');
+    tmpMedic.setId('a');
+    tmpSpy.setId('b');
+
+    playMap.position(tmpMedic, 0, 0);
+    playMap.position(tmpTrap, 1, 0);
+    playMap.position(tmpSpy, 1, 1);
+      
+    playMap.move(tmpSpy, 1, 0);
+    tmpTrap = (Trap) playMap.getSetter(1, 0);
+    assertTrue("Enemy Spy caught in trap", tmpTrap.getCatched() instanceof Spy);
+    // TODO DOES NOT WORK PROPERLY!!! --> Checkmovingpossibility!!!
+    playMap.move(tmpMedic, 1, 0);
+    assertTrue("Medic can defeat enemy in trap", playMap.getSetter(1, 0) instanceof Trap);
+    assertTrue("Medic stayed on his field", playMap.getSetter(0, 0) instanceof Medic);
+    assertFalse("Medic cannot move on empty team trap", playMap.checkMovingPossibility(tmpMedic, 1, 0));
+    
+  }
+  
+  /**
+   * @throws UnknownFieldGroundException
+   * 
+   */
+  public void testMoveFigureOnBomb() throws UnknownFieldGroundException {
+    playMap = new PlayMap(1, 4);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+    playMap.setFieldGround(0, 3, Ground.GRASS);
+
+    Bomb tmpBomb = new Bomb();
+    Bomb tmpAnotherBomb = new Bomb();
+    Medic tmpMedic = new Medic();
+    Miner tmpMiner = new Miner();
+    tmpBomb.setId('b');
+    tmpAnotherBomb.setId('b');
+    tmpMedic.setId('a');
+    tmpMiner.setId('a');
+    playMap.position(tmpBomb, 0, 0);
+    playMap.position(tmpMiner, 0, 1);
+    playMap.position(tmpMedic, 0, 2);
+    playMap.position(tmpAnotherBomb, 0, 3);
+    playMap.move(tmpMiner, 0, 0);
+ 
+    assertTrue("There should be a Miner.", playMap.getSetter(0, 0) instanceof Miner);
+    playMap.move(tmpMedic, 0, 3);
+    assertTrue("Medic should be bombed away, field empty.", playMap.getSetter(0, 3) == null);
+  }
+  
+  /**
+   * @throws UnknownFieldGroundException
+   * 
+   */
+  public void testMoveFigureOnFakeFlag() throws UnknownFieldGroundException {
+    playMap = new PlayMap(1, 4);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+
+    FakeFlag tmpFakeFlag = new FakeFlag();
+   
+    Miner tmpMiner = new Miner();
+    tmpFakeFlag.setId('b');
+   
+    tmpMiner.setId('a');
+    playMap.position(tmpFakeFlag, 0, 0);
+    playMap.position(tmpMiner, 0, 1);
+
+    playMap.move(tmpMiner, 0, 0);
+ 
+    assertTrue("There should be a Miner.", playMap.getSetter(0, 0) instanceof Miner);
+  }
   
   /**
    * @return the test suite

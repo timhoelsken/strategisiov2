@@ -54,7 +54,7 @@ public class Combat {
 
       // fight logic
       if (tmpAttackerAttack == tmpDefenderDefence && tmpDefenderAttack == tmpAttackerDefence) {
-        // draw (don't know the word 'tie')
+        // draw
       } else {
         if (tmpAttackerAttack == tmpDefenderDefence) {
           tmpWinner = aDefender;
@@ -62,9 +62,7 @@ public class Combat {
         } else if (tmpDefenderAttack == tmpAttackerDefence) {
           tmpWinner = anAttacker;
           tmpFighting = false;
-        } else {
-          // draw (uuuuuuuh a reasonable empty else block - for a comment) xD
-        }
+        } 
       }
     }
     return tmpWinner;
