@@ -8,9 +8,9 @@ import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
  * @author Tobias
- * 
+ *
  * has the constants for the different field grounds
- * 
+ *
  */
 public class Ground {
 
@@ -28,9 +28,9 @@ public class Ground {
    * WATER
    */
   public static final int WATER = 2;
-  
+
  /**
-  * 
+  *
   * @param aFieldGround
   * @return
   * @throws UnknownFieldGroundException
@@ -39,13 +39,13 @@ public class Ground {
     Field tmpField;
     //TODO make this generic (somehow?!)
     switch (aFieldGround) {
-      case Ground.GRASS:
+      case GRASS:
         tmpField = new Grass();
         break;
-      case Ground.MOUNTAIN:
+      case MOUNTAIN:
         tmpField = new Mountain();
         break;
-      case Ground.WATER:
+      case WATER:
         tmpField = new Water();
         break;
       default:
