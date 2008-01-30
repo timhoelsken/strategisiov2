@@ -4,20 +4,20 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.w3c.dom.Document;
-
 import strategisio.XmlReader;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.figures.Medic;
+import strategisio.elements.figures.Miner;
 import strategisio.elements.figures.Spy;
 import strategisio.elements.items.Bomb;
 import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
+import strategisio.exceptions.FlagLimitOverflowException;
 
 /**
  * 
@@ -41,8 +41,9 @@ public class Team {
    *            a unique id for the team
    * @param aName
    *            a name for the team
+   * @throws FlagLimitOverflowException
    */
-  public Team(char anId, String aName) {
+  public Team(char anId, String aName) throws FlagLimitOverflowException {
     id = anId;
     name = aName;
 
@@ -105,7 +106,7 @@ public class Team {
 
     checkTeam();
   }
-  
+
   /**
    * constructor
    * 
@@ -113,20 +114,22 @@ public class Team {
    *            a unique id for the team
    * @param aName
    *            a name for the team
-   * @param aFile 
+   * @param aFile
+   * @throws FlagLimitOverflowException
    */
-  public Team(char anId, String aName, File aFile) {
+  public Team(char anId, String aName, File aFile) throws FlagLimitOverflowException {
     id = anId;
     name = aName;
+    int[] tmpTeamData;
     XmlReader tmpReader = new XmlReader();
-    Document tmpDocument = tmpReader.getDocumentFrom(aFile);
-    // TODO Reading XML file
-    tmpDocument.normalize(); // to avoid warning :)
-    final int tmpNoOfFighters = 2;
-    final int tmpNoOfClimbers = 2;
-    final int tmpNoOfDivers = 2;
-    final int tmpNoOfMedics = 2;
-    final int tmpNoOfSpys = 2;
+    tmpTeamData = tmpReader.getTeamdata(aFile);
+
+    final int tmpNoOfFighters = tmpTeamData[0];
+    final int tmpNoOfClimbers = tmpTeamData[1];
+    final int tmpNoOfDivers = tmpTeamData[2];
+    final int tmpNoOfMedics = tmpTeamData[3];
+    final int tmpNoOfSpys = tmpTeamData[4];
+    final int tmpNoOfMiners = tmpTeamData[5];
 
     figures = new ArrayList<Figure>();
     for (int i = 0; i < tmpNoOfFighters; i++) {
@@ -154,10 +157,15 @@ public class Team {
       tmpSpy.setId(anId);
       figures.add(tmpSpy);
     }
+    for (int i = 0; i < tmpNoOfMiners; i++) {
+      Miner tmpMiner = new Miner();
+      tmpMiner.setId(anId);
+      figures.add(tmpMiner);
+    }
 
-    final int tmpNoOfFakeFlags = 2;
-    final int tmpNoOfTraps = 2;
-    final int tmpNoOfBombs = 3;
+    final int tmpNoOfFakeFlags = tmpTeamData[6];
+    final int tmpNoOfTraps = tmpTeamData[7];
+    final int tmpNoOfBombs = tmpTeamData[8];
 
     items = new ArrayList<Item>();
     Flag tmpFlag = new Flag();
@@ -182,7 +190,7 @@ public class Team {
     checkTeam();
   }
 
-  private void checkTeam() {
+  private void checkTeam() throws FlagLimitOverflowException {
     int tmpFlagCounter = 1;
     for (Iterator<Item> i = items.iterator(); i.hasNext();) {
       if (i.next() instanceof Flag) {
@@ -190,7 +198,7 @@ public class Team {
       }
     }
     if (tmpFlagCounter < 0) {
-      // TODO just one flag allowed Exception! - But tell me why!!?
+      throw new FlagLimitOverflowException("Too many Flags in the Team!");
     }
   }
 

@@ -14,13 +14,12 @@ import strategisio.elements.figures.Spy;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
-
 /**
  * 
  * @author Tim
- *
+ * 
  */
-public class CombatTest extends TestCase{
+public class CombatTest extends TestCase {
   private Combat combat;
 
   @SuppressWarnings("unused")
@@ -51,13 +50,12 @@ public class CombatTest extends TestCase{
     Medic tmpMedic = new Medic();
     Spy tmpSpy = new Spy();
 
-    
     assertTrue("Fighter should fast win.", combat.init(tmpFighter, tmpMedic) instanceof Fighter);
     assertTrue("Fighter should fast win.", combat.init(tmpMedic, tmpFighter) instanceof Fighter);
     assertTrue("Fighter should fast win.", combat.init(tmpFighter, tmpSpy) instanceof Fighter);
     assertTrue("Fighter should fast win.", combat.init(tmpSpy, tmpFighter) instanceof Fighter);
   }
-  
+
   /**
    * @return the test suite
    */

@@ -62,7 +62,7 @@ public class Combat {
         } else if (tmpDefenderAttack == tmpAttackerDefence) {
           tmpWinner = anAttacker;
           tmpFighting = false;
-        } 
+        }
       }
     }
     return tmpWinner;

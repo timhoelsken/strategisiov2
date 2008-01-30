@@ -149,8 +149,8 @@ public class PlayMapTest extends TestCase {
     tmpFighter = (Fighter) playMap.fetchSetter(0, 0);
 
     assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(
-        tmpFighter,0, 1));
-    playMap.move(tmpFighter, 0, 1);
+        tmpFighter, 0, 1));
+    playMap.moveWithoutCheck(tmpFighter, 0, 1);
 
     Spy tmpSpy = new Spy();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
@@ -159,7 +159,7 @@ public class PlayMapTest extends TestCase {
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
 
     assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 0, 1));
-    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy,0, 0));
+    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0));
 
     tmpFighter = (Fighter) playMap.fetchSetter(0, 1);
     assertTrue("Should be able to back again because spy is gone.", playMap.checkMovingPossibility(tmpFighter,
@@ -183,7 +183,7 @@ public class PlayMapTest extends TestCase {
 
     assertTrue("Should be possible to move the fighter on an empty field.", playMap.checkMovingPossibility(
         tmpFighter, 1, 0));
-    playMap.move(tmpFighter, 1, 0);
+    playMap.moveWithoutCheck(tmpFighter, 1, 0);
 
     Spy tmpSpy = new Spy();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpSpy, 0, 0));
@@ -191,13 +191,12 @@ public class PlayMapTest extends TestCase {
 
     tmpSpy = (Spy) playMap.fetchSetter(0, 0);
 
-    assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy,1, 0));
-    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy,
-        0, 0));
+    assertFalse("Field should be filled by the fighter.", playMap.checkMovingPossibility(tmpSpy, 1, 0));
+    assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0));
 
     tmpFighter = (Fighter) playMap.fetchSetter(1, 0);
     assertTrue("Should be able to back again because spy is gone.", playMap.checkMovingPossibility(tmpFighter,
-         0, 0));
+        0, 0));
   }
 
   /**
@@ -219,7 +218,7 @@ public class PlayMapTest extends TestCase {
 
     assertTrue("Should be possible to move the medic on an empty field.", playMap.checkMovingPossibility(
         tmpMedic1, 1, 1));
-    playMap.move(tmpMedic1, 1, 1);
+    playMap.moveWithoutCheck(tmpMedic1, 1, 1);
 
     Medic tmpMedic2 = new Medic();
     assertTrue("The field should be free again.", playMap.checkPositioningPossibility(tmpMedic2, 0, 0));
@@ -300,28 +299,28 @@ public class PlayMapTest extends TestCase {
     playMap.setFieldGround(0, 1, Ground.GRASS);
     playMap.setFieldGround(1, 0, Ground.GRASS);
     playMap.setFieldGround(1, 1, Ground.GRASS);
-    
+
     Trap tmpTrap = new Trap();
     Medic tmpMedic = new Medic();
     Spy tmpSpy = new Spy();
-    
+
     tmpTrap.setId('b');
     tmpMedic.setId('a');
     tmpSpy.setId('a');
-    
+
     playMap.position(tmpTrap, 0, 1);
     playMap.position(tmpSpy, 0, 0);
     playMap.position(tmpMedic, 1, 0);
-    playMap.move(tmpSpy, 0, 1);
-    
-    tmpTrap = (Trap)playMap.getSetter(0, 1);
-    assertTrue("Trap should be filled.", tmpTrap.getCatched()!= null);
-    playMap.move(tmpMedic, 0, 1);
+    playMap.moveWithoutCheck(tmpSpy, 0, 1);
+
+    tmpTrap = (Trap) playMap.getSetter(0, 1);
+    assertTrue("Trap should be filled.", tmpTrap.getCatched() != null);
+    playMap.moveWithoutCheck(tmpMedic, 0, 1);
     assertTrue("Medic freed Spy.", playMap.getSetter(0, 1) instanceof Spy);
     assertTrue("Medic stayed on his field", playMap.getSetter(1, 0) instanceof Medic);
-    
+
   }
-  
+
   /**
    * 
    * @throws UnknownFieldGroundException
@@ -334,7 +333,6 @@ public class PlayMapTest extends TestCase {
     playMap.setFieldGround(1, 0, Ground.GRASS);
     playMap.setFieldGround(1, 1, Ground.GRASS);
 
-
     Trap tmpTrap = new Trap();
     Medic tmpMedic = new Medic();
 
@@ -343,13 +341,13 @@ public class PlayMapTest extends TestCase {
 
     playMap.position(tmpMedic, 0, 0);
     playMap.position(tmpTrap, 1, 0);
-       
+
     assertTrue("Medic can destroy enemy trap", playMap.checkMovingPossibility(tmpMedic, 0, 1));
-    playMap.move(tmpMedic, 0, 1);
+    playMap.moveWithoutCheck(tmpMedic, 0, 1);
     assertTrue("Medic destroyed trap", playMap.getSetter(0, 1) instanceof Medic);
-    
+
   }
-  
+
   /**
    * 
    * @throws UnknownFieldGroundException
@@ -373,18 +371,17 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpMedic, 0, 0);
     playMap.position(tmpTrap, 1, 0);
     playMap.position(tmpSpy, 1, 1);
-      
-    playMap.move(tmpSpy, 1, 0);
+
+    playMap.moveWithoutCheck(tmpSpy, 1, 0);
     tmpTrap = (Trap) playMap.getSetter(1, 0);
     assertTrue("Enemy Spy caught in trap", tmpTrap.getCatched() instanceof Spy);
-    // TODO DOES NOT WORK PROPERLY!!! --> Checkmovingpossibility!!!
     playMap.move(tmpMedic, 1, 0);
     assertTrue("Medic can defeat enemy in trap", playMap.getSetter(1, 0) instanceof Trap);
     assertTrue("Medic stayed on his field", playMap.getSetter(0, 0) instanceof Medic);
     assertFalse("Medic cannot move on empty team trap", playMap.checkMovingPossibility(tmpMedic, 1, 0));
-    
+
   }
-  
+
   /**
    * @throws UnknownFieldGroundException
    * 
@@ -409,13 +406,13 @@ public class PlayMapTest extends TestCase {
     playMap.position(tmpMiner, 0, 1);
     playMap.position(tmpMedic, 0, 2);
     playMap.position(tmpAnotherBomb, 0, 3);
-    playMap.move(tmpMiner, 0, 0);
- 
+    playMap.moveWithoutCheck(tmpMiner, 0, 0);
+
     assertTrue("There should be a Miner.", playMap.getSetter(0, 0) instanceof Miner);
-    playMap.move(tmpMedic, 0, 3);
+    playMap.moveWithoutCheck(tmpMedic, 0, 3);
     assertTrue("Medic should be bombed away, field empty.", playMap.getSetter(0, 3) == null);
   }
-  
+
   /**
    * @throws UnknownFieldGroundException
    * 
@@ -427,19 +424,19 @@ public class PlayMapTest extends TestCase {
     playMap.setFieldGround(0, 1, Ground.GRASS);
 
     FakeFlag tmpFakeFlag = new FakeFlag();
-   
+
     Miner tmpMiner = new Miner();
     tmpFakeFlag.setId('b');
-   
+
     tmpMiner.setId('a');
     playMap.position(tmpFakeFlag, 0, 0);
     playMap.position(tmpMiner, 0, 1);
 
-    playMap.move(tmpMiner, 0, 0);
- 
+    playMap.moveWithoutCheck(tmpMiner, 0, 0);
+
     assertTrue("There should be a Miner.", playMap.getSetter(0, 0) instanceof Miner);
   }
-  
+
   /**
    * @return the test suite
    */

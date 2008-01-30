@@ -3,10 +3,6 @@ package strategisio.elements;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import strategisio.XmlReader;
 import strategisio.elements.constants.Direction;
 import strategisio.elements.constants.Ground;
@@ -46,6 +42,7 @@ public class PlayMap {
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
+   * 
    */
   public PlayMap(int anXDimension, int aYDimension) {
     fields = new Field[aYDimension][anXDimension];
@@ -55,45 +52,42 @@ public class PlayMap {
    * creates a map via XML File
    * 
    * @param aFile
+   * @throws UnknownFieldGroundException
    */
-  public PlayMap(File aFile) {
-    // TODO Reading an XML file
+  public PlayMap(File aFile) throws UnknownFieldGroundException {
+
     XmlReader tmpReader = new XmlReader();
-    Document tmpDocument = tmpReader.getDocumentFrom(aFile);
-    /*
-     * Read XML file from path, save data to field collection
-     * 
-     */
+    int[][] tmpMapData = tmpReader.getMapdata(aFile);
 
-    NodeList tmpFieldList = tmpDocument.getElementsByTagName("field");
-    Node tmpNode;
-    NodeList tmpChilds;
-
-    // int x = 0;
-
-    // GANZ DOLL BÄH !!!
-    // int z = (int) Math.sqrt((double) tmpFieldList.getLength());
-
-    /*
-     * Structure in XML has to be the same as it is here. see mapdummy.xml
-     * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
-     */
-
-    for (int y = 0; y < tmpFieldList.getLength(); y++) {
-      tmpNode = tmpFieldList.item(y);
-      tmpChilds = tmpNode.getChildNodes();
-
-      tmpChilds.notify(); // just to avoid WARNINGS :)
-      /*
-       * if ((y % z == 0) && y > 0) { x += 1; fields[x][(y - (x * z))] = new
-       * Field(tmpChilds.item(0).getTextContent(), new Figure(
-       * tmpChilds.item(1).getTextContent()), new
-       * Item(tmpChilds.item(2).getTextContent())); } else { fields[x][(y - (x *
-       * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
-       * tmpChilds.item(1).getTextContent()), new
-       * Item(tmpChilds.item(2).getTextContent())); }
-       */
+    fields = new Field[tmpMapData.length][tmpMapData.length];
+    for (int i = 0; i < tmpMapData.length; i++) {
+      for (int j = 0; j < tmpMapData[i].length; j++) {
+        fields[i][j] = Ground.getFieldGround(tmpMapData[i][j]);
+      }
     }
+    /*
+     * NodeList tmpFieldList = tmpDocument.getElementsByTagName("field"); Node
+     * tmpNode; NodeList tmpChilds;
+     *  // int x = 0;
+     *  // GANZ DOLL BÄH !!! // int z = (int) Math.sqrt((double)
+     * tmpFieldList.getLength());
+     *  /* Structure in XML has to be the same as it is here. see mapdummy.xml
+     * x1.y1, x1.y2, x1.y3, x2.y1, x2.y2, etc.
+     * 
+     * 
+     * for (int y = 0; y < tmpFieldList.getLength(); y++) { tmpNode =
+     * tmpFieldList.item(y); tmpChilds = tmpNode.getChildNodes();
+     * 
+     * tmpChilds.notify(); // just to avoid WARNINGS :) /* if ((y % z == 0) && y >
+     * 0) { x += 1; fields[x][(y - (x * z))] = new
+     * Field(tmpChilds.item(0).getTextContent(), new Figure(
+     * tmpChilds.item(1).getTextContent()), new
+     * Item(tmpChilds.item(2).getTextContent())); } else { fields[x][(y - (x *
+     * z))] = new Field(tmpChilds.item(0).getTextContent(), new Figure(
+     * tmpChilds.item(1).getTextContent()), new
+     * Item(tmpChilds.item(2).getTextContent())); }
+     */
+    // }
   }
 
   /**
@@ -181,8 +175,8 @@ public class PlayMap {
    * @param anX
    * @param aY
    */
-  public void move(Figure aFigure, int anX, int aY) {
-     if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+  public void moveWithoutCheck(Figure aFigure, int anX, int aY) {
+    if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
       Placeable tmpEnemy = getSetter(anX, aY);
       // if there is an enemy Figure, a fight has to start
       if (tmpEnemy instanceof Figure) {
@@ -208,16 +202,16 @@ public class PlayMap {
           if (tmpCatched == null) {
             // if the moving figure is a medic, we disable the trap
             if (aFigure instanceof Medic) {
-                fetchSetter(anX, aY);
-                position(aFigure, anX, aY);          
+              fetchSetter(anX, aY);
+              position(aFigure, anX, aY);
             } else {
               tmpTrap.setCatched(aFigure);
             }
           } else {
             // if the trap has a catched figure, and the moving
-            // figure is a medic, 
+            // figure is a medic,
             if (aFigure instanceof Medic) {
-              if(aFigure.getId() != tmpTrap.getId()){
+              if (aFigure.getId() != tmpTrap.getId()) {
                 // the trap is disabled and the
                 // catched figure is placed on the selected field. The
                 // medic stays on his initial field, in case of an enemy trap!
@@ -227,8 +221,7 @@ public class PlayMap {
                 position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
                 // stays on the same mapfield when freeing a catched
                 // figure
-              }
-              else{
+              } else {
                 // the trap stays enabled and the
                 // catched figure is defeated. The
                 // medic stays on his initial field, in case of an team trap!
@@ -254,10 +247,16 @@ public class PlayMap {
           fetchSetter(anX, aY);
           position(aFigure, anX, aY);
           // TODO Logic (Method?) what if Figure finds Flag
-          /* The game ends here... maybe use a return param and then call
-           * a method in game? would be nasty...
-           * another way to end the game is defeat all enemies...
-           */ 
+          /*
+           * The game ends here... maybe use a return param and then call a
+           * method in game? would be nasty... another way to end the game is
+           * defeat all enemies...
+           * 
+           * another Possibility would be, if there is an endless loop in Game
+           * for while game is active (public int) that is set to 1 when game is
+           * going on, 0 when ends by flag, -1 when ends by defeat all
+           * enemies...
+           */
         }
       }
 
@@ -265,6 +264,20 @@ public class PlayMap {
       // move without problems
       position(aFigure, anX, aY);
 
+    }
+  }
+
+  /**
+   * 
+   * A move with checking the possibility of moving before
+   * 
+   * @param aFigure
+   * @param anX
+   * @param aY
+   */
+  public void move(Figure aFigure, int anX, int aY) {
+    if (checkMovingPossibility(aFigure, anX, aY)) {
+      moveWithoutCheck(aFigure, anX, aY);
     }
   }
 
@@ -412,10 +425,10 @@ public class PlayMap {
    */
   private boolean checkIfIsEnemy(Figure aFigure, int anX, int aY) {
     Placeable tmpFieldPlaceable = getSetter(anX, aY);
-
+    Trap tmpTrap;
     if (aFigure.getId() != tmpFieldPlaceable.getId()) {
       if (tmpFieldPlaceable instanceof Trap) {
-        Trap tmpTrap = (Trap) tmpFieldPlaceable;
+        tmpTrap = (Trap) tmpFieldPlaceable;
         if (tmpTrap.getCatched() == null) {
           return true;
         } else {
@@ -426,6 +439,16 @@ public class PlayMap {
         }
       }
       return true;
+    }
+    // Logic when there is a Teamtrap and a Team Medic wants to step on it
+    else if (aFigure.getId() == tmpFieldPlaceable.getId() && tmpFieldPlaceable instanceof Trap
+        && aFigure instanceof Medic) {
+      tmpTrap = (Trap) tmpFieldPlaceable;
+      if (tmpTrap.getCatched() == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
     return false;
 
@@ -484,5 +507,4 @@ public class PlayMap {
     return fields.length;
   }
 
-  
 }

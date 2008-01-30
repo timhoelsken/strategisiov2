@@ -11,17 +11,17 @@ public interface Placeable {
    * @return the team id
    */
   char getId();
-  
+
   /**
    * 
    * @return the currentCoordinates
    */
   int[] getCurrentCoordinates();
-  
+
   /**
    * @param anX
    * @param aY
-   *  sets the currentCoordninates
+   *            sets the currentCoordninates
    */
   void setCurrentCoordinates(int anX, int aY);
 }
