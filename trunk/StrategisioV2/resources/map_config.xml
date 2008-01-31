@@ -4,8 +4,8 @@
 	<!ELEMENT Configuration (Team, Map)>
 	<!ELEMENT Team (Figures, Items)>
 	<!ELEMENT Map (Column+)>
-	<!ELEMENT Figures (Fighter, Climber, Diver, Medic, Spy)>
-	<!ELEMENT Items (Bomb, Trap, FakeFlag)>
+	<!ELEMENT Figures (Fighter, Climber, Diver, Medic, Spy, Miner)>
+	<!ELEMENT Items (FakeFlag, Trap, Bomb)>
 	<!ELEMENT Column (Field+)>
 	<!ELEMENT Field (#PCDATA)>
 	
@@ -14,10 +14,11 @@
 	<!ELEMENT Diver (#PCDATA)>
 	<!ELEMENT Medic (#PCDATA)>
 	<!ELEMENT Spy (#PCDATA)>
+	<!ELEMENT Miner (#PCDATA)>
 	
-	<!ELEMENT Bomb (#PCDATA)>
-	<!ELEMENT Trap (#PCDATA)>
 	<!ELEMENT FakeFlag (#PCDATA)>
+	<!ELEMENT Trap (#PCDATA)>
+	<!ELEMENT Bomb (#PCDATA)>
 
 	<!ENTITY GRASS "0">
 	<!ENTITY MOUNTAIN "1">
@@ -37,13 +38,14 @@
 			<Fighter>2</Fighter>
 			<Climber>2</Climber>
 			<Diver>2</Diver>
-			<Medic>2</Medic>
+			<Medic>2</Medic>			
 			<Spy>1</Spy>
+			<Miner>2</Miner>
 		</Figures>
 		<Items>
-			<Bomb>3</Bomb>
-			<Trap>2</Trap>
 			<FakeFlag>1</FakeFlag>
+			<Trap>2</Trap>
+			<Bomb>3</Bomb>
 		</Items>
 	</Team>
 	<Map x="8" y="8">

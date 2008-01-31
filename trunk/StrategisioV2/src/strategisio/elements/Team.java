@@ -35,7 +35,7 @@ public class Team {
   private ArrayList<Item> items;
 
   /**
-   * constructor
+   * constructor for non XML
    * 
    * @param anId
    *            a unique id for the team
@@ -108,7 +108,7 @@ public class Team {
   }
 
   /**
-   * constructor
+   * constructor for XML
    * 
    * @param anId
    *            a unique id for the team
@@ -121,6 +121,7 @@ public class Team {
     id = anId;
     name = aName;
     int[] tmpTeamData;
+
     XmlReader tmpReader = new XmlReader();
     tmpTeamData = tmpReader.getTeamdata(aFile);
 
@@ -163,14 +164,19 @@ public class Team {
       figures.add(tmpMiner);
     }
 
+    // because there are a lot of null fields in the array... why ever
+    figures.trimToSize();
+
     final int tmpNoOfFakeFlags = tmpTeamData[6];
     final int tmpNoOfTraps = tmpTeamData[7];
     final int tmpNoOfBombs = tmpTeamData[8];
 
     items = new ArrayList<Item>();
+
     Flag tmpFlag = new Flag();
     tmpFlag.setId(anId);
     items.add(tmpFlag);
+
     for (int i = 0; i < tmpNoOfFakeFlags; i++) {
       FakeFlag tmpFakeFlag = new FakeFlag();
       tmpFakeFlag.setId(anId);
@@ -186,6 +192,9 @@ public class Team {
       tmpBomb.setId(anId);
       items.add(tmpBomb);
     }
+
+    // because there are a lot of null fields in the array... why ever
+    items.trimToSize();
 
     checkTeam();
   }

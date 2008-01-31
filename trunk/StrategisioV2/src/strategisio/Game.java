@@ -60,8 +60,8 @@ public class Game {
       UnknownFieldGroundException {
     initMap(aFile);
     displayer = new ConsoleDisplay();
-    teamA = new Team('A', aTeamName);
-    teamB = new Team('B', anotherTeamName);
+    teamA = new Team('A', aTeamName, aFile);
+    teamB = new Team('B', anotherTeamName, aFile);
   }
 
   private void initMap(int aMapSize) {
@@ -90,21 +90,23 @@ public class Game {
    * 
    * @param args
    * @throws FlagLimitOverflowException
+   * @throws UnknownFieldGroundException 
    */
-  public static void main(String[] args) throws FlagLimitOverflowException {
-    int tmpMapSize = 9;
+  public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException {
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
-    // File tmpFile = new File("misc/mapdummy.xml;");
-    Game tmpGame = new Game(tmpMapSize, tmpTeam1, tmpTeam2);
-    // Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
+    
+    File tmpFile = new File("resources/map_config.xml");
+    Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
 
     // TODO init fields by request
     ArrayList<Figure> tmpFigures = tmpGame.teamA.getFigures();
     ArrayList<Item> tmpItems = tmpGame.teamA.getItems();
     PlayMap tmpPlayMap = tmpGame.playMap;
+    tmpPlayMap.getXDimension();
     int tmpX = 0;
     int tmpY = 0;
+    
     // ////////////////////////////////////////////////////////////
     // INFO: for-loops will run endlessly if the map is to small!
     // ////////////////////////////////////////////////////////////
@@ -115,7 +117,7 @@ public class Game {
         } else {
           i--;
           if (tmpX < 1) {
-            tmpX = tmpMapSize - 1;
+            tmpX = tmpPlayMap.getXDimension() - 1;
             tmpY--;
           } else {
             tmpX--;
@@ -134,7 +136,7 @@ public class Game {
         } else {
           i--;
           if (tmpX < 1) {
-            tmpX = tmpMapSize - 1;
+            tmpX = tmpPlayMap.getXDimension() - 1;
             tmpY--;
           } else {
             tmpX--;
@@ -149,8 +151,8 @@ public class Game {
 
     tmpFigures = tmpGame.teamB.getFigures();
     tmpItems = tmpGame.teamB.getItems();
-    tmpX = tmpMapSize - 1;
-    tmpY = tmpMapSize - 1;
+    tmpX = tmpPlayMap.getXDimension() - 1;
+    tmpY = tmpPlayMap.getXDimension() - 1;
 
     for (int i = 0; i < tmpItems.size(); i++) {
       try {
@@ -159,14 +161,14 @@ public class Game {
         } else {
           i--;
           if (tmpX < 1) {
-            tmpX = tmpMapSize - 1;
+            tmpX = tmpPlayMap.getXDimension() - 1;
             tmpY--;
           } else {
             tmpX--;
           }
         }
       } catch (Exception e) {
-        tmpX = tmpMapSize - 1;
+        tmpX = tmpPlayMap.getXDimension() - 1;
         tmpY--;
         i--;
       }
@@ -176,20 +178,20 @@ public class Game {
         if (tmpPlayMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)) {
           tmpPlayMap.position(tmpFigures.get(i), tmpX--, tmpY);
           if (tmpX < 0) {
-            tmpX = tmpMapSize - 1;
+            tmpX = tmpPlayMap.getXDimension() - 1;
             tmpY--;
           }
         } else {
           i--;
           if (tmpX < 1) {
-            tmpX = tmpMapSize - 1;
+            tmpX = tmpPlayMap.getXDimension() - 1;
             tmpY--;
           } else {
             tmpX--;
           }
         }
       } catch (Exception e) {
-        tmpX = tmpMapSize - 1;
+        tmpX = tmpPlayMap.getXDimension() - 1;
         tmpY--;
         i--;
       }
