@@ -12,15 +12,15 @@ import org.w3c.dom.NodeList;
 
 /**
  * public class for reading map XML files
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class XmlReader {
 
   /**
    * Reads an XML file into a w3c Document
-   * 
+   *
    * @author Tim
    * @param aFile
    * @return w3c Document
@@ -40,9 +40,9 @@ public class XmlReader {
   }
 
   /**
-   * 
+   *
    * used for creating the map with dimensions and ground
-   * 
+   *
    * @param aFile
    * @return the mapgrounds in a int[][]
    */
@@ -60,11 +60,13 @@ public class XmlReader {
     NamedNodeMap tmpNamedNodeMap = tmpNode.getAttributes();
 
     tmpNode = tmpNamedNodeMap.getNamedItem("x");
+    int tmpXDimension = Integer.parseInt(tmpNode.getNodeValue());
 
-    int tmpDimension = Integer.parseInt(tmpNode.getNodeValue());
+    tmpNode = tmpNamedNodeMap.getNamedItem("y");
+    int tmpYDimension = Integer.parseInt(tmpNode.getNodeValue());
 
     // int[][] can be used with playmap.setfieldground
-    int[][] tmpMapData = new int[tmpDimension][tmpDimension];
+    int[][] tmpMapData = new int[tmpYDimension][tmpXDimension];
 
     for (int x = 0; x < tmpNodeListForColumns.getLength(); x++) {
       tmpNode = tmpNodeListForColumns.item(x);
@@ -89,9 +91,9 @@ public class XmlReader {
   }
 
   /**
-   * 
+   *
    * used for creating the team with number of figures
-   * 
+   *
    * @param aFile
    * @return an int[] containing 0 - 8, each with number of figures
    */
@@ -100,7 +102,7 @@ public class XmlReader {
     /*
      * 0 = Fighters 1 = Climbers 2 = Divers 3 = Medics 4 = Spys 5 = Miners 6 =
      * FakeFlags 7 = Traps 8 = Bombs
-     * 
+     *
      * A Flag is not read via XML (in this version)
      */
     int[] tmpTeamData = new int[9];
