@@ -20,7 +20,7 @@ public abstract class Figure implements Placeable {
   private int[] attacks;
 
   private int[] defences;
-  
+
   private int[] currentCoordinates = new int[2];
 
   private char id;
@@ -58,7 +58,7 @@ public abstract class Figure implements Placeable {
   /**
    * @return the normalView
    */
-  protected int getNormalView() {
+  public int getNormalView() {
     return normalView;
   }
 
@@ -73,7 +73,7 @@ public abstract class Figure implements Placeable {
   /**
    * @return the diagonalView
    */
-  protected int getDiagonalView() {
+  public int getDiagonalView() {
     return diagonalView;
   }
 
@@ -152,12 +152,12 @@ public abstract class Figure implements Placeable {
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    */
   public void setCurrentCoordinates(int anX, int aY) {
-    
+
     currentCoordinates[0] = anX;
     currentCoordinates[1] = aY;
   }
