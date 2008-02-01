@@ -455,7 +455,7 @@ public class PlayMap {
 		}
 		return false;
 
-		// return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
+		// TODO ??? return (aFigure.getId() == tmpFieldPlaceable.getId()) ? false : true;
 	}
 
 	/**
