@@ -195,23 +195,6 @@ public class PlayMap {
 	}
 
 	/**
-	 * Does the check before move().
-	 *
-	 * @param aFigure
-	 * @param tmpOldX
-	 * @param tmpOldY
-	 *            where the figure comes from (anOldX/anOldY)
-	 * @param aNewX
-	 * @param aNewY
-	 *            where it wants to go to (aNewX/aNewY)
-	 * @return true if moving to the specified field is possible
-	 */
-	public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY) {
-		return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
-				aFigure, aNewX, aNewY)) ? true : false;
-	}
-
-	/**
 	 * Moves the figure (during the game) onto the specified field. Checking
 	 * with checkMovingPossibility() is necessary before!
 	 *
@@ -290,7 +273,7 @@ public class PlayMap {
 					} else {
 						fetchSetter(anX, aY);
 					}
-
+	
 				} else if (tmpItem instanceof Flag) {
 					fetchSetter(anX, aY);
 					positionWithoutCheck(aFigure, anX, aY);
@@ -307,12 +290,29 @@ public class PlayMap {
 					 */
 				}
 			}
-
+	
 		} else {
 			// move without problems
 			positionWithoutCheck(aFigure, anX, aY);
-
+	
 		}
+	}
+
+	/**
+	 * Does the check before move().
+	 *
+	 * @param aFigure
+	 * @param tmpOldX
+	 * @param tmpOldY
+	 *            where the figure comes from (anOldX/anOldY)
+	 * @param aNewX
+	 * @param aNewY
+	 *            where it wants to go to (aNewX/aNewY)
+	 * @return true if moving to the specified field is possible
+	 */
+	public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY) {
+		return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
+				aFigure, aNewX, aNewY)) ? true : false;
 	}
 
 	/**
