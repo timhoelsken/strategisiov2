@@ -102,6 +102,20 @@ public class PlayMap {
 	}
 
 	/**
+	 *
+	 * A positioning action with checking the possibility of positioning before
+	 *
+	 * @param aFigure
+	 * @param anX
+	 * @param aY
+	 */
+	public void position(Placeable aPlaceable, int anX, int aY) {
+		if (checkPositioningPossibility(aPlaceable, anX, aY)) {
+			positionWithoutCheck(aPlaceable, anX, aY);
+		}
+	}
+
+	/**
 	 * Positions the placeable (initially) on the specified field. Checking with
 	 * checkPositioningPossibility() is necessary before!
 	 *
@@ -109,7 +123,7 @@ public class PlayMap {
 	 * @param anX
 	 * @param aY
 	 */
-	public void position(Placeable aPlaceable, int anX, int aY) {
+	public void positionWithoutCheck(Placeable aPlaceable, int anX, int aY) {
 		getField(anX, aY).setSetter(aPlaceable);
 		aPlaceable.setCurrentCoordinates(anX, aY);
 	}
@@ -167,110 +181,6 @@ public class PlayMap {
 	}
 
 	/**
-	 * Moves the figure (during the game) onto the specified field. Checking
-	 * with checkMovingPossibility() is necessary before!
-	 *
-	 * @param aFigure
-	 * @param anX
-	 * @param aY
-	 */
-	public void moveWithoutCheck(Figure aFigure, int anX, int aY) {
-		if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
-			Placeable tmpEnemy = getSetter(anX, aY);
-			// if there is an enemy Figure, a fight has to start
-			if (tmpEnemy instanceof Figure) {
-				Combat tmpCombat = new Combat();
-				tmpEnemy = fetchSetter(anX, aY);
-				// the winner of the fight is placed on the field
-				Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
-				position(tmpWinner, anX, aY);
-			}
-			// if there is an enemy Item, we have to do some more logic
-			else if (tmpEnemy instanceof Item) {
-				Item tmpItem = (Item) tmpEnemy;
-				if (tmpItem instanceof FakeFlag) {
-					// in case of a FakeFlag, the flag is fetched from the field
-					// an the figure is placed on the field
-					fetchSetter(anX, aY);
-					position(aFigure, anX, aY);
-				} else if (tmpItem instanceof Trap) {
-					// in case of a Trap, we first look if there is a catched
-					// figure in it
-					Trap tmpTrap = (Trap) tmpItem;
-					Figure tmpCatched = tmpTrap.getCatched();
-					if (tmpCatched == null) {
-						// if the moving figure is a medic, we disable the trap
-						if (aFigure instanceof Medic) {
-							fetchSetter(anX, aY);
-							position(aFigure, anX, aY);
-						} else {
-							tmpTrap.setCatched(aFigure);
-						}
-					} else {
-						// if the trap has a catched figure, and the moving
-						// figure is a medic,
-						if (aFigure instanceof Medic) {
-							if (aFigure.getId() != tmpTrap.getId()) {
-								// the trap is disabled and the
-								// catched figure is placed on the selected
-								// field. The
-								// medic stays on his initial field, in case of
-								// an enemy trap!
-								fetchSetter(anX, aY);
-								position(tmpTrap.getCatched(), anX, aY);
-								int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
-								position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
-								// stays on the same mapfield when freeing a
-								// catched
-								// figure
-							} else {
-								// the trap stays enabled and the
-								// catched figure is defeated. The
-								// medic stays on his initial field, in case of
-								// an team trap!
-								tmpTrap.setCatched(null);
-								int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
-								position(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
-							}
-						}
-					}
-				} else if (tmpItem instanceof Bomb) {
-					// in case of a Bomb, a Figure is bombed away, except the
-					// Figure is a Miner...
-					if (aFigure instanceof Miner) {
-						// ... then the bomb is taken away and the miner moves
-						// to the field
-						fetchSetter(anX, aY);
-						position(aFigure, anX, aY);
-					} else {
-						fetchSetter(anX, aY);
-					}
-
-				} else if (tmpItem instanceof Flag) {
-					fetchSetter(anX, aY);
-					position(aFigure, anX, aY);
-					// TODO Logic (Method?) what if Figure finds Flag
-					/*
-					 * The game ends here... maybe use a return param and then
-					 * call a method in game? would be nasty... another way to
-					 * end the game is defeat all enemies...
-					 *
-					 * another Possibility would be, if there is an endless loop
-					 * in Game for while game is active (public int) that is set
-					 * to 1 when game is going on, 0 when ends by flag, -1 when
-					 * ends by defeat all enemies...
-					 */
-				}
-			}
-
-		} else {
-			// move without problems
-			position(aFigure, anX, aY);
-
-		}
-	}
-
-	/**
 	 *
 	 * A move with checking the possibility of moving before
 	 *
@@ -299,6 +209,110 @@ public class PlayMap {
 	public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY) {
 		return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
 				aFigure, aNewX, aNewY)) ? true : false;
+	}
+
+	/**
+	 * Moves the figure (during the game) onto the specified field. Checking
+	 * with checkMovingPossibility() is necessary before!
+	 *
+	 * @param aFigure
+	 * @param anX
+	 * @param aY
+	 */
+	public void moveWithoutCheck(Figure aFigure, int anX, int aY) {
+		if (!checkIfIsEmpty(anX, aY) && checkIfIsEnemy(aFigure, anX, aY)) {
+			Placeable tmpEnemy = getSetter(anX, aY);
+			// if there is an enemy Figure, a fight has to start
+			if (tmpEnemy instanceof Figure) {
+				Combat tmpCombat = new Combat();
+				tmpEnemy = fetchSetter(anX, aY);
+				// the winner of the fight is placed on the field
+				Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
+				positionWithoutCheck(tmpWinner, anX, aY);
+			}
+			// if there is an enemy Item, we have to do some more logic
+			else if (tmpEnemy instanceof Item) {
+				Item tmpItem = (Item) tmpEnemy;
+				if (tmpItem instanceof FakeFlag) {
+					// in case of a FakeFlag, the flag is fetched from the field
+					// an the figure is placed on the field
+					fetchSetter(anX, aY);
+					positionWithoutCheck(aFigure, anX, aY);
+				} else if (tmpItem instanceof Trap) {
+					// in case of a Trap, we first look if there is a catched
+					// figure in it
+					Trap tmpTrap = (Trap) tmpItem;
+					Figure tmpCatched = tmpTrap.getCatched();
+					if (tmpCatched == null) {
+						// if the moving figure is a medic, we disable the trap
+						if (aFigure instanceof Medic) {
+							fetchSetter(anX, aY);
+							positionWithoutCheck(aFigure, anX, aY);
+						} else {
+							tmpTrap.setCatched(aFigure);
+						}
+					} else {
+						// if the trap has a catched figure, and the moving
+						// figure is a medic,
+						if (aFigure instanceof Medic) {
+							if (aFigure.getId() != tmpTrap.getId()) {
+								// the trap is disabled and the
+								// catched figure is placed on the selected
+								// field. The
+								// medic stays on his initial field, in case of
+								// an enemy trap!
+								fetchSetter(anX, aY);
+								positionWithoutCheck(tmpTrap.getCatched(), anX, aY);
+								int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+								positionWithoutCheck(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
+								// stays on the same mapfield when freeing a
+								// catched
+								// figure
+							} else {
+								// the trap stays enabled and the
+								// catched figure is defeated. The
+								// medic stays on his initial field, in case of
+								// an team trap!
+								tmpTrap.setCatched(null);
+								int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+								positionWithoutCheck(aFigure, tmpCurrentCoordinates[0], tmpCurrentCoordinates[1]);
+							}
+						}
+					}
+				} else if (tmpItem instanceof Bomb) {
+					// in case of a Bomb, a Figure is bombed away, except the
+					// Figure is a Miner...
+					if (aFigure instanceof Miner) {
+						// ... then the bomb is taken away and the miner moves
+						// to the field
+						fetchSetter(anX, aY);
+						positionWithoutCheck(aFigure, anX, aY);
+					} else {
+						fetchSetter(anX, aY);
+					}
+
+				} else if (tmpItem instanceof Flag) {
+					fetchSetter(anX, aY);
+					positionWithoutCheck(aFigure, anX, aY);
+					// TODO Logic (Method?) what if Figure finds Flag
+					/*
+					 * The game ends here... maybe use a return param and then
+					 * call a method in game? would be nasty... another way to
+					 * end the game is defeat all enemies...
+					 *
+					 * another Possibility would be, if there is an endless loop
+					 * in Game for while game is active (public int) that is set
+					 * to 1 when game is going on, 0 when ends by flag, -1 when
+					 * ends by defeat all enemies...
+					 */
+				}
+			}
+
+		} else {
+			// move without problems
+			positionWithoutCheck(aFigure, anX, aY);
+
+		}
 	}
 
 	/**
