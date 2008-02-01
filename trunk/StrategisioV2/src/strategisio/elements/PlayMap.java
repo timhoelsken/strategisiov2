@@ -305,20 +305,18 @@ public class PlayMap {
 	 * Returns all possibilities to move to
 	 *
 	 * @param aFigure
-	 * @param anX
-	 * @param aY
 	 *            where the figure remains at the moment
 	 * @return an array of coordinates where a figure could be placed
 	 */
-	public int[][] getMovingArea(Figure aFigure, int anX, int aY) {
+	public int[][] getMovingArea(Figure aFigure) {
 		ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
 
 		for (int y = 0; y < getYDimension(); y++) {
 			for (int x = 0; x < getXDimension(); x++) {
 				if (checkMovingPossibility(aFigure, x, y)) {
 					int[] tmpCoordinates = new int[2];
-					tmpCoordinates[0] = anX;
-					tmpCoordinates[1] = aY;
+					tmpCoordinates[0] = x;
+					tmpCoordinates[1] = y;
 					tmpMovingArea.add(tmpCoordinates);
 				}
 			}
@@ -330,26 +328,26 @@ public class PlayMap {
 	 * Checks if the figure could reach the field (checks the direction)
 	 */
 	private boolean checkIfIsReachable(Figure aFigure, int aNewX, int aNewY) {
-		int[] tmpCoordinates = aFigure.getCurrentCoordinates();
-		if (tmpCoordinates[0] == aNewX && tmpCoordinates[1] == aNewY) {
+		int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+		if (tmpCurrentCoordinates[0] == aNewX && tmpCurrentCoordinates[1] == aNewY) {
 			// same field
 			return true;
-		} else if (tmpCoordinates[0] == aNewX) {
+		} else if (tmpCurrentCoordinates[0] == aNewX) {
 			// vertical move
-			if (checkIfDistanceIsSolvable(tmpCoordinates[1], aNewY, aFigure.getNormalSteps())) {
-				return checkIfIsReachableNonDiagonally(aFigure, tmpCoordinates[1], aNewY);
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalSteps())) {
+				return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[1], aNewY);
 			}
 			return false;
-		} else if (tmpCoordinates[1] == aNewY) {
+		} else if (tmpCurrentCoordinates[1] == aNewY) {
 			// horizontal move
-			if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getNormalSteps())) {
-				return checkIfIsReachableNonDiagonally(aFigure, tmpCoordinates[0], aNewX);
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalSteps())) {
+				return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[0], aNewX);
 			}
 			return false;
 		} else {
 			// diagonal move
 			// one check lasts (decided to check the change of x-coordinate)
-			if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getDiagonalSteps())) {
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalSteps())) {
 				return checkIfIsReachableDiagonally(aFigure, aNewX, aNewY);
 			}
 			return false;
@@ -386,12 +384,12 @@ public class PlayMap {
 	 * between the old and the new one)
 	 */
 	private boolean checkIfIsReachableDiagonally(Figure aFigure, int aNewX, int aNewY) {
-		int[] tmpCoordinates = aFigure.getCurrentCoordinates();
-		int tmpHorizontalDirection = detectDirection(tmpCoordinates[0], aNewX);
-		int tmpVerticalDirection = detectDirection(tmpCoordinates[1], aNewY);
+		int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+		int tmpHorizontalDirection = detectDirection(tmpCurrentCoordinates[0], aNewX);
+		int tmpVerticalDirection = detectDirection(tmpCurrentCoordinates[1], aNewY);
 		Field tmpField;
-		for (int i = 1; i < Math.abs(aNewX - tmpCoordinates[0]); i++) {
-			tmpField = getField(tmpCoordinates[0] + (i * tmpHorizontalDirection), tmpCoordinates[1]
+		for (int i = 1; i < Math.abs(aNewX - tmpCurrentCoordinates[0]); i++) {
+			tmpField = getField(tmpCurrentCoordinates[0] + (i * tmpHorizontalDirection), tmpCurrentCoordinates[1]
 					+ (i * tmpVerticalDirection));
 			if (!checkGround(aFigure, tmpField.getGround())) {
 				return false;
@@ -464,21 +462,19 @@ public class PlayMap {
 	 * Returns all fields a figure can see the setter of
 	 *
 	 * @param aFigure
-	 * @param anX
-	 * @param aY
 	 *            where the figure remains at the moment
 	 * @return an array of coordinates of fields a figure can see
 	 */
 	// TODO write tests for this nasty method
-	public int[][] getViewArea(Figure aFigure, int anX, int aY) {
+	public int[][] getViewArea(Figure aFigure) {
 		ArrayList<int[]> tmpViewArea = new ArrayList<int[]>();
 
 		for (int y = 0; y < getYDimension(); y++) {
 			for (int x = 0; x < getXDimension(); x++) {
 				if (checkIfIsApparitionial(aFigure, x, y)) {
 					int[] tmpCoordinates = new int[2];
-					tmpCoordinates[0] = anX;
-					tmpCoordinates[1] = aY;
+					tmpCoordinates[0] = x;
+					tmpCoordinates[1] = y;
 					tmpViewArea.add(tmpCoordinates);
 				}
 			}
@@ -490,28 +486,28 @@ public class PlayMap {
 	 * Checks if the figure can see what is on the field
 	 */
 	private boolean checkIfIsApparitionial(Figure aFigure, int aNewX, int aNewY) {
-		int[] tmpCoordinates = aFigure.getCurrentCoordinates();
-		if (tmpCoordinates[0] == aNewX && tmpCoordinates[1] == aNewY) {
+		int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+		if (tmpCurrentCoordinates[0] == aNewX && tmpCurrentCoordinates[1] == aNewY) {
 			// same field
 			return true;
-		} else if (tmpCoordinates[0] == aNewX) {
+		} else if (tmpCurrentCoordinates[0] == aNewX) {
 			// vertical move
-			if (checkIfDistanceIsSolvable(tmpCoordinates[1], aNewY, aFigure.getNormalView())) {
-				return checkIfIsReachableNonDiagonally(aFigure, tmpCoordinates[1], aNewY) && checkIfFieldIsEmptyOrHasVisibleEnemySetter(
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalView())) {
+				return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[1], aNewY) && checkIfFieldIsEmptyOrHasVisibleEnemySetter(
 						aFigure, aNewX, aNewY);
 			}
 			return false;
-		} else if (tmpCoordinates[1] == aNewY) {
+		} else if (tmpCurrentCoordinates[1] == aNewY) {
 			// horizontal move
-			if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getNormalView())) {
-				return checkIfIsReachableNonDiagonally(aFigure, tmpCoordinates[0], aNewX) && checkIfFieldIsEmptyOrHasVisibleEnemySetter(
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalView())) {
+				return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[0], aNewX) && checkIfFieldIsEmptyOrHasVisibleEnemySetter(
 						aFigure, aNewX, aNewY);
 			}
 			return false;
 		} else {
 			// diagonal move
 			// one check lasts (decided to check the change of x-coordinate)
-			if (checkIfDistanceIsSolvable(tmpCoordinates[0], aNewX, aFigure.getDiagonalView())) {
+			if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalView())) {
 				return checkIfIsReachableDiagonally(aFigure, aNewX, aNewY) && checkIfFieldIsEmptyOrHasVisibleEnemySetter(
 						aFigure, aNewX, aNewY);
 			}
