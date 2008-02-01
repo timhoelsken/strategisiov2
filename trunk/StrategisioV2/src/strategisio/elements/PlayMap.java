@@ -108,11 +108,14 @@ public class PlayMap {
 	 * @param aFigure
 	 * @param anX
 	 * @param aY
+	 * @return true if positioning was successful
 	 */
-	public void position(Placeable aPlaceable, int anX, int aY) {
+	public boolean position(Placeable aPlaceable, int anX, int aY) {
 		if (checkPositioningPossibility(aPlaceable, anX, aY)) {
 			positionWithoutCheck(aPlaceable, anX, aY);
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -187,11 +190,14 @@ public class PlayMap {
 	 * @param aFigure
 	 * @param anX
 	 * @param aY
+	 * @return true if move was successful
 	 */
-	public void move(Figure aFigure, int anX, int aY) {
+	public boolean move(Figure aFigure, int anX, int aY) {
 		if (checkMovingPossibility(aFigure, anX, aY)) {
 			moveWithoutCheck(aFigure, anX, aY);
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -273,7 +279,7 @@ public class PlayMap {
 					} else {
 						fetchSetter(anX, aY);
 					}
-	
+
 				} else if (tmpItem instanceof Flag) {
 					fetchSetter(anX, aY);
 					positionWithoutCheck(aFigure, anX, aY);
@@ -290,11 +296,11 @@ public class PlayMap {
 					 */
 				}
 			}
-	
+
 		} else {
 			// move without problems
 			positionWithoutCheck(aFigure, anX, aY);
-	
+
 		}
 	}
 
