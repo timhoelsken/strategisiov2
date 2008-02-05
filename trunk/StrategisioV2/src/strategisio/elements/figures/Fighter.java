@@ -14,11 +14,11 @@ public class Fighter extends Figure {
    * standard constructor
    */
   public Fighter() {
-    setNormalSteps(2);
+    setNormalSteps(3);
     setDiagonalSteps(0);
 
-    setNormalView(1);
-    setDiagonalView(1);
+    setNormalView(2);
+    setDiagonalView(2);
 
     setGroundAuthorities(new int[] { Ground.GRASS });
 

@@ -3,6 +3,8 @@
  */
 package strategisio.tests;
 
+import java.util.ArrayList;
+
 import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -139,7 +141,7 @@ public class PlayMapTest extends TestCase {
    * @throws UnknownFieldGroundException
    */
   public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldGroundException {
-    playMap = new PlayMap(1, 2);
+    playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
     playMap.setFieldGround(0, 1, Ground.GRASS);
@@ -162,6 +164,7 @@ public class PlayMapTest extends TestCase {
     assertTrue("Should be allowed to go back to the same field.", playMap.checkMovingPossibility(tmpSpy, 0, 0));
 
     tmpFighter = (Fighter) playMap.fetchSetter(0, 1);
+    // this fails if i <= 1 in ifIsReachable
     assertTrue("Should be able to back again because spy is gone.", playMap.checkMovingPossibility(tmpFighter,
         0, 0));
   }
@@ -435,6 +438,197 @@ public class PlayMapTest extends TestCase {
     playMap.moveWithoutCheck(tmpMiner, 0, 0);
 
     assertTrue("There should be a Miner.", playMap.getSetter(0, 0) instanceof Miner);
+  }
+
+  /**
+   * @throws UnknownFieldGroundException
+   * 
+   */
+  public void testViewEnemyPlaceables() throws UnknownFieldGroundException {
+    playMap = new PlayMap(3, 3);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.GRASS);
+    playMap.setFieldGround(1, 2, Ground.GRASS);
+    playMap.setFieldGround(2, 0, Ground.GRASS);
+    playMap.setFieldGround(2, 1, Ground.GRASS);
+    playMap.setFieldGround(2, 2, Ground.GRASS);
+
+    Fighter tmpFighter = new Fighter();
+    tmpFighter.setId('a');
+
+    Spy tmpSpy = new Spy();
+    Trap tmpTrap = new Trap();
+    Bomb tmpBomb = new Bomb();
+    FakeFlag tmpFakeFlag = new FakeFlag();
+    Flag tmpFlag = new Flag();
+    Diver tmpDiver = new Diver();
+
+    tmpSpy.setId('b');
+    tmpTrap.setId('b');
+    tmpBomb.setId('b');
+    tmpFakeFlag.setId('b');
+    tmpFlag.setId('b');
+    tmpDiver.setId('b');
+
+    playMap.positionWithoutCheck(tmpFighter, 1, 1);
+
+    playMap.positionWithoutCheck(tmpSpy, 0, 1);
+    playMap.positionWithoutCheck(tmpTrap, 1, 0);
+    playMap.positionWithoutCheck(tmpBomb, 2, 1);
+    playMap.positionWithoutCheck(tmpFakeFlag, 1, 2);
+    playMap.positionWithoutCheck(tmpFlag, 0, 2);
+    playMap.positionWithoutCheck(tmpDiver, 2, 0);
+
+    assertFalse("A Spy cannot be seen.", playMap.checkViewForTest(tmpFighter, 0, 1));
+    assertFalse("A Trap cannot be seen.", playMap.checkViewForTest(tmpFighter, 1, 0));
+    assertFalse("A Bomb cannot be seen.", playMap.checkViewForTest(tmpFighter, 2, 1));
+    assertTrue("A FakeFlag can be seen.", playMap.checkViewForTest(tmpFighter, 1, 2));
+    assertTrue("A Flag can be seen.", playMap.checkViewForTest(tmpFighter, 0, 2));
+    assertTrue("A Diver can be seen.", playMap.checkViewForTest(tmpFighter, 2, 0));
+  }
+
+  /**
+   * @throws UnknownFieldGroundException
+   * 
+   */
+  public void testViewArea() throws UnknownFieldGroundException {
+    playMap = new PlayMap(3, 3);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+    playMap.setFieldGround(1, 0, Ground.GRASS);
+    playMap.setFieldGround(1, 1, Ground.GRASS);
+    playMap.setFieldGround(1, 2, Ground.GRASS);
+    playMap.setFieldGround(2, 0, Ground.GRASS);
+    playMap.setFieldGround(2, 1, Ground.GRASS);
+    playMap.setFieldGround(2, 2, Ground.GRASS);
+
+    Fighter tmpFighter = new Fighter();
+    tmpFighter.setId('a');
+
+    Spy tmpSpy = new Spy();
+    Trap tmpTrap = new Trap();
+    Bomb tmpBomb = new Bomb();
+    FakeFlag tmpFakeFlag = new FakeFlag();
+    Flag tmpFlag = new Flag();
+    Diver tmpDiver = new Diver();
+
+    tmpSpy.setId('b');
+    tmpTrap.setId('b');
+    tmpBomb.setId('b');
+    tmpFakeFlag.setId('b');
+    tmpFlag.setId('b');
+    tmpDiver.setId('b');
+
+    playMap.positionWithoutCheck(tmpFighter, 1, 1);
+
+    playMap.positionWithoutCheck(tmpSpy, 0, 1);
+    playMap.positionWithoutCheck(tmpTrap, 1, 0);
+    playMap.positionWithoutCheck(tmpBomb, 2, 1);
+    playMap.positionWithoutCheck(tmpFakeFlag, 1, 2);
+    playMap.positionWithoutCheck(tmpFlag, 0, 2);
+    playMap.positionWithoutCheck(tmpDiver, 2, 0);
+
+    ArrayList<int[]> viewField = playMap.getSingleFigureViewArea(tmpFighter);
+
+    assertTrue("6 fields can be seen.", viewField.size() == 6);
+  }
+
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   */
+  public void testViewEnemyTrap() throws UnknownFieldGroundException {
+    playMap = new PlayMap(1, 3);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+
+    Medic tmpMedic = new Medic();
+    tmpMedic.setId('a');
+
+    Spy tmpSpy = new Spy();
+    Trap tmpTrap = new Trap();
+
+    tmpSpy.setId('a');
+    tmpTrap.setId('b');
+
+    playMap.positionWithoutCheck(tmpMedic, 0, 0);
+
+    playMap.positionWithoutCheck(tmpSpy, 0, 2);
+    playMap.positionWithoutCheck(tmpTrap, 0, 1);
+
+    assertFalse("A Spy cannot see a Trap.", playMap.checkViewForTest(tmpSpy, 0, 1));
+    assertTrue("A Medic can see a Trap.", playMap.checkViewForTest(tmpMedic, 0, 1));
+
+  }
+
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   */
+  public void testViewEnemyBomb() throws UnknownFieldGroundException {
+    playMap = new PlayMap(1, 3);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.GRASS);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+
+    Miner tmpMiner = new Miner();
+    tmpMiner.setId('a');
+
+    Spy tmpSpy = new Spy();
+    Bomb tmpBomb = new Bomb();
+
+    tmpSpy.setId('a');
+    tmpBomb.setId('b');
+
+    playMap.positionWithoutCheck(tmpMiner, 0, 0);
+
+    playMap.positionWithoutCheck(tmpSpy, 0, 2);
+    playMap.positionWithoutCheck(tmpBomb, 0, 1);
+
+    assertFalse("A Spy cannot see a Bomb.", playMap.checkViewForTest(tmpSpy, 0, 1));
+    assertTrue("A Miner can see a Bomb.", playMap.checkViewForTest(tmpMiner, 0, 1));
+
+  }
+
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   */
+  public void testViewEnemyThruGround() throws UnknownFieldGroundException {
+    playMap = new PlayMap(1, 3);
+
+    playMap.setFieldGround(0, 0, Ground.GRASS);
+    playMap.setFieldGround(0, 1, Ground.MOUNTAIN);
+    playMap.setFieldGround(0, 2, Ground.GRASS);
+
+    Fighter tmpFighter = new Fighter();
+    tmpFighter.setId('a');
+
+    Fighter tmpEnemyFighter = new Fighter();
+
+    tmpEnemyFighter.setId('b');
+
+    Climber tmpClimber = new Climber();
+
+    tmpClimber.setId('b');
+
+    playMap.positionWithoutCheck(tmpFighter, 0, 0);
+    playMap.positionWithoutCheck(tmpClimber, 0, 1);
+    playMap.positionWithoutCheck(tmpEnemyFighter, 0, 2);
+
+    // Test is correct but due to wrong code!
+    assertFalse("A Fighter cannot see through a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 2));
+    assertTrue("A Fighter can see what's on a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 1));
+
   }
 
   /**
