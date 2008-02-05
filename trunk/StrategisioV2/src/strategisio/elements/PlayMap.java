@@ -104,6 +104,7 @@ public class PlayMap {
 	/**
 	 *
 	 * A positioning action with checking the possibility of positioning before
+	 * @param aPlaceable 
 	 *
 	 * @param aFigure
 	 * @param anX
