@@ -20,7 +20,7 @@ import strategisio.elements.items.Trap;
 import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
- * 
+ *
  * the playmap
  */
 public class PlayMap {
@@ -29,7 +29,7 @@ public class PlayMap {
 
   /**
    * creates a quadratic map
-   * 
+   *
    * @param aDimension
    *            for size of the map (aDimension^2)
    */
@@ -39,11 +39,11 @@ public class PlayMap {
 
   /**
    * creates a map
-   * 
+   *
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
-   * 
+   *
    */
   public PlayMap(int anXDimension, int aYDimension) {
     fields = new Field[aYDimension][anXDimension];
@@ -51,7 +51,7 @@ public class PlayMap {
 
   /**
    * creates a map via XML File
-   * 
+   *
    * @param aFile
    * @throws UnknownFieldGroundException
    */
@@ -70,7 +70,7 @@ public class PlayMap {
 
   /**
    * sets field type for specified field
-   * 
+   *
    * @param anX
    * @param aY
    * @param aFieldGround
@@ -81,11 +81,11 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * A positioning action with checking the possibility of positioning before
-   * 
+   *
    * @param aPlaceable
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -102,7 +102,7 @@ public class PlayMap {
   /**
    * Positions the placeable (initially) on the specified field. Checking with
    * checkPositioningPossibility() is necessary before!
-   * 
+   *
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -114,7 +114,7 @@ public class PlayMap {
 
   /**
    * Does the check before position().
-   * 
+   *
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -165,9 +165,9 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * A move with checking the possibility of moving before
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -184,7 +184,7 @@ public class PlayMap {
   /**
    * Moves the figure (during the game) onto the specified field. Checking with
    * checkMovingPossibility() is necessary before!
-   * 
+   *
    * @param aFigure
    * @param anX
    * @param aY
@@ -269,7 +269,7 @@ public class PlayMap {
            * The game ends here... maybe use a return param and then call a
            * method in game? would be nasty... another way to end the game is
            * defeat all enemies...
-           * 
+           *
            * another Possibility would be, if there is an endless loop in Game
            * for while game is active (public int) that is set to 1 when game is
            * going on, 0 when ends by flag, -1 when ends by defeat all
@@ -287,7 +287,7 @@ public class PlayMap {
 
   /**
    * Does the check before move().
-   * 
+   *
    * @param aFigure
    * @param tmpOldX
    * @param tmpOldY
@@ -304,7 +304,7 @@ public class PlayMap {
 
   /**
    * Returns all possibilities to move to
-   * 
+   *
    * @param aFigure
    *            where the figure remains at the moment
    * @return an array of coordinates where a figure could be placed
@@ -370,13 +370,8 @@ public class PlayMap {
   private boolean checkIfIsReachableNonDiagonally(Figure aFigure, int anOldCoordinate, int aNewCoordinate) {
     int tmpDirection = detectDirection(anOldCoordinate, aNewCoordinate);
     Field tmpField;
-    // here we should check i<= because of the view!
-    // or do an extra check for the first field next to the figure...
-    for (int i = 1; i < Math.abs(aNewCoordinate - anOldCoordinate); i++) {
-      // TODO check this again! its not correct!
-      // maybe give tmpDirection more than 2 values to check if its a horizontal
-      // or vertical move
-      // and then set it to -1 or +1 for up/down or left/right
+    for (int i = 1; i <= Math.abs(aNewCoordinate - anOldCoordinate); i++) {
+      // TODO have to check before if anOldCoordinate is x or y and then better the getField()
       tmpField = getField(anOldCoordinate, anOldCoordinate + (i * tmpDirection));
       if (!checkGround(aFigure, tmpField.getGround())) {
         return false;
@@ -394,10 +389,9 @@ public class PlayMap {
     int tmpHorizontalDirection = detectDirection(tmpCurrentCoordinates[0], aNewX);
     int tmpVerticalDirection = detectDirection(tmpCurrentCoordinates[1], aNewY);
     Field tmpField;
-    // here we should check i<= because of the view!
-    // or do an extra check for the first field next to the figure...
-    for (int i = 1; i < Math.abs(aNewX - tmpCurrentCoordinates[0]); i++) {
-      // TODO check this again! its not correct!
+    for (int i = 1; i <= Math.abs(aNewX - tmpCurrentCoordinates[0]); i++) {
+      // check this again! its not correct!
+      // TODO wtf - why not?
       // maybe give tmpDirection more than 2 values to check if its a horizontal
       // or vertical move
       // and then set it to -1 or +1 for up/down or left/right
@@ -412,7 +406,7 @@ public class PlayMap {
 
   /**
    * Checks if the direction from old coordinate to new coordinate
-   * 
+   *
    * @throws IllegalArgumentException
    *             if the coordinates are equal
    */
@@ -468,9 +462,9 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * Checks if a figure and a placeable on the field is in the same team
-   * 
+   *
    * @param aFigure
    * @param aPlaceable
    * @return
@@ -481,7 +475,7 @@ public class PlayMap {
 
   /**
    * Returns all fields a figure can see the setter of
-   * 
+   *
    * @param aFigure
    *            where the figure remains at the moment
    * @return an array of coordinates of fields a figure can see
@@ -504,7 +498,7 @@ public class PlayMap {
 
   /**
    * Returns all fields a team can see on the map
-   * 
+   *
    * @param aTeam
    *            which team's view Area is needed
    * @return
@@ -534,7 +528,7 @@ public class PlayMap {
 
   /**
    * For test only
-   * 
+   *
    * @param aFigure
    * @param aNewX
    * @param aNewY
@@ -621,7 +615,7 @@ public class PlayMap {
 
   /**
    * Gets the setter out of the field (deletes it from the map)
-   * 
+   *
    * @param anX
    * @param aY
    * @return the setter from the specified field
@@ -641,7 +635,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the xDimension
    */
   public int getXDimension() {
@@ -649,7 +643,7 @@ public class PlayMap {
   }
 
   /**
-   * 
+   *
    * @return the yDimension
    */
   public int getYDimension() {
