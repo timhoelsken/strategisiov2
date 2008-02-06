@@ -18,7 +18,7 @@ public class Spy extends Figure {
     setDiagonalSteps(0);
 
     setNormalView(2);
-    setDiagonalView(0);
+    setDiagonalView(1);
 
     setGroundAuthorities(new int[] { Ground.GRASS });
 

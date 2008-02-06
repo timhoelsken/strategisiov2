@@ -18,7 +18,7 @@ public class Medic extends Figure {
     setDiagonalSteps(1);
 
     setNormalView(1);
-    setDiagonalView(0);
+    setDiagonalView(1);
 
     setGroundAuthorities(new int[] { Ground.GRASS });
 

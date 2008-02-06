@@ -3,6 +3,7 @@
  */
 package strategisio.tests;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import junit.framework.JUnit4TestAdapter;
@@ -10,10 +11,12 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 import strategisio.elements.PlayMap;
+import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
+import strategisio.elements.figures.Figure;
 import strategisio.elements.figures.Medic;
 import strategisio.elements.figures.Miner;
 import strategisio.elements.figures.Spy;
@@ -22,6 +25,8 @@ import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
+import strategisio.exceptions.CoordinateOutOfIndexException;
+import strategisio.exceptions.FlagLimitOverflowException;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
@@ -139,8 +144,10 @@ public class PlayMapTest extends TestCase {
    * Tests moving figures of the same team (NULL) vertically on grass.
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldGroundException {
+  public void testMovingFiguresVerticallyOnGrass() throws UnknownFieldGroundException,
+      CoordinateOutOfIndexException {
     playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -173,8 +180,10 @@ public class PlayMapTest extends TestCase {
    * Tests moving figures of the same team (NULL) horizontally on grass.
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testMovingFiguresHorizontallyOnGrass() throws UnknownFieldGroundException {
+  public void testMovingFiguresHorizontallyOnGrass() throws UnknownFieldGroundException,
+      CoordinateOutOfIndexException {
     playMap = new PlayMap(2, 1);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -206,8 +215,10 @@ public class PlayMapTest extends TestCase {
    * Tests moving medics of the same team (NULL) diagonally on grass.
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testMovingMedicsDiagonallyOnGrass() throws UnknownFieldGroundException {
+  public void testMovingMedicsDiagonallyOnGrass() throws UnknownFieldGroundException,
+      CoordinateOutOfIndexException {
     playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -241,9 +252,10 @@ public class PlayMapTest extends TestCase {
 
   /**
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    * 
    */
-  public void testGroundMovingTest() throws UnknownFieldGroundException {
+  public void testGroundMovingTest() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(1, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -264,9 +276,10 @@ public class PlayMapTest extends TestCase {
 
   /**
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    * 
    */
-  public void testGroundDiagonalMovingTest() throws UnknownFieldGroundException {
+  public void testGroundDiagonalMovingTest() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(3, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -327,8 +340,9 @@ public class PlayMapTest extends TestCase {
   /**
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testMoveMedicOnEnemyTrap() throws UnknownFieldGroundException {
+  public void testMoveMedicOnEnemyTrap() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -354,8 +368,9 @@ public class PlayMapTest extends TestCase {
   /**
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testMoveMedicOnTeamTrap() throws UnknownFieldGroundException {
+  public void testMoveMedicOnTeamTrap() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(2, 2);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -442,9 +457,10 @@ public class PlayMapTest extends TestCase {
 
   /**
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    * 
    */
-  public void testViewEnemyPlaceables() throws UnknownFieldGroundException {
+  public void testViewEnemyPlaceables() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(3, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -493,9 +509,10 @@ public class PlayMapTest extends TestCase {
 
   /**
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    * 
    */
-  public void testViewArea() throws UnknownFieldGroundException {
+  public void testViewArea() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(3, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -542,8 +559,9 @@ public class PlayMapTest extends TestCase {
   /**
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testViewEnemyTrap() throws UnknownFieldGroundException {
+  public void testViewEnemyTrap() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(1, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -572,8 +590,9 @@ public class PlayMapTest extends TestCase {
   /**
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testViewEnemyBomb() throws UnknownFieldGroundException {
+  public void testViewEnemyBomb() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(1, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -602,8 +621,9 @@ public class PlayMapTest extends TestCase {
   /**
    * 
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
    */
-  public void testViewEnemyThruGround() throws UnknownFieldGroundException {
+  public void testViewEnemyThruGround() throws UnknownFieldGroundException, CoordinateOutOfIndexException {
     playMap = new PlayMap(1, 3);
 
     playMap.setFieldGround(0, 0, Ground.GRASS);
@@ -625,10 +645,55 @@ public class PlayMapTest extends TestCase {
     playMap.positionWithoutCheck(tmpClimber, 0, 1);
     playMap.positionWithoutCheck(tmpEnemyFighter, 0, 2);
 
-    // Test is correct but due to wrong code!
     assertFalse("A Fighter cannot see through a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 2));
-    assertTrue("A Fighter can see what's on a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 1));
+    // TODO write the correct method for this!
+    // checkIfIsApparitionial does first checkGround (returns false)
+    assertTrue("But a Fighter can see what's on a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 1));
 
+  }
+
+  /**
+   * 
+   * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException
+   * @throws FlagLimitOverflowException
+   */
+  public void testTeamView() throws UnknownFieldGroundException, CoordinateOutOfIndexException,
+      FlagLimitOverflowException {
+    File tmpFile = new File("resources/map_config.xml");
+    playMap = new PlayMap(tmpFile);
+
+    Team tmpTeamA = new Team('A', "viewers", tmpFile);
+    // Team tmpTeamB = new Team('B', "enemies", tmpFile);
+
+    ArrayList<Figure> tmpFigures = tmpTeamA.getFigures();
+    // ArrayList<Figure> tmpBFigures = tmpTeamB.getFigures();
+
+    int tmpX = 0;
+    int tmpY = 0;
+
+    for (int i = 0; i < tmpFigures.size(); i++) {
+      try {
+        if (playMap.checkPositioningPossibility(tmpFigures.get(i), tmpX, tmpY)) {
+          playMap.positionWithoutCheck(tmpFigures.get(i), tmpX++, tmpY);
+        } else {
+          i--;
+          if (tmpX < 1) {
+            tmpX = playMap.getXDimension() - 1;
+            tmpY--;
+          } else {
+            tmpX--;
+          }
+        }
+      } catch (Exception e) {
+        tmpX = 0;
+        tmpY++;
+        i--;
+      }
+    }
+
+    ArrayList<int[]> tmpArea = playMap.getTeamViewArea(tmpTeamA);
+    assertTrue("21 Fields can be seen.", tmpArea.size() == 21);
   }
 
   /**

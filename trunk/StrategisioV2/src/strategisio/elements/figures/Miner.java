@@ -18,7 +18,7 @@ public class Miner extends Figure {
     setDiagonalSteps(0);
 
     setNormalView(1);
-    setDiagonalView(0);
+    setDiagonalView(1);
 
     setGroundAuthorities(new int[] { Ground.GRASS });
 

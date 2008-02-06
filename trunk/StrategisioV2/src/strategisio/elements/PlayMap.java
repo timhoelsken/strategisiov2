@@ -17,10 +17,11 @@ import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
+import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
- *
+ * 
  * the playmap
  */
 public class PlayMap {
@@ -29,7 +30,7 @@ public class PlayMap {
 
   /**
    * creates a quadratic map
-   *
+   * 
    * @param aDimension
    *            for size of the map (aDimension^2)
    */
@@ -39,11 +40,11 @@ public class PlayMap {
 
   /**
    * creates a map
-   *
+   * 
    * @param anXDimension
    * @param aYDimension
    *            for size of the map (anXDimension x aYDimension)
-   *
+   * 
    */
   public PlayMap(int anXDimension, int aYDimension) {
     fields = new Field[aYDimension][anXDimension];
@@ -51,7 +52,7 @@ public class PlayMap {
 
   /**
    * creates a map via XML File
-   *
+   * 
    * @param aFile
    * @throws UnknownFieldGroundException
    */
@@ -70,7 +71,7 @@ public class PlayMap {
 
   /**
    * sets field type for specified field
-   *
+   * 
    * @param anX
    * @param aY
    * @param aFieldGround
@@ -81,11 +82,11 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * A positioning action with checking the possibility of positioning before
-   *
+   * 
    * @param aPlaceable
-   *
+   * 
    * @param aFigure
    * @param anX
    * @param aY
@@ -102,7 +103,7 @@ public class PlayMap {
   /**
    * Positions the placeable (initially) on the specified field. Checking with
    * checkPositioningPossibility() is necessary before!
-   *
+   * 
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -114,7 +115,7 @@ public class PlayMap {
 
   /**
    * Does the check before position().
-   *
+   * 
    * @param aPlaceable
    * @param anX
    * @param aY
@@ -165,15 +166,16 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * A move with checking the possibility of moving before
-   *
+   * 
    * @param aFigure
    * @param anX
    * @param aY
    * @return true if move was successful
+   * @throws CoordinateOutOfIndexException
    */
-  public boolean move(Figure aFigure, int anX, int aY) {
+  public boolean move(Figure aFigure, int anX, int aY) throws CoordinateOutOfIndexException {
     if (checkMovingPossibility(aFigure, anX, aY)) {
       moveWithoutCheck(aFigure, anX, aY);
       return true;
@@ -184,7 +186,7 @@ public class PlayMap {
   /**
    * Moves the figure (during the game) onto the specified field. Checking with
    * checkMovingPossibility() is necessary before!
-   *
+   * 
    * @param aFigure
    * @param anX
    * @param aY
@@ -269,7 +271,7 @@ public class PlayMap {
            * The game ends here... maybe use a return param and then call a
            * method in game? would be nasty... another way to end the game is
            * defeat all enemies...
-           *
+           * 
            * another Possibility would be, if there is an endless loop in Game
            * for while game is active (public int) that is set to 1 when game is
            * going on, 0 when ends by flag, -1 when ends by defeat all
@@ -287,7 +289,7 @@ public class PlayMap {
 
   /**
    * Does the check before move().
-   *
+   * 
    * @param aFigure
    * @param tmpOldX
    * @param tmpOldY
@@ -296,20 +298,24 @@ public class PlayMap {
    * @param aNewY
    *            where it wants to go to (aNewX/aNewY)
    * @return true if moving to the specified field is possible
+   * @throws CoordinateOutOfIndexException
    */
-  public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY) {
+  // checkGround is also done by checkIfIsReachable but it is done first time
+  public boolean checkMovingPossibility(Figure aFigure, int aNewX, int aNewY)
+      throws CoordinateOutOfIndexException {
     return (checkGround(aFigure, aNewX, aNewY) && checkIfIsReachable(aFigure, aNewX, aNewY) && checkIfIsEmptyOrEnemy(
         aFigure, aNewX, aNewY)) ? true : false;
   }
 
   /**
    * Returns all possibilities to move to
-   *
+   * 
    * @param aFigure
    *            where the figure remains at the moment
    * @return an array of coordinates where a figure could be placed
+   * @throws CoordinateOutOfIndexException
    */
-  public int[][] getMovingArea(Figure aFigure) {
+  public int[][] getMovingArea(Figure aFigure) throws CoordinateOutOfIndexException {
     ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
 
     for (int y = 0; y < getYDimension(); y++) {
@@ -328,7 +334,8 @@ public class PlayMap {
   /**
    * Checks if the figure could reach the field (checks the direction)
    */
-  private boolean checkIfIsReachable(Figure aFigure, int aNewX, int aNewY) {
+  private boolean checkIfIsReachable(Figure aFigure, int aNewX, int aNewY)
+      throws CoordinateOutOfIndexException {
     int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
     if (tmpCurrentCoordinates[0] == aNewX && tmpCurrentCoordinates[1] == aNewY) {
       // same field
@@ -336,19 +343,20 @@ public class PlayMap {
     } else if (tmpCurrentCoordinates[0] == aNewX) {
       // vertical move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalSteps())) {
-        return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[1], aNewY);
+        return checkIfIsReachableNonDiagonally(aFigure, aNewY, "y");
       }
       return false;
     } else if (tmpCurrentCoordinates[1] == aNewY) {
       // horizontal move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalSteps())) {
-        return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[0], aNewX);
+        return checkIfIsReachableNonDiagonally(aFigure, aNewX, "x");
       }
       return false;
     } else {
       // diagonal move
       // one check lasts (decided to check the change of x-coordinate)
-      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalSteps())) {
+      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalSteps())
+          && checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getDiagonalSteps())) {
         return checkIfIsReachableDiagonally(aFigure, aNewX, aNewY);
       }
       return false;
@@ -367,13 +375,28 @@ public class PlayMap {
    * Checks if the figure could reach the field (checks the fields between the
    * old and the new one)
    */
-  private boolean checkIfIsReachableNonDiagonally(Figure aFigure, int anOldCoordinate, int aNewCoordinate) {
-    int tmpDirection = detectDirection(anOldCoordinate, aNewCoordinate);
+  private boolean checkIfIsReachableNonDiagonally(Figure aFigure, int aNewCoordinate, String anAxis)
+      throws CoordinateOutOfIndexException {
+    int[] tmpCoordinates = aFigure.getCurrentCoordinates();
+    int tmpDirection, tmpOldCoordinate;
     Field tmpField;
-    for (int i = 1; i <= Math.abs(aNewCoordinate - anOldCoordinate); i++) {
-      // TODO have to check before if anOldCoordinate is x or y and then better the getField()
-      tmpField = getField(anOldCoordinate, anOldCoordinate + (i * tmpDirection));
+    if (anAxis.equals("y")) {
+      tmpDirection = detectDirection(tmpCoordinates[1], aNewCoordinate);
+      tmpOldCoordinate = tmpCoordinates[1];
+    } else if (anAxis.equals("x")) {
+      tmpDirection = detectDirection(tmpCoordinates[0], aNewCoordinate);
+      tmpOldCoordinate = tmpCoordinates[0];
+    } else {
+      throw new CoordinateOutOfIndexException("The Coordinate is not in the map index.");
+    }
+    for (int i = 1; i <= Math.abs(aNewCoordinate - tmpOldCoordinate); i++) {
+      if (anAxis.equals("y")) {
+        tmpField = getField(tmpCoordinates[0], tmpCoordinates[1] + (i * tmpDirection));
+      } else {
+        tmpField = getField(tmpCoordinates[0] + (i * tmpDirection), tmpCoordinates[1]);
+      }
       if (!checkGround(aFigure, tmpField.getGround())) {
+        // TODO insert View-Logic here!
         return false;
       }
     }
@@ -390,14 +413,10 @@ public class PlayMap {
     int tmpVerticalDirection = detectDirection(tmpCurrentCoordinates[1], aNewY);
     Field tmpField;
     for (int i = 1; i <= Math.abs(aNewX - tmpCurrentCoordinates[0]); i++) {
-      // check this again! its not correct!
-      // TODO wtf - why not?
-      // maybe give tmpDirection more than 2 values to check if its a horizontal
-      // or vertical move
-      // and then set it to -1 or +1 for up/down or left/right
       tmpField = getField(tmpCurrentCoordinates[0] + (i * tmpHorizontalDirection), tmpCurrentCoordinates[1]
           + (i * tmpVerticalDirection));
       if (!checkGround(aFigure, tmpField.getGround())) {
+     // TODO insert View-Logic here!
         return false;
       }
     }
@@ -406,7 +425,7 @@ public class PlayMap {
 
   /**
    * Checks if the direction from old coordinate to new coordinate
-   *
+   * 
    * @throws IllegalArgumentException
    *             if the coordinates are equal
    */
@@ -462,9 +481,9 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * Checks if a figure and a placeable on the field is in the same team
-   *
+   * 
    * @param aFigure
    * @param aPlaceable
    * @return
@@ -475,12 +494,13 @@ public class PlayMap {
 
   /**
    * Returns all fields a figure can see the setter of
-   *
+   * 
    * @param aFigure
    *            where the figure remains at the moment
    * @return an array of coordinates of fields a figure can see
+   * @throws CoordinateOutOfIndexException
    */
-  public ArrayList<int[]> getSingleFigureViewArea(Figure aFigure) {
+  public ArrayList<int[]> getSingleFigureViewArea(Figure aFigure) throws CoordinateOutOfIndexException {
     ArrayList<int[]> tmpViewArea = new ArrayList<int[]>();
 
     for (int y = 0; y < getYDimension(); y++) {
@@ -498,16 +518,19 @@ public class PlayMap {
 
   /**
    * Returns all fields a team can see on the map
-   *
+   * 
    * @param aTeam
    *            which team's view Area is needed
    * @return
+   * @throws CoordinateOutOfIndexException
    */
-  //TODO write big test :)
-  public ArrayList<int[]> getTeamViewArea(Team aTeam) {
+  public ArrayList<int[]> getTeamViewArea(Team aTeam) throws CoordinateOutOfIndexException {
     ArrayList<int[]> tmpTeamViewArea = new ArrayList<int[]>();
     ArrayList<int[]> tmpFigureViewArea = new ArrayList<int[]>();
     Figure tmpFigure;
+    int[] tmpTeamCoordinates, tmpFigureCoordinates;
+    int tmpOldTeamViewAreaSize;
+    boolean tmpAddToView = true;
 
     ArrayList<Figure> tmpFigureList = aTeam.getFigures();
     for (int i = 0; i < tmpFigureList.size(); i++) {
@@ -515,10 +538,24 @@ public class PlayMap {
 
       tmpFigureViewArea = getSingleFigureViewArea(tmpFigure);
 
-      // Hope "contains" works like it sounds...
-      for (int j = 0; j < tmpFigureViewArea.size(); j++) {
-        if (!tmpTeamViewArea.contains(tmpFigureViewArea.get(j))) {
-          tmpTeamViewArea.add(tmpFigureViewArea.get(j));
+      tmpOldTeamViewAreaSize = tmpTeamViewArea.size();
+      if (tmpOldTeamViewAreaSize == 0){
+        tmpTeamViewArea = tmpFigureViewArea;
+      }
+      else{
+        for (int j = 0; j < tmpFigureViewArea.size(); j++) {
+          tmpFigureCoordinates = tmpFigureViewArea.get(j);
+          for (int k = 0; k < tmpOldTeamViewAreaSize; k++) {
+            tmpTeamCoordinates = tmpTeamViewArea.get(k);
+            if (tmpTeamCoordinates[0] == tmpFigureCoordinates[0]
+                && tmpTeamCoordinates[1] == tmpFigureCoordinates[1]) {
+              tmpAddToView = false;
+            }
+          }
+          if (tmpAddToView){
+            tmpTeamViewArea.add(tmpFigureViewArea.get(j));
+          }
+          tmpAddToView = true;
         }
       }
 
@@ -528,22 +565,22 @@ public class PlayMap {
 
   /**
    * For test only
-   *
+   * 
    * @param aFigure
    * @param aNewX
    * @param aNewY
    * @return
+   * @throws CoordinateOutOfIndexException
    */
-  // TODO Write ViewTests with this method
-  // Creation of ViewAreaTest is done but has failures because of this method
-  public boolean checkViewForTest(Figure aFigure, int aNewX, int aNewY) {
+  public boolean checkViewForTest(Figure aFigure, int aNewX, int aNewY) throws CoordinateOutOfIndexException {
     return checkIfIsApparitionial(aFigure, aNewX, aNewY) ? true : false;
   }
 
   /**
    * Checks if the figure can see what is on the field
    */
-  private boolean checkIfIsApparitionial(Figure aFigure, int aNewX, int aNewY) {
+  private boolean checkIfIsApparitionial(Figure aFigure, int aNewX, int aNewY)
+      throws CoordinateOutOfIndexException {
     int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
     if (tmpCurrentCoordinates[0] == aNewX && tmpCurrentCoordinates[1] == aNewY) {
       // same field
@@ -551,21 +588,21 @@ public class PlayMap {
     } else if (tmpCurrentCoordinates[0] == aNewX) {
       // vertical move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalView())) {
-        return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[1], aNewY)
+        return checkIfIsReachableNonDiagonally(aFigure, aNewY, "y")
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
       return false;
     } else if (tmpCurrentCoordinates[1] == aNewY) {
       // horizontal move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalView())) {
-        return checkIfIsReachableNonDiagonally(aFigure, tmpCurrentCoordinates[0], aNewX)
+        return checkIfIsReachableNonDiagonally(aFigure, aNewX, "x")
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
       return false;
     } else {
       // diagonal move
-      // one check lasts (decided to check the change of x-coordinate)
-      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalView())) {
+      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalView())
+          && checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getDiagonalView())) {
         return checkIfIsReachableDiagonally(aFigure, aNewX, aNewY)
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
@@ -615,7 +652,7 @@ public class PlayMap {
 
   /**
    * Gets the setter out of the field (deletes it from the map)
-   *
+   * 
    * @param anX
    * @param aY
    * @return the setter from the specified field
@@ -635,7 +672,7 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * @return the xDimension
    */
   public int getXDimension() {
@@ -643,7 +680,7 @@ public class PlayMap {
   }
 
   /**
-   *
+   * 
    * @return the yDimension
    */
   public int getYDimension() {
