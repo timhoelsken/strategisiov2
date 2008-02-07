@@ -1,42 +1,57 @@
 package strategisio.visualization;
 
 import java.awt.Graphics;
-import java.awt.Polygon;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.io.File;
+
+import javax.swing.JComponent;
 
 /**
  * 
  * @author Tim
  *
  */
-public class Field {
+public class Field extends JComponent{
 
+private Image anImage;
+private int anX, aY;
+
+/**
+ * 
+ * @param aFile
+ * @param anX
+ * @param aY
+ */
+public Field(File aFile, int anX, int aY){
+  setImage(aFile, anX, aY);
+  setCoordinates(anX, aY);
+}
   /**
    * 
    */
-  private static Polygon p = new Polygon();
+  private static final long serialVersionUID = 1L;
   
   /**
-   * 
-   * @param g
-   * @param x
-   * @param y
-   * @param r
-   * @param n
-   * @param filled
+   * @param aFile
+   * @param anX
+   * @param aY
    */
-  public static synchronized void drawField( Graphics g, int x, int y, int r, int n, boolean filled){
-    p.reset();
-    for (int i = 0; i < n; i++){
-      p.addPoint((int) (x+r * Math.cos( i* 2 * Math.PI / n)),
-          (int) (x+r * Math.sin( i* 2 * Math.PI / n)));
-      
-      if (filled){
-        g.fillPolygon(p);
-      }
-      else{
-        g.drawPolygon(p);
-      }
+  public void setImage(File aFile, int anX, int aY){
+    anImage = Toolkit.getDefaultToolkit().getImage( aFile.getAbsolutePath());
+    if (anImage != null){
+      repaint();
     }
     
+  }
+  protected void paintComponent( Graphics g){
+    if (anImage != null){
+      g.drawImage(anImage, anX, aY, this);
+    }
+  }
+  
+  private void setCoordinates(int anX, int aY){
+    this.anX = anX;
+    this.aY = aY;
   }
 }

@@ -1,6 +1,6 @@
 package strategisio.elements;
 
-import strategisio.elements.figures.*;
+import strategisio.elements.figures.Figure;
 
 /**
  * 
@@ -68,9 +68,12 @@ public class Combat {
     return tmpWinner;
   }
 
-  private int chooseAttack(Figure aFigure) {
+  private int chooseAttack(Figure aFigure){// throws IOException {
 
     int tmpAttack = 0;
+    //int tmpChoice;
+    //int[] tmpAllAttacks = aFigure.getAttacks();
+    //tmpChoice = System.in.read();
     // TODO interaction with player
 
     return tmpAttack;
@@ -79,6 +82,7 @@ public class Combat {
   private int chooseDefence(Figure aFigure) {
 
     int tmpDefence = 0;
+    //int[] tmpAllDefences = aFigure.getDefences();
     // TODO interaction with player
 
     return tmpDefence;

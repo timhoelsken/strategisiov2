@@ -646,8 +646,6 @@ public class PlayMapTest extends TestCase {
     playMap.positionWithoutCheck(tmpEnemyFighter, 0, 2);
 
     assertFalse("A Fighter cannot see through a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 2));
-    // TODO write the correct method for this!
-    // checkIfIsApparitionial does first checkGround (returns false)
     assertTrue("But a Fighter can see what's on a Mountain.", playMap.checkViewForTest(tmpFighter, 0, 1));
 
   }

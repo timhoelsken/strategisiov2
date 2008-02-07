@@ -3,11 +3,13 @@ package strategisio;
 import java.io.File;
 import java.util.ArrayList;
 
+import strategisio.elements.Placeable;
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
+import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.FlagLimitOverflowException;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
@@ -99,10 +101,19 @@ public class Game {
     File tmpFile = new File("resources/map_config.xml");
     Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
 
-    // TODO init fields by request
-    ArrayList<Figure> tmpFigures = tmpGame.teamA.getFigures();
-    ArrayList<Item> tmpItems = tmpGame.teamA.getItems();
-    PlayMap tmpPlayMap = tmpGame.playMap;
+    // TODO init fields manually
+    tmpGame.generateMapAutomatically();
+    
+    tmpGame.display("map");
+  }
+
+  /**
+   * 
+   */
+  public void generateMapAutomatically(){
+    ArrayList<Figure> tmpFigures = this.teamA.getFigures();
+    ArrayList<Item> tmpItems = this.teamA.getItems();
+    PlayMap tmpPlayMap = this.playMap;
     tmpPlayMap.getXDimension();
     int tmpX = 0;
     int tmpY = 0;
@@ -149,8 +160,8 @@ public class Game {
       }
     }
 
-    tmpFigures = tmpGame.teamB.getFigures();
-    tmpItems = tmpGame.teamB.getItems();
+    tmpFigures = this.teamB.getFigures();
+    tmpItems = this.teamB.getItems();
     tmpX = tmpPlayMap.getXDimension() - 1;
     tmpY = tmpPlayMap.getXDimension() - 1;
 
@@ -196,9 +207,32 @@ public class Game {
         i--;
       }
     }
-    tmpGame.displayer.display(tmpPlayMap);
   }
 
+  /**
+   * @param anElement 
+   * 
+   */
+  public void display(String anElement) {
+    if (anElement.equals("map")){
+      this.displayer.display(this.playMap);
+    }
+  }
+  
+  /**
+   * 
+   * @param anOldXCoordinate
+   * @param anOldYCoordinate
+   * @param aNewXCoordinate
+   * @param aNewYCoordinate
+   * @throws CoordinateOutOfIndexException
+   */
+  public void move(int anOldXCoordinate, int anOldYCoordinate, int aNewXCoordinate, int aNewYCoordinate) throws CoordinateOutOfIndexException{
+    Placeable tmpPlaceable = this.playMap.fetchSetter(anOldXCoordinate, anOldYCoordinate);
+    playMap.move((Figure)tmpPlaceable, aNewXCoordinate, aNewYCoordinate);
+    
+  }
+  
   /**
    * @return the displayer
    */

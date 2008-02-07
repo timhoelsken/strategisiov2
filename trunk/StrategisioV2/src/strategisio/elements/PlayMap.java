@@ -396,9 +396,52 @@ public class PlayMap {
         tmpField = getField(tmpCoordinates[0] + (i * tmpDirection), tmpCoordinates[1]);
       }
       if (!checkGround(aFigure, tmpField.getGround())) {
-        // TODO insert View-Logic here!
         return false;
       }
+    }
+    return true;
+  }
+
+  /**
+   * Checks the view of a figure Enemy figures placed on a special field can be
+   * seen, but figures behind a special field can not be seen.
+   * 
+   * @param aFigure
+   * @param aNewCoordinate
+   * @param anAxis
+   * @return
+   * @throws CoordinateOutOfIndexException
+   */
+  private boolean checkIfIsViewableNonDiagonally(Figure aFigure, int aNewCoordinate, String anAxis)
+      throws CoordinateOutOfIndexException {
+    int[] tmpCoordinates = aFigure.getCurrentCoordinates();
+    int tmpDirection, tmpOldCoordinate;
+    Field tmpField, tmpPreviousField = null;
+
+    if (anAxis.equals("y")) {
+      tmpDirection = detectDirection(tmpCoordinates[1], aNewCoordinate);
+      tmpOldCoordinate = tmpCoordinates[1];
+    } else if (anAxis.equals("x")) {
+      tmpDirection = detectDirection(tmpCoordinates[0], aNewCoordinate);
+      tmpOldCoordinate = tmpCoordinates[0];
+    } else {
+      throw new CoordinateOutOfIndexException("The Coordinate is not in the map index.");
+    }
+
+    for (int i = 1; i <= Math.abs(aNewCoordinate - tmpOldCoordinate); i++) {
+      if (anAxis.equals("y")) {
+        tmpField = getField(tmpCoordinates[0], tmpCoordinates[1] + (i * tmpDirection));
+      } else {
+        tmpField = getField(tmpCoordinates[0] + (i * tmpDirection), tmpCoordinates[1]);
+      }
+      if (!checkGround(aFigure, tmpField.getGround())) {
+        if ((tmpPreviousField == null && Math.abs(aNewCoordinate - tmpOldCoordinate) == 1)
+            || (tmpPreviousField != null && checkGround(aFigure, tmpPreviousField.getGround()))) {
+          return true;
+        }
+        return false;
+      }
+      tmpPreviousField = tmpField;
     }
     return true;
   }
@@ -416,9 +459,38 @@ public class PlayMap {
       tmpField = getField(tmpCurrentCoordinates[0] + (i * tmpHorizontalDirection), tmpCurrentCoordinates[1]
           + (i * tmpVerticalDirection));
       if (!checkGround(aFigure, tmpField.getGround())) {
-     // TODO insert View-Logic here!
+
         return false;
       }
+    }
+    return true;
+  }
+
+  /**
+   * Checks the view of a figure Enemy figures placed on a special field can be
+   * seen, but figures behind a special field can not be seen.
+   * 
+   * @param aFigure
+   * @param aNewX
+   * @param aNewY
+   * @return
+   */
+  private boolean checkIfIsViewableDiagonally(Figure aFigure, int aNewX, int aNewY) {
+    int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+    int tmpHorizontalDirection = detectDirection(tmpCurrentCoordinates[0], aNewX);
+    int tmpVerticalDirection = detectDirection(tmpCurrentCoordinates[1], aNewY);
+    Field tmpField, tmpPreviousField = null;
+    for (int i = 1; i <= Math.abs(aNewX - tmpCurrentCoordinates[0]); i++) {
+      tmpField = getField(tmpCurrentCoordinates[0] + (i * tmpHorizontalDirection), tmpCurrentCoordinates[1]
+          + (i * tmpVerticalDirection));
+      if (!checkGround(aFigure, tmpField.getGround())) {
+        if ((tmpPreviousField == null && Math.abs(aNewX - tmpCurrentCoordinates[0]) == 1)
+            || (tmpPreviousField != null && checkGround(aFigure, tmpPreviousField.getGround()))) {
+          return true;
+        }
+        return false;
+      }
+      tmpPreviousField = tmpField;
     }
     return true;
   }
@@ -539,10 +611,9 @@ public class PlayMap {
       tmpFigureViewArea = getSingleFigureViewArea(tmpFigure);
 
       tmpOldTeamViewAreaSize = tmpTeamViewArea.size();
-      if (tmpOldTeamViewAreaSize == 0){
+      if (tmpOldTeamViewAreaSize == 0) {
         tmpTeamViewArea = tmpFigureViewArea;
-      }
-      else{
+      } else {
         for (int j = 0; j < tmpFigureViewArea.size(); j++) {
           tmpFigureCoordinates = tmpFigureViewArea.get(j);
           for (int k = 0; k < tmpOldTeamViewAreaSize; k++) {
@@ -552,7 +623,7 @@ public class PlayMap {
               tmpAddToView = false;
             }
           }
-          if (tmpAddToView){
+          if (tmpAddToView) {
             tmpTeamViewArea.add(tmpFigureViewArea.get(j));
           }
           tmpAddToView = true;
@@ -577,7 +648,13 @@ public class PlayMap {
   }
 
   /**
-   * Checks if the figure can see what is on the field
+   * checks if a figure can see what's on a field
+   * 
+   * @param aFigure
+   * @param aNewX
+   * @param aNewY
+   * @return
+   * @throws CoordinateOutOfIndexException
    */
   private boolean checkIfIsApparitionial(Figure aFigure, int aNewX, int aNewY)
       throws CoordinateOutOfIndexException {
@@ -588,14 +665,14 @@ public class PlayMap {
     } else if (tmpCurrentCoordinates[0] == aNewX) {
       // vertical move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalView())) {
-        return checkIfIsReachableNonDiagonally(aFigure, aNewY, "y")
+        return checkIfIsViewableNonDiagonally(aFigure, aNewY, "y")
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
       return false;
     } else if (tmpCurrentCoordinates[1] == aNewY) {
       // horizontal move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalView())) {
-        return checkIfIsReachableNonDiagonally(aFigure, aNewX, "x")
+        return checkIfIsViewableNonDiagonally(aFigure, aNewX, "x")
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
       return false;
@@ -603,7 +680,7 @@ public class PlayMap {
       // diagonal move
       if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalView())
           && checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getDiagonalView())) {
-        return checkIfIsReachableDiagonally(aFigure, aNewX, aNewY)
+        return checkIfIsViewableDiagonally(aFigure, aNewX, aNewY)
             && checkIfFieldIsEmptyOrHasVisibleEnemySetter(aFigure, aNewX, aNewY);
       }
       return false;
