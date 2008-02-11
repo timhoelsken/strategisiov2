@@ -21,7 +21,7 @@ public class SwingDemo extends JPanel{
   protected void paintComponent( Graphics g){
     //Field.drawField(g, getWidth() / 2, getHeight() / 2, 50, 6, true);
     //Field.drawField(g, getWidth() / 2, getHeight() / 2, 60, 6, true);
-    Color tmpGrassColor = new Color(0,255,0);
+    Color tmpGrassColor = new Color(255,0,0);
     g.drawRect(10,10,480,480);
     g.setColor(tmpGrassColor);
     for (int j = 10; j<480; j+=40){

@@ -87,10 +87,10 @@ public class GameController {
           } else if (tmpInputArray[0].equals("exit")) {
             // game exit
           } else {
-            System.out.println("Ihr befehl wurde nicht erkannt, bitte neu eingeben, HELP für Hilfe.");
+            System.out.println("Ihr Befehl wurde nicht erkannt, bitte neu eingeben, HELP für Hilfe.");
           }
         } else {
-          System.out.println("Ihr befehl wurde nicht erkannt, bitte neu eingeben, HELP für Hilfe.");
+          System.out.println("Ihr Befehl wurde nicht erkannt, bitte neu eingeben, HELP für Hilfe.");
         }
       }
       System.out.println("Spiel beendet.");

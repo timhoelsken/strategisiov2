@@ -3,42 +3,46 @@ package strategisio.visualization;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.File;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-import javax.swing.JComponent;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 /**
  * 
  * @author Tim
  *
  */
-public class Field extends JComponent{
+public class Field extends JButton{
 
 private Image anImage;
-private int anX, aY;
 
 /**
  * 
- * @param aFile
+ * @param aGroundPicture
  * @param anX
  * @param aY
  */
-public Field(File aFile, int anX, int aY){
-  setImage(aFile, anX, aY);
-  setCoordinates(anX, aY);
+public Field(String aGroundPicture, int anX, int aY){
+  setIcon(new ImageIcon(aGroundPicture));
+  setSize(anX, aY);
+  //setImage(aGroundPicture, anX, aY);
+  //setCoordinates(anX, aY);
 }
+
   /**
    * 
    */
   private static final long serialVersionUID = 1L;
   
   /**
-   * @param aFile
+   * @param anImageString
    * @param anX
    * @param aY
    */
-  public void setImage(File aFile, int anX, int aY){
-    anImage = Toolkit.getDefaultToolkit().getImage( aFile.getAbsolutePath());
+  public void setImage(String anImageString, int anX, int aY){
+    anImage = Toolkit.getDefaultToolkit().getImage(anImageString);
     if (anImage != null){
       repaint();
     }
@@ -46,12 +50,9 @@ public Field(File aFile, int anX, int aY){
   }
   protected void paintComponent( Graphics g){
     if (anImage != null){
-      g.drawImage(anImage, anX, aY, this);
+      //g.drawImage(anImage, anX, aY, this);
     }
   }
   
-  private void setCoordinates(int anX, int aY){
-    this.anX = anX;
-    this.aY = aY;
-  }
+  
 }
