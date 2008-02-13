@@ -1,9 +1,9 @@
 package strategisio.elements;
 
 /**
- * 
+ *
  * groups figures & items
- * 
+ *
  */
 public interface Placeable {
 
@@ -13,7 +13,6 @@ public interface Placeable {
   char getId();
 
   /**
-   * 
    * @return the currentCoordinates
    */
   int[] getCurrentCoordinates();
@@ -24,4 +23,10 @@ public interface Placeable {
    *            sets the currentCoordninates
    */
   void setCurrentCoordinates(int anX, int aY);
+
+  /**
+   * @return the filename of the picture
+   */
+  String getImage();
+  //TODO how to image trapped figures?!
 }

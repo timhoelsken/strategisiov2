@@ -6,7 +6,7 @@ import strategisio.elements.figures.Figure;
 
 /**
  * @author Tobias
- * 
+ *
  * the medic
  */
 public class TestFigure extends Figure {
@@ -27,5 +27,12 @@ public class TestFigure extends Figure {
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setAttacks(tmpFightMoves);
     setDefences(tmpFightMoves);
+  }
+
+  /**
+   * @return the image for this figure
+   */
+  public String getImage() {
+    return null;
   }
 }

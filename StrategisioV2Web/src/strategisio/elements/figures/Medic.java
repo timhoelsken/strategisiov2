@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the medic
  */
 public class Medic extends Figure {
@@ -26,5 +26,12 @@ public class Medic extends Figure {
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setAttacks(tmpFightMoves);
     setDefences(tmpFightMoves);
+  }
+
+  /**
+   * @return the image for this figure
+   */
+  public String getImage() {
+    return new String("san_set.png");
   }
 }

@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the spy
  */
 public class Spy extends Figure {
@@ -26,5 +26,12 @@ public class Spy extends Figure {
     setAttacks(tmpAttacks);
     int[] tmpDefences = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setDefences(tmpDefences);
+  }
+
+  /**
+   * @return the image for this figure
+   */
+  public String getImage() {
+    return new String("spy_set.png");
   }
 }

@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the climber
  */
 public class Climber extends Figure {
@@ -26,5 +26,12 @@ public class Climber extends Figure {
     setAttacks(tmpAttacks);
     int[] tmpDefends = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK, FightMoves.SHOT };
     setDefences(tmpDefends);
+  }
+
+  /**
+   * @return the image for this figure
+   */
+  public String getImage() {
+    return new String("clb_set.png");
   }
 }

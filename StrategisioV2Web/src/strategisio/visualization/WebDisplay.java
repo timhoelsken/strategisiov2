@@ -1,5 +1,6 @@
 package strategisio.visualization;
 
+import strategisio.elements.Placeable;
 import strategisio.elements.PlayMap;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
@@ -35,6 +36,11 @@ public class WebDisplay implements Displayable {
           e.printStackTrace();
         }
         tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\">";
+        if (tmpField.getSetter() != null) {
+          Placeable tmpSetter = tmpField.getSetter();
+          String tmpImage = tmpSetter.getImage();
+          tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+        }
         tmpOutput += "</div>\n";
       }
     }

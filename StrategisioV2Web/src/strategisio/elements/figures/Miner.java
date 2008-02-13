@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- * 
+ *
  * the miner
  */
 public class Miner extends Figure {
@@ -25,5 +25,12 @@ public class Miner extends Figure {
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };
     setAttacks(tmpFightMoves);
     setDefences(tmpFightMoves);
+  }
+
+  /**
+   * @return the image for this figure
+   */
+  public String getImage() {
+    return new String("min_set.png");
   }
 }
