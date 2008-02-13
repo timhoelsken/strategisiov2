@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 /**
@@ -28,15 +26,21 @@ public class JavaDisplay extends JFrame implements ActionListener {
    */
   private static final long serialVersionUID = 1L;
 
+  private JMenuItem tmpItem;
+  
+  public static void main(String[] args) {
+    JavaDisplay tmpDisplay = new JavaDisplay();
+  }
   /**
    * 
    */
   public JavaDisplay() {
     JMenuBar tmpMenuBar = new JMenuBar();
     JMenu tmpMenu = new JMenu("Datei");
-    JMenuItem tmpItem = new JMenuItem("Beenden");
+    tmpItem = new JMenuItem("Beenden");
     tmpItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_0, InputEvent.CTRL_MASK));
-    tmpItem.addActionListener(this);
+    MyActionListener tmpActionListener = new MyActionListener();
+    tmpItem.addActionListener(tmpActionListener);
     tmpMenu.add(tmpItem);
     tmpMenuBar.add(tmpMenu);
     setJMenuBar(tmpMenuBar);
@@ -65,25 +69,33 @@ public class JavaDisplay extends JFrame implements ActionListener {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-  /**
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
+  private void closeWindow(ActionEvent anActionEvent){
+    setVisible(false);
+    dispose();
+    System.exit(0);
+  }
+  
+  class MyActionListener implements ActionListener {
+    
 
-    new JavaDisplay().setVisible(true);
+    /**
+     * @param anActionEvent 
+     * 
+     */
+    public void actionPerformed(ActionEvent anActionEvent) {
+     Object tmpObject = anActionEvent.getSource();
+     if (tmpObject == tmpItem){
+       closeWindow(anActionEvent);
+     }
+     
+    }
+
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-   */
   @Override
-  /**
-   * 
-   */
   public void actionPerformed(ActionEvent aArg0) {
-
+    // TODO Auto-generated method stub
+    
   }
+  
 }

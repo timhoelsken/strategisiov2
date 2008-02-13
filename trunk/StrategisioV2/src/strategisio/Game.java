@@ -211,12 +211,14 @@ public class Game {
 
   /**
    * @param anElement 
+   * @return 
    * 
    */
-  public void display(String anElement) {
+  public String display(String anElement) {
     if (anElement.equals("map")){
-      this.displayer.display(this.playMap);
+      return this.displayer.display(this.playMap);
     }
+    return "";
   }
   
   /**

@@ -14,6 +14,7 @@ public interface Displayable {
    * To paint the given map on the screen
    *
    * @param aPlayMap
+   * @return 
    */
-  public void display(PlayMap aPlayMap);
+  public String display(PlayMap aPlayMap);
 }

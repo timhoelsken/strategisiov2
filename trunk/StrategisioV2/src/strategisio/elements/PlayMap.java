@@ -712,7 +712,14 @@ public class PlayMap {
     return true;
   }
 
-  private Field getField(int anX, int aY) {
+  //needed in Displayers ==> public
+  /**
+   * @param anX 
+   * @param aY 
+   * @return a Field
+   * 
+   */
+  public Field getField(int anX, int aY) {
     return fields[aY][anX];
   }
 
@@ -764,4 +771,5 @@ public class PlayMap {
     return fields.length;
   }
 
+  
 }

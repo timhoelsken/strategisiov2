@@ -3,8 +3,6 @@ package strategisio.visualization;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +12,7 @@ import javax.swing.JButton;
  * @author Tim
  *
  */
-public class Field extends JButton{
+public class DisplayField extends JButton{
 
 private Image anImage;
 
@@ -24,7 +22,7 @@ private Image anImage;
  * @param anX
  * @param aY
  */
-public Field(String aGroundPicture, int anX, int aY){
+public DisplayField(String aGroundPicture, int anX, int aY){
   setIcon(new ImageIcon(aGroundPicture));
   setSize(anX, aY);
   //setImage(aGroundPicture, anX, aY);

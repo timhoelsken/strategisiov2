@@ -15,8 +15,9 @@ public class ConsoleDisplay implements Displayable {
    * displays the map in the console
    * 
    * @param aPlayMap
+   * @return 
    */
-  public void display(PlayMap aPlayMap) {
+  public String display(PlayMap aPlayMap) {
     System.out.println();
     System.out.println();
     String tmpFirstLine = "       ";
@@ -58,5 +59,6 @@ public class ConsoleDisplay implements Displayable {
       }
       System.out.println(tmpFieldRow);
     }
+    return "";
   }
 }
