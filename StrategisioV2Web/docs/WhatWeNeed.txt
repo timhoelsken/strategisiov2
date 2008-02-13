@@ -1,0 +1,49 @@
+ TD# |  Issue
+ 004 |  Evaluate positioning methods
+
+Summary:
+	Initially Positioning
+		Ground fits?
+		Field is empty?
+			=> position()
+
+	Moving During Game
+		Ground fits?
+		Field is reachable for figure?
+			Field is in focus
+			No missFields between figure and new field
+		Field is empty or enemy on the field?
+
+
+
+
+===================================
+= UseCase "Initially Positioning" =
+===================================
+checkGround(M, x, y) => checks if Movable is allowed to be on the field's ground
+checkIfIsEmpty(x, y) => checks if any Movable is on a field
+=> one method that checks if both conditions are true:
+	checkPositioningPossibility(M, x, y)
+
+position(M, x, y)    => sets Movable on field
+=> check is done before, positioning possible in every case
+
+a complete combinin method is not needed, because check is before set
+
+
+================================
+= UseCase "Moving During Game" =
+================================
+ONLY FOR FIGURES!!
+checkGround(F, x, y) => checks if Movable is allowed to be on the field's ground
+=> same as checkGround(M, x, y)
+checkIfIsEmptyOrEnemy(F, x, y) => checks if any Movable of the enemy is on the field or if it's empty
+=> can use checkIfIsEmpty(x, y)
+   and checkIfIsVsMovable(M, x, y)
+
+=> one method that checks if both conditions are true:
+	checkMovingPossibility(F, x, y)
+
+move(F, x, y)    => moves Movable on field and evaluates consequences:
+	checkIfIsEnemy(F, x, y) => checks if any Movable of the enemy is on the field
+==> just position(), beTrappedOrBombedOrSomething() or fight()
