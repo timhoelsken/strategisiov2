@@ -17,22 +17,23 @@ import javax.swing.KeyStroke;
 
 /**
  * @author Tim
- * 
+ *
  */
 public class JavaDisplay extends JFrame implements ActionListener {
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
 
   private JMenuItem tmpItem;
-  
+
   public static void main(String[] args) {
     JavaDisplay tmpDisplay = new JavaDisplay();
   }
+
   /**
-   * 
+   *
    */
   public JavaDisplay() {
     JMenuBar tmpMenuBar = new JMenuBar();
@@ -45,15 +46,11 @@ public class JavaDisplay extends JFrame implements ActionListener {
     tmpMenuBar.add(tmpMenu);
     setJMenuBar(tmpMenuBar);
     String tmpGroundPicture = "resources/pictures/grass.jpg";
-    /*Field[] tmpFieldArray = new Field[225];
-    int k = 0;
-    for (int j = 32; j < 320; j += 32) {
-      for (int i = 32; i < 320; i += 32) {
-        tmpFieldArray[k] = new Field(tmpFile, i, j);
-        add(tmpFieldArray[k]);
-        k++;
-      }
-    }*/
+    /*
+     * Field[] tmpFieldArray = new Field[225]; int k = 0; for (int j = 32; j <
+     * 320; j += 32) { for (int i = 32; i < 320; i += 32) { tmpFieldArray[k] =
+     * new Field(tmpFile, i, j); add(tmpFieldArray[k]); k++; } }
+     */
     setTitle("Strategisio");
     setSize(800, 600);
     setLayout(new GridLayout(12, 12));
@@ -64,38 +61,36 @@ public class JavaDisplay extends JFrame implements ActionListener {
     tmpDimension.setSize(32, 32);
     tmpButton.setPreferredSize(tmpDimension);
     add(tmpButton);
-    //add(new Field(tmpGroundPicture, 32, 32));
-    //add(new Field(tmpGroundPicture, 32, 32));
+    // add(new Field(tmpGroundPicture, 32, 32));
+    // add(new Field(tmpGroundPicture, 32, 32));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
-  private void closeWindow(ActionEvent anActionEvent){
+  private void closeWindow(ActionEvent anActionEvent) {
     setVisible(false);
     dispose();
     System.exit(0);
   }
-  
+
   class MyActionListener implements ActionListener {
-    
 
     /**
-     * @param anActionEvent 
-     * 
+     * @param anActionEvent
+     *
      */
     public void actionPerformed(ActionEvent anActionEvent) {
-     Object tmpObject = anActionEvent.getSource();
-     if (tmpObject == tmpItem){
-       closeWindow(anActionEvent);
-     }
-     
+      Object tmpObject = anActionEvent.getSource();
+      if (tmpObject == tmpItem) {
+        closeWindow(anActionEvent);
+      }
+
     }
 
   }
 
-  @Override
   public void actionPerformed(ActionEvent aArg0) {
     // TODO Auto-generated method stub
-    
+
   }
-  
+
 }
