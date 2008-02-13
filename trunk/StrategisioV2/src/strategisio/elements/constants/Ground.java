@@ -37,7 +37,6 @@ public class Ground {
   */
   public static final Field getFieldGround(int aFieldGround)throws UnknownFieldGroundException{
     Field tmpField;
-    //TODO make this generic (somehow?!)
     switch (aFieldGround) {
       case GRASS:
         tmpField = new Grass();
