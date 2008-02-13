@@ -14,15 +14,15 @@
     }
 
 .grass{
-		background-image: url(pictures/grass.png);
+		background-image: url(../pictures/grass.png);
 }
 
 .mountain{
-		background-image: url(pictures/mountain.png);
+		background-image: url(../pictures/mountain.png);
 }
 
 .water{
-		background-image: url(pictures/water.png);
+		background-image: url(../pictures/water.png);
 }
 
 
