@@ -28,8 +28,13 @@ public class JavaDisplay extends JFrame implements ActionListener {
 
   private JMenuItem tmpItem;
 
+  /**
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
     JavaDisplay tmpDisplay = new JavaDisplay();
+    tmpDisplay.notify();
   }
 
   /**
@@ -88,8 +93,12 @@ public class JavaDisplay extends JFrame implements ActionListener {
 
   }
 
+  /**
+   * @param aArg0 
+   * 
+   */
   public void actionPerformed(ActionEvent aArg0) {
-    // TODO Auto-generated method stub
+   
 
   }
 
