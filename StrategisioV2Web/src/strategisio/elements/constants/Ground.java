@@ -29,13 +29,13 @@ public class Ground {
    */
   public static final int WATER = 2;
 
- /**
-  *
-  * @param aFieldGround
-  * @return
-  * @throws UnknownFieldGroundException
-  */
-  public static final Field getFieldGround(int aFieldGround)throws UnknownFieldGroundException{
+  /**
+   *
+   * @param aFieldGround
+   * @return
+   * @throws UnknownFieldGroundException
+   */
+  public static final Field getFieldGround(int aFieldGround) throws UnknownFieldGroundException {
     Field tmpField;
     switch (aFieldGround) {
       case GRASS:
@@ -51,5 +51,23 @@ public class Ground {
         throw new UnknownFieldGroundException(aFieldGround + " is not a valid field type");
     }
     return tmpField;
+  }
+
+  /**
+   * @param aFieldGround
+   * @return the label of the specified fieldGround
+   * @throws UnknownFieldGroundException
+   */
+  public static final String getGroundLabeling(int aFieldGround) throws UnknownFieldGroundException {
+    switch (aFieldGround) {
+      case GRASS:
+        return new String("grass");
+      case MOUNTAIN:
+        return new String("mountain");
+      case WATER:
+        return new String("water");
+      default:
+        throw new UnknownFieldGroundException(aFieldGround + " is not a valid field type");
+    }
   }
 }
