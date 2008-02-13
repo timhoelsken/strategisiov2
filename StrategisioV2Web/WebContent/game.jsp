@@ -19,8 +19,8 @@
     //BEGIN HTML-FILE
   	out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\"http://www.w3.org/TR/html4/loose.dtd\">\n\n");
     out.println("<html>\n<head>");
-    out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/standard.css\">");
-    out.println("<script language=\"JavaScript\" src=\"resources/script.js\"></script>");
+    out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
+    out.println("<script language=\"JavaScript\" src=\"resources/includes/script.js\"></script>");
     out.println("<title>Test page</title>\n</head>\n\n<body>");
 
     //HTML CONTENT
