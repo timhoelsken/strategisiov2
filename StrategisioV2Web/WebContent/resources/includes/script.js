@@ -33,8 +33,8 @@ function schreibeAntwort() {
     }
 }
 
-function hoverOn(me){
-	me.style.borderColor='#ff0000';
+function hoverOn(me, color){
+	me.style.borderColor=color;
 }
 
 function hoverOff(me){

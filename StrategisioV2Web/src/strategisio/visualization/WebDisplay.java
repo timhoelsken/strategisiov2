@@ -4,6 +4,7 @@ import strategisio.elements.Placeable;
 import strategisio.elements.PlayMap;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
+import strategisio.elements.figures.Figure;
 import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
@@ -21,7 +22,7 @@ public class WebDisplay implements Displayable {
   public String display(PlayMap aPlayMap) {
     String tmpOutput = "";
     Field tmpField;
-    //TODO make internet explorer look as pretty as firefox
+    // TODO make internet explorer look as pretty as firefox
     tmpOutput = "<div class=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
     tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">\n";
     // loop for row
@@ -35,11 +36,26 @@ public class WebDisplay implements Displayable {
         } catch (UnknownFieldGroundException e) {
           e.printStackTrace();
         }
-        tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\">";
-        if (tmpField.getSetter() != null) {
-          Placeable tmpSetter = tmpField.getSetter();
+        Placeable tmpSetter = tmpField.getSetter();
+        if (tmpSetter != null) {
+          if (tmpSetter instanceof Figure) {
+            String tmpColor = new String();
+            switch (tmpField.getSetter().getId()) {
+              case 'A':
+                tmpColor = "'#ff0000'";
+                break;
+              case 'B':
+                tmpColor = "'#0000ff'";
+                break;
+            }
+            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this);\">";
+          } else {
+            tmpOutput += ">";
+          }
           String tmpImage = tmpSetter.getImage();
           tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+        } else {
+          tmpOutput += "/>";
         }
         tmpOutput += "</div>\n";
       }

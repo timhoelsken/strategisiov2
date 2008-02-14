@@ -9,10 +9,6 @@
 		float:left;
 }
 
-.field:hover{
-        border:1pt solid #ff0000;
-    }
-
 .grass{
 		background-image: url(../pictures/grass.png);
 }
@@ -24,6 +20,3 @@
 .water{
 		background-image: url(../pictures/water.png);
 }
-
-
-
