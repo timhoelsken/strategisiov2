@@ -26,6 +26,9 @@
     //HTML CONTENT
     out.println(tmpGame.display("map"));
 
+    out.println("<div class=\"field\" onClick=\"macheRequest('test.jsp', '1');\">hier AJAX</div><br><br>");
+    
+    out.println("<p>AJAX-OutPut HIER:<br><div id=\"output\"></div></p>");
     //CLOSE HTML
     out.println("</body>\n</html>");
 
