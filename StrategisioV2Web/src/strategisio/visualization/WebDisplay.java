@@ -22,7 +22,7 @@ public class WebDisplay implements Displayable {
   public String display(PlayMap aPlayMap) {
     String tmpOutput = "";
     Field tmpField;
-    // TODO make internet explorer look as pretty as firefox
+    
     tmpOutput = "<div class=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
     tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">\n";
     // loop for row
@@ -48,6 +48,7 @@ public class WebDisplay implements Displayable {
                 tmpColor = "'#0000ff'";
                 break;
             }
+            tmpOutput += "onClick=\"checkUserAction(this);\" ";
             tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this);\">";
           } else {
             tmpOutput += ">";
