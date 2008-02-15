@@ -236,6 +236,28 @@ public class Game {
   }
 
   /**
+   * 
+   * @param anX
+   * @param aY
+   * @return
+   * @throws CoordinateOutOfIndexException 
+   */
+  public int[][] getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException{
+    Figure tmpFigure = (Figure) this.playMap.getSetter(anX, aY);
+    return this.playMap.getMovingArea(tmpFigure);
+  }
+  
+  /**
+   * 
+   * @param anX
+   * @param aY
+   * @return
+   */
+  public boolean fieldIsSetByPlaceable(int anX, int aY){
+    return (this.playMap.getSetter(anX, aY) == null) ? false : true;
+  }
+  
+  /**
    * @return the displayer
    */
   public Displayable getDisplayer() {
