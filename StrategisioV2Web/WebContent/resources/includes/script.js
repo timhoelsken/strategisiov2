@@ -5,7 +5,7 @@
 // oder checkiptxt.jsp
 var req;
 
-function macheRequest( url, message ) {
+function sendRequest( data ) {
 	try {
 		if( window.XMLHttpRequest ) {
   			req = new XMLHttpRequest();
@@ -14,21 +14,21 @@ function macheRequest( url, message ) {
     	} else {
        		alert( "Your Browser doesn't support AJAX!" );
     	}
-    	req.open( "POST", url, true );
-    	req.onreadystatechange = schreibeAntwort;
+    	req.open( "POST", "controller.jsp", true );
+    	req.onreadystatechange = getAnswer;
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		req.send( 'message=' + message );
+		req.send( 'data=' + data );
     } catch( e ) {
-      	alert( "Fehler: " + e );
+      	alert( "Error: " + e );
     }
 }
 
-function schreibeAntwort() {
+function getAnswer() {
 	if( 4 == req.readyState ) {
         if( 200 != req.status ) {
     		alert( "Request Error " + req.status + ": " + req.statusText );
         } else {
-	    	document.getElementById("output").innerHTML = req.responseText;
+	    	buildAnswer(req.responseText);
         }
     }
 }
@@ -39,4 +39,12 @@ function hoverOn(me, color){
 
 function hoverOff(me){
 	me.style.borderColor='#ffffff';
+}
+
+function checkUserAction(me){
+sendRequest(me.attributes['id'].value);
+}
+
+function buildAnswer(data){
+alert(data);
 }
