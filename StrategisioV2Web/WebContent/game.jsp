@@ -12,6 +12,7 @@
   	WebDisplay tmpDisplayer = new WebDisplay();
     tmpGame.setDisplayer(tmpDisplayer);
 
+    session.setAttribute("globalGame", tmpGame);
     //position figures and items automatically on the map
   	tmpGame.generateMapAutomatically();
 
