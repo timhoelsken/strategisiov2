@@ -16,9 +16,9 @@ import strategisio.visualization.ConsoleDisplay;
 import strategisio.visualization.Displayable;
 
 /**
- * 
+ *
  * contains all game elements
- * 
+ *
  */
 public class Game {
 
@@ -32,7 +32,7 @@ public class Game {
 
   /**
    * standard constructor
-   * 
+   *
    * @param aMapSize
    *            size of the map
    * @param aTeamName
@@ -49,9 +49,9 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * Constructor for generating a map via XML-file
-   * 
+   *
    * @param aFile
    * @param aTeamName
    * @param anotherTeamName
@@ -60,7 +60,7 @@ public class Game {
    */
   public Game(File aFile, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException,
       UnknownFieldGroundException {
-    initMap(aFile);
+	initMap(aFile);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName, aFile);
     teamB = new Team('B', anotherTeamName, aFile);
@@ -89,26 +89,26 @@ public class Game {
 
   /**
    * start it here
-   * 
+   *
    * @param args
    * @throws FlagLimitOverflowException
-   * @throws UnknownFieldGroundException 
+   * @throws UnknownFieldGroundException
    */
   public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException {
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
-    
+
     File tmpFile = new File("resources/map_config.xml");
     Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
 
     // TODO init fields manually
     tmpGame.generateMapAutomatically();
-    
+
     tmpGame.display("map");
   }
 
   /**
-   * 
+   *
    */
   public void generateMapAutomatically(){
     ArrayList<Figure> tmpFigures = this.teamA.getFigures();
@@ -117,7 +117,7 @@ public class Game {
     tmpPlayMap.getXDimension();
     int tmpX = 0;
     int tmpY = 0;
-    
+
     // ////////////////////////////////////////////////////////////
     // INFO: for-loops will run endlessly if the map is to small!
     // ////////////////////////////////////////////////////////////
@@ -210,9 +210,9 @@ public class Game {
   }
 
   /**
-   * @param anElement 
-   * @return 
-   * 
+   * @param anElement
+   * @return
+   *
    */
   public String display(String anElement) {
     if (anElement.equals("map")){
@@ -220,9 +220,9 @@ public class Game {
     }
     return "";
   }
-  
+
   /**
-   * 
+   *
    * @param anOldXCoordinate
    * @param anOldYCoordinate
    * @param aNewXCoordinate
@@ -232,9 +232,9 @@ public class Game {
   public void move(int anOldXCoordinate, int anOldYCoordinate, int aNewXCoordinate, int aNewYCoordinate) throws CoordinateOutOfIndexException{
     Placeable tmpPlaceable = this.playMap.fetchSetter(anOldXCoordinate, anOldYCoordinate);
     playMap.move((Figure)tmpPlaceable, aNewXCoordinate, aNewYCoordinate);
-    
+
   }
-  
+
   /**
    * @return the displayer
    */

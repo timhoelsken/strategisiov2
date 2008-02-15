@@ -5,7 +5,8 @@
 <%
 
     //for first testing i entered my absolute path, relativ didnt work, why ever!
-  	File tmpFile = new File("workspace/StrategisioV2Web/WebContent/resources/map_config.xml");
+    final String REAL_PATH = application.getRealPath("resources/map_config.xml");
+    File tmpFile = new File(REAL_PATH);
 
     //create new Game and set Displayer to Webdisplay
   	Game tmpGame = new Game(tmpFile, "TeamA", "TeamB");
