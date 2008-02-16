@@ -93,18 +93,21 @@ public class Game {
    * @param args
    * @throws FlagLimitOverflowException
    * @throws UnknownFieldGroundException
+   * @throws CoordinateOutOfIndexException 
    */
-  public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException {
+  public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException, CoordinateOutOfIndexException {
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
 
-    File tmpFile = new File("resources/map_config.xml");
+    File tmpFile = new File("WebContent/resources/map_config.xml");
     Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
 
     // TODO init fields manually
     tmpGame.generateMapAutomatically();
 
     tmpGame.display("map");
+    
+    tmpGame.getMovingArea(2, 2);
   }
 
   /**
@@ -242,7 +245,7 @@ public class Game {
    * @return
    * @throws CoordinateOutOfIndexException 
    */
-  public int[][] getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException{
+  public ArrayList<int[]> getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException{
     Figure tmpFigure = (Figure) this.playMap.getSetter(anX, aY);
     return this.playMap.getMovingArea(tmpFigure);
   }

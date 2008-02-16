@@ -658,7 +658,7 @@ public class PlayMapTest extends TestCase {
    */
   public void testTeamView() throws UnknownFieldGroundException, CoordinateOutOfIndexException,
       FlagLimitOverflowException {
-    File tmpFile = new File("resources/map_config.xml");
+    File tmpFile = new File("WebContent/resources/map_config.xml");
     playMap = new PlayMap(tmpFile);
 
     Team tmpTeamA = new Team('A', "viewers", tmpFile);

@@ -315,7 +315,7 @@ public class PlayMap {
    * @return an array of coordinates where a figure could be placed
    * @throws CoordinateOutOfIndexException
    */
-  public int[][] getMovingArea(Figure aFigure) throws CoordinateOutOfIndexException {
+  public ArrayList<int[]> getMovingArea(Figure aFigure) throws CoordinateOutOfIndexException {
     ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
 
     for (int y = 0; y < getYDimension(); y++) {
@@ -328,7 +328,7 @@ public class PlayMap {
         }
       }
     }
-    return (int[][]) tmpMovingArea.toArray();
+    return tmpMovingArea;
   }
 
   /**
