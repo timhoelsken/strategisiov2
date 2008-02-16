@@ -317,6 +317,10 @@ public class PlayMap {
    */
   public ArrayList<int[]> getMovingArea(Figure aFigure) throws CoordinateOutOfIndexException {
     ArrayList<int[]> tmpMovingArea = new ArrayList<int[]>();
+    
+    //tmpCoordinates = aFigure.getCurrentCoordinates();
+    //tmpMovingArea.add(tmpCoordinates);
+    tmpMovingArea.add(aFigure.getCurrentCoordinates());
 
     for (int y = 0; y < getYDimension(); y++) {
       for (int x = 0; x < getXDimension(); x++) {
