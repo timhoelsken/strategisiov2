@@ -23,7 +23,7 @@ public class WebDisplay implements Displayable {
     String tmpOutput = "";
     Field tmpField;
     
-    tmpOutput = "<div class=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
+    tmpOutput = "<div class=\"map\" id=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
     tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">\n";
     // loop for row
     for (int i = 0; i < aPlayMap.getYDimension(); i++) {
@@ -37,9 +37,10 @@ public class WebDisplay implements Displayable {
           e.printStackTrace();
         }
         Placeable tmpSetter = tmpField.getSetter();
+        String tmpColor = new String ("'#000000'");
         if (tmpSetter != null) {
           if (tmpSetter instanceof Figure) {
-            String tmpColor = new String();
+            tmpColor = new String();
             switch (tmpField.getSetter().getId()) {
               case 'A':
                 tmpColor = "'#ff0000'";
@@ -48,15 +49,17 @@ public class WebDisplay implements Displayable {
                 tmpColor = "'#0000ff'";
                 break;
             }
-            tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this);\">";
-          } else {
-            tmpOutput += ">";
           }
+            tmpOutput += "onClick=\"checkUserAction(this);\" ";
+            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\">";
+          /*} else {
+            tmpOutput += ">";
+          }*/
           String tmpImage = tmpSetter.getImage();
           tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
         } else {
-          tmpOutput += "/>";
+          tmpOutput += "onClick=\"checkUserAction(this);\" ";
+          tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\">";
         }
         tmpOutput += "</div>\n";
       }

@@ -1,9 +1,19 @@
-// Setzen Sie eine geeignete URL ein
-// (beachten Sie dazu die Hinweise im Text):
-// Z.B. http://checkip.dyndns.org
-// oder http://www.myjavaserver.com/~torstenhorn/ajax/checkiptxt.jsp
-// oder checkiptxt.jsp
+
 var req;
+
+var globalHover = true;
+var moveHover = false;
+var globalMapFields = new Array();
+var globalMoveArray = new Array();
+
+function load(){
+	var map = document.getElementById("map");
+	
+	for (i = 0; i < map.childNodes.length;i++){
+		globalMapFields[i] = map.childNodes[i].attributes['id'].value;
+		globalMoveArray[i] = false;
+	}
+}
 
 function sendRequest( data ) {
 	try {
@@ -34,11 +44,45 @@ function getAnswer() {
 }
 
 function hoverOn(me, color){
-	me.style.borderColor=color;
+	globalHoverOn(me, color);
+	moveHoverOn(me);
 }
 
-function hoverOff(me){
+function hoverOff(me, color){
+	globalHoverOff(me);
+	moveHoverOff(me, color);
+}
+
+function globalHoverOn(me, color){
+	if (globalHover){
+		me.style.borderColor=color;
+	}
+}
+
+function globalHoverOff(me){
+	if (globalHover){
 	me.style.borderColor='#ffffff';
+	}
+}
+
+function moveHoverOn(me){
+	if (moveHover){
+		for (i=0;i<globalMapFields.length;i++){
+			if(globalMapFields[i] == me.attributes['id'].value && globalMoveArray[i]){
+				me.style.borderColor='#ffffff';
+			}
+		}
+	}
+}
+
+function moveHoverOff(me, color){
+	if (moveHover){
+		for (i=0;i<globalMapFields.length;i++){
+			if(globalMapFields[i] == me.attributes['id'].value && globalMoveArray[i]){
+				me.style.borderColor=color;
+			}
+		}
+	}
 }
 
 function checkUserAction(me){
@@ -46,5 +90,21 @@ sendRequest(me.attributes['id'].value);
 }
 
 function buildAnswer(data){
-alert(data);
+
+	tmpArrayCoordinates = data.split(';');
+	globalHover = false;
+	moveHover = true;
+	
+	color = document.getElementById(tmpArrayCoordinates[1]).style.borderColor;
+	
+	for (i = 1; i < tmpArrayCoordinates.length-1;i++){
+		document.getElementById(tmpArrayCoordinates[i]).style.borderColor=color;
+		for (j = 0; j < globalMapFields.length; j++){
+			if (globalMapFields[j] == tmpArrayCoordinates[i]){
+				globalMoveArray[j] = true;
+			}
+		}
+	}
+	
+	
 }

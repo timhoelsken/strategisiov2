@@ -23,7 +23,7 @@
     out.println("<html>\n<head>");
     out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
     out.println("<script language=\"JavaScript\" src=\"resources/includes/script.js\"></script>");
-    out.println("<title>Test page</title>\n</head>\n\n<body>");
+    out.println("<title>Test page</title>\n</head>\n\n<body onload=\"load();\">");
 
     //HTML CONTENT
     out.println(tmpGame.display("map"));
