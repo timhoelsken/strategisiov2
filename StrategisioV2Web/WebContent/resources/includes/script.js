@@ -1,20 +1,6 @@
 
 var req;
 
-var globalHover = true;
-var moveHover = false;
-var globalMapFields = new Array();
-var globalMoveArray = new Array();
-
-function load(){
-	var map = document.getElementById("map");
-	
-	for (i = 0; i < map.childNodes.length;i++){
-		globalMapFields[i] = map.childNodes[i].attributes['id'].value;
-		globalMoveArray[i] = false;
-	}
-}
-
 function sendRequest( data ) {
 	try {
 		if( window.XMLHttpRequest ) {
@@ -54,34 +40,28 @@ function hoverOff(me, color){
 }
 
 function globalHoverOn(me, color){
-	if (globalHover){
+	if (me.attributes['status'].value=="placed"){
 		me.style.borderColor=color;
 	}
 }
 
 function globalHoverOff(me){
-	if (globalHover){
+	if (me.attributes['status'].value=="placed"){
 	me.style.borderColor='#ffffff';
 	}
 }
 
 function moveHoverOn(me){
-	if (moveHover){
-		for (i=0;i<globalMapFields.length;i++){
-			if(globalMapFields[i] == me.attributes['id'].value && globalMoveArray[i]){
+	if (me.attributes['status'].value=="markedForMove"){
 				me.style.borderColor='#ffffff';
-			}
-		}
 	}
 }
 
 function moveHoverOff(me, color){
-	if (moveHover){
-		for (i=0;i<globalMapFields.length;i++){
-			if(globalMapFields[i] == me.attributes['id'].value && globalMoveArray[i]){
+	if (me.attributes['status'].value=="markedForMove"){
 				me.style.borderColor=color;
-			}
-		}
+			
+		
 	}
 }
 
@@ -93,18 +73,12 @@ sendRequest(me.attributes['id'].value);
 function buildAnswer(data){
 
 	tmpArrayCoordinates = data.split(';');
-	globalHover = false;
-	moveHover = true;
 	
 	color = document.getElementById(tmpArrayCoordinates[1]).style.borderColor;
 	
 	for (i = 1; i < tmpArrayCoordinates.length-1;i++){
 		document.getElementById(tmpArrayCoordinates[i]).style.borderColor=color;
-		for (j = 0; j < globalMapFields.length; j++){
-			if (globalMapFields[j] == tmpArrayCoordinates[i]){
-				globalMoveArray[j] = true;
-			}
-		}
+		document.getElementById(tmpArrayCoordinates[i]).attributes['status']="markedForMove";
 	}
 	
 	

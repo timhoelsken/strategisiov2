@@ -51,15 +51,12 @@ public class WebDisplay implements Displayable {
             }
           }
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\" >";
-          /*} else {
-            tmpOutput += ">";
-          }*/
+            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\" status=\"placed\">";
           String tmpImage = tmpSetter.getImage();
           tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
         } else {
           tmpOutput += "onClick=\"checkUserAction(this);\" ";
-          tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\">";
+          tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\" status=\"empty\">";
         }
         tmpOutput += "</div>\n";
       }
