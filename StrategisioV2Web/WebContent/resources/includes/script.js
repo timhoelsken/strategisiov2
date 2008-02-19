@@ -86,6 +86,7 @@ function moveHoverOff(me, color){
 }
 
 function checkUserAction(me){
+//me.attributes['class'].value = "field mountain";
 sendRequest(me.attributes['id'].value);
 }
 
