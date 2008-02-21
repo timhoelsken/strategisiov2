@@ -78,7 +78,7 @@ function buildAnswer(data){
 	
 	for (i = 1; i < tmpArrayCoordinates.length-1;i++){
 		document.getElementById(tmpArrayCoordinates[i]).style.borderColor=color;
-		document.getElementById(tmpArrayCoordinates[i]).attributes['status']="markedForMove";
+		document.getElementById(tmpArrayCoordinates[i]).attributes['status'].value ="markedForMove";
 	}
 	
 	

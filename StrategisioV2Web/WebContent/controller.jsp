@@ -10,10 +10,10 @@ if (request.getParameter("data") != null)
   	String[] tmpCurrentCoordinates = tmpRequestData.split("/");
   	Game tmpGame = null;
 	tmpGame = (Game) session.getAttribute("globalGame");
-	String move = (String) session.getAttribute("move");
+	//String move = (String) session.getAttribute("move");
 	
 	
-	if (move.equals("false") && tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpCurrentCoordinates[0]), Integer.parseInt(tmpCurrentCoordinates[1]))){
+	if (tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpCurrentCoordinates[0]), Integer.parseInt(tmpCurrentCoordinates[1]))){
 	  
 	  String tmpOutput = "";		
 	  
@@ -27,11 +27,8 @@ if (request.getParameter("data") != null)
 		}
 	  
 	  tmpOutput +=";";
-	  session.setAttribute("move", true);
+	  //session.setAttribute("move", true);
 	  out.println(tmpOutput);
-	}
-	else if (move.equals("true")){
-	  
 	}
 }
 
