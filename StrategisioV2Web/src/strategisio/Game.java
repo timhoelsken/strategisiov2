@@ -234,7 +234,9 @@ public class Game {
    */
   public void move(int anOldXCoordinate, int anOldYCoordinate, int aNewXCoordinate, int aNewYCoordinate) throws CoordinateOutOfIndexException{
     Placeable tmpPlaceable = this.playMap.fetchSetter(anOldXCoordinate, anOldYCoordinate);
-    playMap.move((Figure)tmpPlaceable, aNewXCoordinate, aNewYCoordinate);
+    if (!playMap.move((Figure)tmpPlaceable, aNewXCoordinate, aNewYCoordinate)){
+      playMap.getField(anOldXCoordinate, anOldYCoordinate).setSetter(tmpPlaceable);
+    }
 
   }
 
