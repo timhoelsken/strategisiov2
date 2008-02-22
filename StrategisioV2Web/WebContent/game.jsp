@@ -4,7 +4,7 @@
 
 <%
 
-    //for first testing i entered my absolute path, relativ didnt work, why ever!
+	//path to Map-File
     final String REAL_PATH = application.getRealPath("resources/map_config.xml");
     File tmpFile = new File(REAL_PATH);
 
@@ -23,7 +23,7 @@
     out.println("<html>\n<head>");
     out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
     out.println("<script language=\"JavaScript\" src=\"resources/includes/script.js\"></script>");
-    out.println("<title>Test page</title>\n</head>\n\n<body onload=\"load();\">");
+    out.println("<title>Test page</title>\n</head>\n\n<body>");
 
     //HTML CONTENT
     out.println(tmpGame.display("map"));
