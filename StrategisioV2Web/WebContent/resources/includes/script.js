@@ -8,21 +8,21 @@ var movingFigureId;
 // global Variables ===>
 
 // general mouseOver call that refers to the specific function
-function hoverOn(me, color){
-	globalHoverOn(me, color);
+function hoverOn(me){
+	globalHoverOn(me);
 	moveHoverOn(me);
 }
 
 // general mouseOut call that refers to the specific function
-function hoverOff(me, color){
+function hoverOff(me){
 	globalHoverOff(me);
-	moveHoverOff(me, color);
+	moveHoverOff(me);
 }
 
 // when nothing is selected
 function globalHoverOn(me, color){
 	if (me.attributes['status'].value=="placed" && me.attributes['filled'].value=="figure"){
-		me.style.borderColor=color;
+		me.style.borderColor=me.attributes['placablecolor'].value;
 	}
 }
 
@@ -41,9 +41,9 @@ function moveHoverOn(me){
 }
 
 // when figure is selected for move
-function moveHoverOff(me, color){
+function moveHoverOff(me){
 	if (me.attributes['status'].value=="markedForMove"){
-		me.style.borderColor=document.getElementById(movingFigureId).style.borderColor;
+		me.style.borderColor=document.getElementById(movingFigureId).attributes['placablecolor'].value;
 	}
 }
 
@@ -81,8 +81,9 @@ function buildAnswer(data){
 		
 		// mark the specific fields
 		for (i = 1; i < tmpArrayCoordinates.length-1;i++){
-			document.getElementById(tmpArrayCoordinates[i]).style.borderColor=document.getElementById(movingFigureId).style.borderColor;
+			document.getElementById(tmpArrayCoordinates[i]).style.borderColor=document.getElementById(movingFigureId).attributes['placablecolor'].value;
 			document.getElementById(tmpArrayCoordinates[i]).attributes['status'].value ="markedForMove";
+			document.getElementById(tmpArrayCoordinates[i]).attributes['placablecolor'].value = document.getElementById(movingFigureId).attributes['placablecolor'].value;
 		}
 	}
 	// if a figure is moved to a field
@@ -94,10 +95,11 @@ function buildAnswer(data){
 		// set all fields back to normal --> no border, status back to placed / empty
 		for (i = 0; i < map.childNodes.length;i++){
 			if (map.childNodes[i].attributes['filled'].value != "no"){
-			map.childNodes[i].attributes['status'].value ="placed";
+				map.childNodes[i].attributes['status'].value ="placed";
 			}
 			else{
-			map.childNodes[i].attributes['status'].value ="empty";
+				map.childNodes[i].attributes['status'].value ="empty";
+				map.childNodes[i].attributes['placablecolor'].value ="#000000";
 			}
 			map.childNodes[i].style.borderColor='#ffffff';
 		}
@@ -110,6 +112,8 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[1]).innerHTML = tmpFieldData;
 		document.getElementById(tmpArrayCoordinates[0]).attributes['filled'].value = "no";
 		document.getElementById(tmpArrayCoordinates[0]).attributes['status'].value = "empty";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value;
+		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
 	}
