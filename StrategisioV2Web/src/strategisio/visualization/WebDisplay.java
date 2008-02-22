@@ -37,26 +37,28 @@ public class WebDisplay implements Displayable {
           e.printStackTrace();
         }
         Placeable tmpSetter = tmpField.getSetter();
-        String tmpColor = new String ("'#000000'");
+        String tmpColor = new String ("#000000");
+        String tmpPlacable = new String ("item");
         if (tmpSetter != null) {
           if (tmpSetter instanceof Figure) {
             tmpColor = new String();
             switch (tmpField.getSetter().getId()) {
               case 'A':
-                tmpColor = "'#ff0000'";
+                tmpColor = "#ff0000";
                 break;
               case 'B':
-                tmpColor = "'#0000ff'";
+                tmpColor = "#0000ff";
                 break;
             }
+            tmpPlacable = "figure";
           }
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\" status=\"placed\">";
+            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\"" + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
           String tmpImage = tmpSetter.getImage();
           tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
         } else {
           tmpOutput += "onClick=\"checkUserAction(this);\" ";
-          tmpOutput += "onMouseOver=\"hoverOn(this, " + tmpColor + ");\" onMouseOut=\"hoverOff(this, " + tmpColor + ");\" status=\"empty\">";
+          tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
         }
         tmpOutput += "</div>\n";
       }
