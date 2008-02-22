@@ -93,9 +93,9 @@
 			<Field y="0">&GRASS;</Field>
 			<Field y="1">&GRASS;</Field>
 			<Field y="2">&GRASS;</Field>
-			<Field y="3">&GRASS;</Field>
+			<Field y="3">&MOUNTAIN;</Field>
 			<Field y="4">&GRASS;</Field>
-			<Field y="5">&GRASS;</Field>
+			<Field y="5">&WATER;</Field>
 			<Field y="6">&GRASS;</Field>
 			<Field y="7">&GRASS;</Field>
 		</Column>
