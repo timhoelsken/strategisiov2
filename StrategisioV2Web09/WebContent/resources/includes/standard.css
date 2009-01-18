@@ -1,0 +1,31 @@
+.map{
+    border: 0pt solid #000000;
+}
+
+.field{
+	    border: 1pt solid #ffffff;
+		width:32px;
+		height:32px;
+		float:left;
+}
+
+.grass{
+		background-image: url(../pictures/grass.png);
+}
+
+.mountain{
+		background-image: url(../pictures/mountain.png);
+}
+
+.water{
+		background-image: url(../pictures/water.png);
+}
+
+
+[status="a"]{
+border: 1pt solid #000000;
+}
+
+[status="b"]{
+border: 1pt solid #aaccff;
+}

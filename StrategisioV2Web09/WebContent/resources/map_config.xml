@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configuration
+[
+	<!ELEMENT Configuration (Team, Map)>
+	<!ELEMENT Team (Figures, Items)>
+	<!ELEMENT Map (Column+)>
+	<!ELEMENT Figures (Fighter, Climber, Diver, Medic, Spy, Miner)>
+	<!ELEMENT Items (FakeFlag, Trap, Bomb)>
+	<!ELEMENT Column (Field+)>
+	<!ELEMENT Field (#PCDATA)>
+	
+	<!ELEMENT Fighter (#PCDATA)>
+	<!ELEMENT Climber (#PCDATA)>
+	<!ELEMENT Diver (#PCDATA)>
+	<!ELEMENT Medic (#PCDATA)>
+	<!ELEMENT Spy (#PCDATA)>
+	<!ELEMENT Miner (#PCDATA)>
+	
+	<!ELEMENT FakeFlag (#PCDATA)>
+	<!ELEMENT Trap (#PCDATA)>
+	<!ELEMENT Bomb (#PCDATA)>
+
+	<!ENTITY GRASS "0">
+	<!ENTITY MOUNTAIN "1">
+	<!ENTITY WATER "2">		
+	
+	<!ATTLIST Map
+		x CDATA #REQUIRED
+		y CDATA #REQUIRED>
+	<!ATTLIST Column
+		x CDATA #REQUIRED>
+	<!ATTLIST Field
+		y CDATA #REQUIRED>
+]>
+<Configuration>
+	<Team>
+		<Figures>
+			<Fighter>2</Fighter>
+			<Climber>2</Climber>
+			<Diver>2</Diver>
+			<Medic>2</Medic>			
+			<Spy>1</Spy>
+			<Miner>2</Miner>
+		</Figures>
+		<Items>
+			<FakeFlag>1</FakeFlag>
+			<Trap>2</Trap>
+			<Bomb>3</Bomb>
+		</Items>
+	</Team>
+	<Map x="8" y="8">
+		<Column x="0">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="1">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="2">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="3">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="4">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&MOUNTAIN;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&WATER;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="5">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="6">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>
+		<Column x="7">
+			<Field y="0">&GRASS;</Field>
+			<Field y="1">&GRASS;</Field>
+			<Field y="2">&GRASS;</Field>
+			<Field y="3">&GRASS;</Field>
+			<Field y="4">&GRASS;</Field>
+			<Field y="5">&GRASS;</Field>
+			<Field y="6">&GRASS;</Field>
+			<Field y="7">&GRASS;</Field>
+		</Column>		
+	</Map>
+</Configuration>
