@@ -11,9 +11,9 @@ import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class GameController {
 
@@ -43,6 +43,15 @@ public class GameController {
     }
   }
 
+  /**
+   * @param args
+   * @return true if start was successfull
+   * @throws FlagLimitOverflowException
+   * @throws UnknownFieldGroundException
+   * @throws IOException
+   * @throws NumberFormatException
+   * @throws CoordinateOutOfIndexException
+   */
   protected boolean startConsoleGame(String[] args) throws FlagLimitOverflowException,
       UnknownFieldGroundException, IOException, NumberFormatException, CoordinateOutOfIndexException {
     if (args.length > 2) {

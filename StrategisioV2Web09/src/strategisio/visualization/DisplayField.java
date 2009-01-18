@@ -47,6 +47,9 @@ public DisplayField(String aGroundPicture, int anX, int aY){
 
   }
 
+  /**
+   * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+   */
   @Override
   protected void paintComponent( Graphics g){
     if (anImage != null){

@@ -28,6 +28,9 @@ public class JavaDisplay extends JFrame implements ActionListener {
 
   private JMenuItem tmpItem;
 
+  /**
+   * @param args
+   */
   public static void main(String[] args) {
     // JavaDisplay tmpDisplay = new JavaDisplay();
   }
@@ -88,6 +91,9 @@ public class JavaDisplay extends JFrame implements ActionListener {
 
   }
 
+  /**
+   * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+   */
   public void actionPerformed(ActionEvent aArg0) {
     // TODO Auto-generated method stub
 
