@@ -29,7 +29,7 @@ public class JavaDisplay extends JFrame implements ActionListener {
   private JMenuItem tmpItem;
 
   public static void main(String[] args) {
-    JavaDisplay tmpDisplay = new JavaDisplay();
+    // JavaDisplay tmpDisplay = new JavaDisplay();
   }
 
   /**
