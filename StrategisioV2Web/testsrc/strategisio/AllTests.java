@@ -1,7 +1,7 @@
 /**
  *
  */
-package strategisio.tests;
+package strategisio;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
