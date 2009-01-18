@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
- * 
+ *
  * @author Tim
  *
  */
@@ -17,7 +17,7 @@ public class DisplayField extends JButton{
 private Image anImage;
 
 /**
- * 
+ *
  * @param aGroundPicture
  * @param anX
  * @param aY
@@ -30,10 +30,10 @@ public DisplayField(String aGroundPicture, int anX, int aY){
 }
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * @param anImageString
    * @param anX
@@ -44,13 +44,15 @@ public DisplayField(String aGroundPicture, int anX, int aY){
     if (anImage != null){
       repaint();
     }
-    
+
   }
+
+  @Override
   protected void paintComponent( Graphics g){
     if (anImage != null){
       //g.drawImage(anImage, anX, aY, this);
     }
   }
-  
-  
+
+
 }

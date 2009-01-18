@@ -7,17 +7,18 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * 
+ *
  * @author Tim
  *
  */
 public class SwingDemo extends JPanel{
 
   /**
-   * 
+   *
    */
   private static final long serialVersionUID = 1L;
 
+  @Override
   protected void paintComponent( Graphics g){
     //Field.drawField(g, getWidth() / 2, getHeight() / 2, 50, 6, true);
     //Field.drawField(g, getWidth() / 2, getHeight() / 2, 60, 6, true);
@@ -30,9 +31,9 @@ public class SwingDemo extends JPanel{
           }
     }
   }
-  
+
   /**
-   * 
+   *
    * @param args
    */
   public static void main(String[] args) {
