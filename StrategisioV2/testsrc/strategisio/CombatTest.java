@@ -1,7 +1,7 @@
 /**
  *
  */
-package strategisio.tests;
+package strategisio;
 
 import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;

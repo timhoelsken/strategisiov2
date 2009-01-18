@@ -1,7 +1,7 @@
 /**
  *
  */
-package strategisio.tests;
+package strategisio;
 
 import java.io.File;
 import java.util.ArrayList;
