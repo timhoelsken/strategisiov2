@@ -47,14 +47,14 @@ function moveHoverOff(me){
 	}
 }
 
-// generel function that is called onClick, refers to AJAX Request
+// general function that is called onClick, refers to AJAX Request
 function checkUserAction(me){
 	var extendedAttribute = "";
-	
+
 	if (movingFigureId != ""){
 		extendedAttribute = movingFigureId;
 	}
-	
+
 	sendRequest(me.attributes['status'].value, me.attributes['id'].value, extendedAttribute);
 }
 
@@ -63,35 +63,36 @@ function buildAnswer(data){
 
 	// split the output to performed action [1] and coordinates [2]
 	var dataSegments = data.split('+++');
-	
+
 	// if a figure is marked
 	if (dataSegments[1] == "markedForMove"){
-	
+
 		// get the Map
 		var map = document.getElementById("map");
-		
+
 		// disable all fields on the map
 		for (i = 0; i < map.childNodes.length;i++){
 			map.childNodes[i].attributes['status'].value ="disabled";
 		}
-		
+
 		tmpArrayCoordinates = dataSegments[2].split(';');
-		
+
 		movingFigureId = document.getElementById(tmpArrayCoordinates[1]).attributes['id'].value;
-		
+
 		// mark the specific fields
 		for (i = 1; i < tmpArrayCoordinates.length-1;i++){
-			document.getElementById(tmpArrayCoordinates[i]).style.borderColor=document.getElementById(movingFigureId).attributes['placablecolor'].value;
+			var tmpColor = document.getElementById(movingFigureId).attributes['placablecolor'].value;
+			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = tmpColor;
 			document.getElementById(tmpArrayCoordinates[i]).attributes['status'].value ="markedForMove";
-			document.getElementById(tmpArrayCoordinates[i]).attributes['placablecolor'].value = document.getElementById(movingFigureId).attributes['placablecolor'].value;
+			document.getElementById(tmpArrayCoordinates[i]).attributes['placablecolor'].value = tmpColor;
 		}
 	}
 	// if a figure is moved to a field
 	else if (dataSegments[1] == "Moved"){
-	
+
 		// get the map
 		var map = document.getElementById("map");
-		
+
 		// set all fields back to normal --> no border, status back to placed / empty
 		for (i = 0; i < map.childNodes.length;i++){
 			if (map.childNodes[i].attributes['filled'].value != "no"){
@@ -103,7 +104,7 @@ function buildAnswer(data){
 			}
 			map.childNodes[i].style.borderColor='#ffffff';
 		}
-		
+
 		tmpArrayCoordinates = dataSegments[2].split(';');
 
 		// clear old field, paint figure on new field, set attributes of fields
