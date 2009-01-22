@@ -22,9 +22,9 @@ public class WebDisplay implements Displayable {
   public String display(PlayMap aPlayMap) {
     String tmpOutput = "";
     Field tmpField;
-    
+
     tmpOutput = "<div class=\"map\" id=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
-    tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">\n";
+    tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">";
     // loop for row
     for (int i = 0; i < aPlayMap.getYDimension(); i++) {
       // loop for column
@@ -60,10 +60,10 @@ public class WebDisplay implements Displayable {
           tmpOutput += "onClick=\"checkUserAction(this);\" ";
           tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
         }
-        tmpOutput += "</div>\n";
+        tmpOutput += "</div>";
       }
     }
-    tmpOutput += "</div>\n";
+    tmpOutput += "</div>";
 
     return tmpOutput;
   }
