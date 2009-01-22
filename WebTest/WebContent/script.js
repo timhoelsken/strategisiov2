@@ -33,7 +33,7 @@ function getAnswer() {
 
 function refresh(){
 	doRequest("refresh.jsp");
-	setTimeout("refresh()",1000);
+	setTimeout("refresh()",1);
 }
 
 // AJAX Request ===>
