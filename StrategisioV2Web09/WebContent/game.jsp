@@ -13,7 +13,7 @@
   	WebDisplay tmpDisplayer = new WebDisplay();
     tmpGame.setDisplayer(tmpDisplayer);
 
-    session.setAttribute("globalGame", tmpGame);
+    application.setAttribute("globalGame", tmpGame);
     //position figures and items automatically on the map
   	tmpGame.generateMapAutomatically();
 
@@ -23,10 +23,10 @@
     out.println("<html>\n<head>");
     out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
     out.println("<script type=\"text/javascript\" src=\"resources/includes/script.js\"></script>");
-    out.println("<title>Test page</title>\n</head>\n\n<body>");
+    out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='refresh()'>");
 
     //HTML CONTENT
-    out.println(tmpGame.display("map"));
+	out.println("<div class=\"map\" id=\"map\" style=\"width:278.0px; height:278.0px;\"></div>");
 
     //CLOSE HTML
     out.println("</body>\n</html>");

@@ -149,4 +149,36 @@ function getAnswer() {
     }
 }
 
+function setRefreshedMap() {
+	if( 4 == req.readyState ) {
+        if( 200 != req.status ) {
+    		alert( "Request Error " + req.status + ": " + req.statusText );
+        } else {
+	    	document.getElementById("map").innerHTML = req.responseText.replace(/^\s+/,"").replace(/\s+$/,"");
+        }
+    }
+}
+
+function doRefreshRequest() {
+	try {
+		if( window.XMLHttpRequest ) {
+  			req = new XMLHttpRequest();
+    	} else if( window.ActiveXObject ) {
+    		req = new ActiveXObject( "Microsoft.XMLHTTP" );
+    	} else {
+       		alert( "Your Browser doesn't support AJAX!" );
+    	}
+    	req.open( "POST", "refresh.jsp", true );
+    	req.onreadystatechange = setRefreshedMap;
+    	req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    	req.send( null );
+    } catch( e ) {
+      	alert( "Error: " + e );
+    }
+}
+
+function refresh(){
+	doRefreshRequest();
+	setTimeout("refresh()",5000);
+}
 // AJAX Request ===>

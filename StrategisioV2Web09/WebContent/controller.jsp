@@ -20,7 +20,7 @@
         // split the coordinates of the _clicked field_ to x and y
         String[] tmpSelectedCoordinates = tmpRequestData.split("/");
 
-        Game tmpGame = (Game) session.getAttribute("globalGame");
+        Game tmpGame = (Game) application.getAttribute("globalGame");
 
         // output String that is printed at the end
         String tmpOutput = "";

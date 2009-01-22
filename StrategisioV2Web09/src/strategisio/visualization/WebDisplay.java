@@ -23,8 +23,6 @@ public class WebDisplay implements Displayable {
     String tmpOutput = "";
     Field tmpField;
 
-    tmpOutput = "<div class=\"map\" id=\"map\" style=\"width:" + aPlayMap.getXDimension() * 34.75 + "px; ";
-    tmpOutput += "height:" + aPlayMap.getYDimension() * 34.75 + "px;\">";
     // loop for row
     for (int i = 0; i < aPlayMap.getYDimension(); i++) {
       // loop for column
@@ -63,7 +61,6 @@ public class WebDisplay implements Displayable {
         tmpOutput += "</div>";
       }
     }
-    tmpOutput += "</div>";
 
     return tmpOutput;
   }
