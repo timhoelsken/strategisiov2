@@ -3,7 +3,7 @@
 <title>WebTest</title>
 </head>
 
-<script type="text/javascript" language="JavaScript" src="script.js"></script>
+<script type="text/javascript" src="script.js"></script>
 
 <body onload="refresh()">
 <p>Hallo.</p>
