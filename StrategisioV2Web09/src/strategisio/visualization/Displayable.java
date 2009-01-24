@@ -11,7 +11,7 @@ import strategisio.elements.PlayMap;
 public interface Displayable {
 
   /**
-   * To paint the given map on the screen
+   * To paint the given map on the screen in God's view
    *
    * @param aPlayMap
    * @return
