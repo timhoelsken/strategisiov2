@@ -3,33 +3,15 @@
  */
 package strategisio;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * @author Tobias
  *
  */
-public class AllTests extends TestCase {
-
-  /**
-   * @return all test suites of package strategisio.tests
-   */
-  public static Test suite() {
-    TestSuite suite = new TestSuite();
-    suite.addTestSuite(PlayMapTest.class);
-    suite.addTestSuite(CombatTest.class);
-    return suite;
-  }
-
-  /**
-   * Start the PlayMapTests here.
-   *
-   * @param args
-   */
-  public static void main(String[] args) {
-    TestRunner.run(AllTests.class);
-  }
+@RunWith(Suite.class)
+@SuiteClasses( { CombatTest.class, PlayMapTest.class, ViewAreaTest.class})
+public class AllTests {
 }
