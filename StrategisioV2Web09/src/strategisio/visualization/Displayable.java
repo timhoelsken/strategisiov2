@@ -1,6 +1,7 @@
 package strategisio.visualization;
 
 import strategisio.elements.PlayMap;
+import strategisio.elements.Team;
 
 /**
  * Display interface for painting the game on the screen
@@ -19,11 +20,13 @@ public interface Displayable {
   public String display(PlayMap aPlayMap);
 
   /**
-   * To paint the given map on the screen from the point of view of team aPlayerId
+   * To paint the given map on the screen from the point of view of team aTeam
+   * with aPlayerId
    *
    * @param aPlayMap
    * @param aPlayerId
+   * @param aTeam
    * @return
    */
-  public String display(PlayMap aPlayMap, char aPlayerId);
+  public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam);
 }

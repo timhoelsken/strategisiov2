@@ -222,7 +222,8 @@ public class Game {
       return "";
     }
     char tmpPlayerId = aPlayerId.charAt(0);
-    return this.displayer.display(this.playMap, tmpPlayerId);
+    Team tmpTeam = getTeam(tmpPlayerId);
+    return this.displayer.display(this.playMap, tmpPlayerId, tmpTeam);
   }
 
   /**
@@ -277,5 +278,16 @@ public class Game {
    */
   public void setDisplayer(Displayable aDisplayer) {
     displayer = aDisplayer;
+  }
+
+  private Team getTeam(char aPlayerId) {
+    switch (aPlayerId) {
+      case 'A':
+        return teamA;
+      case 'B':
+        return teamB;
+      default:
+        return null;
+    }
   }
 }

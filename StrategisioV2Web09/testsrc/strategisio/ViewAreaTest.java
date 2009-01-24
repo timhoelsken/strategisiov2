@@ -27,6 +27,8 @@ public class ViewAreaTest {
    */
   @Test
   public void testViewArea() throws FlagLimitOverflowException, UnknownFieldGroundException {
+    // TODO test for if diagonal field is really diagonal and not 1 field x and
+    // 2 fields y away or something
     Team tmpTeam = new Team('A', "TestTeam");
     PlayMap tmpPlayMap = new PlayMap(8);
 

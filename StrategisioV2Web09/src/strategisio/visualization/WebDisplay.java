@@ -1,11 +1,16 @@
 package strategisio.visualization;
 
+import java.util.ArrayList;
+
 import strategisio.elements.Placeable;
 import strategisio.elements.PlayMap;
+import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.figures.Figure;
+import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.UnknownFieldGroundException;
+import strategisio.util.StrategisioUtil;
 
 /**
  * @author Tobias, Tim
@@ -17,16 +22,24 @@ public class WebDisplay implements Displayable {
    * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
    */
   public String display(PlayMap aPlayMap) {
-    return display(aPlayMap, 'X');
+    return display(aPlayMap, 'X', null);
   }
 
   /**
    * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
-   *      char)
+   *      char, strategisio.elements.Team)
    */
-  public String display(PlayMap aPlayMap, char aPlayerId) {
+  public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {
     String tmpOutput = "";
     Field tmpField;
+
+    ArrayList<int[]> tmpTeamView = null;
+    try {
+      tmpTeamView = aPlayMap.getTeamViewArea(aTeam);
+    } catch (CoordinateOutOfIndexException e) {
+      // TODO throw?
+      e.printStackTrace();
+    }
 
     // loop for row
     for (int i = 0; i < aPlayMap.getYDimension(); i++) {
@@ -43,8 +56,9 @@ public class WebDisplay implements Displayable {
         String tmpColor = "#000000";
         String tmpPlacable = "item";
         if (tmpSetter != null) {
-          char tmpSetterId = tmpSetter.getId();
-          if (aPlayerId != 'X' && tmpSetterId == aPlayerId) {
+          if (aPlayerId == 'X'
+              || StrategisioUtil.isFieldInTeamView(tmpSetter.getCurrentCoordinates(), tmpTeamView)) {
+            char tmpSetterId = tmpSetter.getId();
             if (tmpSetter instanceof Figure) {
               switch (tmpSetterId) {
                 case 'A':
@@ -77,5 +91,4 @@ public class WebDisplay implements Displayable {
 
     return tmpOutput;
   }
-
 }

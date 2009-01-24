@@ -62,9 +62,9 @@ public class ConsoleDisplay implements Displayable {
   }
 
   /**
-   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap, char)
+   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap, char, strategisio.elements.Team)
    */
-  public String display(PlayMap aPlayMap, char aPlayerId) {
+  public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {
     // TODO Auto-generated method stub
     return null;
   }
