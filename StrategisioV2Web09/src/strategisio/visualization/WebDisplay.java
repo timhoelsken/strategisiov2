@@ -8,18 +8,23 @@ import strategisio.elements.figures.Figure;
 import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
- * @author Tim
+ * @author Tobias, Tim
  *
  */
 public class WebDisplay implements Displayable {
 
   /**
-   * displays the map in the web
-   *
-   * @param aPlayMap
-   * @return
+   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
    */
   public String display(PlayMap aPlayMap) {
+    return display(aPlayMap, 'x');
+  }
+
+  /**
+   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
+   *      char)
+   */
+  public String display(PlayMap aPlayMap, char aPlayerId) {
     String tmpOutput = "";
     Field tmpField;
 
@@ -35,26 +40,34 @@ public class WebDisplay implements Displayable {
           e.printStackTrace();
         }
         Placeable tmpSetter = tmpField.getSetter();
-        String tmpColor = new String ("#000000");
-        String tmpPlacable = new String ("item");
+        String tmpColor = "#000000";
+        String tmpPlacable = "item";
         if (tmpSetter != null) {
-          if (tmpSetter instanceof Figure) {
-            tmpColor = new String();
-            switch (tmpField.getSetter().getId()) {
-              case 'A':
-                tmpColor = "#ff0000";
-                break;
-              case 'B':
-                tmpColor = "#0000ff";
-                break;
+          char tmpSetterId = tmpSetter.getId();
+          if (aPlayerId != 'X' && tmpSetterId == aPlayerId) {
+            if (tmpSetter instanceof Figure) {
+              switch (tmpSetterId) {
+                case 'A':
+                  tmpColor = "#ff0000";
+                  break;
+                case 'B':
+                  tmpColor = "#0000ff";
+                  break;
+              }
+              tmpPlacable = "figure";
             }
-            tmpPlacable = "figure";
-          }
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\"" + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
-          String tmpImage = tmpSetter.getImage();
-          tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
+                + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
+            String tmpImage = tmpSetter.getImage();
+            tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+          } else {
+            // enemy's setter on the field
+            tmpOutput += "onClick=\"checkUserAction(this);\" ";
+            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
+          }
         } else {
+          // no setter on the field
           tmpOutput += "onClick=\"checkUserAction(this);\" ";
           tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
         }

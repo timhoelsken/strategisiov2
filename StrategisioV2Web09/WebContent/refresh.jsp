@@ -10,5 +10,7 @@
 
       Game tmpGame = (Game) application.getAttribute("globalGame");
 
-	  out.println(tmpGame.display("map"));
+	  String tmpPlayerId = (String) session.getAttribute("playerId");
+
+      out.println(tmpGame.display(tmpPlayerId));
 %>

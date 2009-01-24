@@ -63,7 +63,7 @@ public class GameController {
       ConsoleDisplay tmpDisplayer = new ConsoleDisplay();
       tmpGame.generateMapAutomatically();
       tmpGame.setDisplayer(tmpDisplayer);
-      tmpGame.display("map");
+      tmpGame.display("wholeMap");
 
       System.out.println("Das Spiel kann beginnen, Sie können ziehen!");
       System.out.println("Zum bewegen den Befehl move eingeben, mit Anfangs- und Endkoordinaten:");
@@ -87,7 +87,7 @@ public class GameController {
               tmpGame.move(Integer.parseInt(tmpOldCoordinates[0]), Integer.parseInt(tmpOldCoordinates[1]),
                   Integer.parseInt(tmpNewCoordinates[0]), Integer.parseInt(tmpNewCoordinates[1]));
               System.out.println("Figur von " + tmpInputArray[1] + " nach " + tmpInputArray[2] + " bewegt!");
-              tmpGame.display("map");
+              tmpGame.display("wholeMap");
             } else {
               System.out.println("Sie haben zu wenig Parameter angegeben um eine Figur zu bewegen.");
             }

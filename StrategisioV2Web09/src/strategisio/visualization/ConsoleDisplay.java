@@ -1,21 +1,20 @@
 package strategisio.visualization;
 
-import strategisio.elements.Placeable;
 import strategisio.elements.*;
 
 /**
  * for displaying the game in the console
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class ConsoleDisplay implements Displayable {
 
   /**
    * displays the map in the console
-   * 
+   *
    * @param aPlayMap
-   * @return 
+   * @return
    */
   public String display(PlayMap aPlayMap) {
     System.out.println();
@@ -60,5 +59,13 @@ public class ConsoleDisplay implements Displayable {
       System.out.println(tmpFieldRow);
     }
     return "";
+  }
+
+  /**
+   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap, char)
+   */
+  public String display(PlayMap aPlayMap, char aPlayerId) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

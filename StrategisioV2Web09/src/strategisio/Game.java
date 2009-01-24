@@ -60,7 +60,7 @@ public class Game {
    */
   public Game(File aFile, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException,
       UnknownFieldGroundException {
-	initMap(aFile);
+    initMap(aFile);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName, aFile);
     teamB = new Team('B', anotherTeamName, aFile);
@@ -93,27 +93,28 @@ public class Game {
    * @param args
    * @throws FlagLimitOverflowException
    * @throws UnknownFieldGroundException
-   * @throws CoordinateOutOfIndexException 
+   * @throws CoordinateOutOfIndexException
    */
-  public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException, CoordinateOutOfIndexException {
+  public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException,
+      CoordinateOutOfIndexException {
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
 
     File tmpFile = new File("WebContent/resources/map_config.xml");
-    Game tmpGame = new Game (tmpFile, tmpTeam1, tmpTeam2);
+    Game tmpGame = new Game(tmpFile, tmpTeam1, tmpTeam2);
 
     // TODO init fields manually
     tmpGame.generateMapAutomatically();
 
-    tmpGame.display("map");
-    
+    tmpGame.display("wholeMap");
+
     tmpGame.getMovingArea(2, 2);
   }
 
   /**
    *
    */
-  public void generateMapAutomatically(){
+  public void generateMapAutomatically() {
     ArrayList<Figure> tmpFigures = this.teamA.getFigures();
     ArrayList<Item> tmpItems = this.teamA.getItems();
     PlayMap tmpPlayMap = this.playMap;
@@ -213,15 +214,15 @@ public class Game {
   }
 
   /**
-   * @param anElement
-   * @return
-   *
+   * @param aPlayerId may be playerId 'A' or 'B' or God's view 'X'
+   * @return the display()-result of this.displayer
    */
-  public String display(String anElement) {
-    if (anElement.equals("map")){
-      return this.displayer.display(this.playMap);
+  public String display(String aPlayerId) {
+    if ("".equals(aPlayerId) || aPlayerId == null || aPlayerId.length() != 1) {
+      return "";
     }
-    return "";
+    char tmpPlayerId = aPlayerId.charAt(0);
+    return this.displayer.display(this.playMap, tmpPlayerId);
   }
 
   /**
@@ -232,36 +233,37 @@ public class Game {
    * @param aNewYCoordinate
    * @throws CoordinateOutOfIndexException
    */
-  public void move(int anOldXCoordinate, int anOldYCoordinate, int aNewXCoordinate, int aNewYCoordinate) throws CoordinateOutOfIndexException{
+  public void move(int anOldXCoordinate, int anOldYCoordinate, int aNewXCoordinate, int aNewYCoordinate)
+      throws CoordinateOutOfIndexException {
     Placeable tmpPlaceable = this.playMap.fetchSetter(anOldXCoordinate, anOldYCoordinate);
-    if (!playMap.move((Figure)tmpPlaceable, aNewXCoordinate, aNewYCoordinate)){
+    if (!playMap.move((Figure) tmpPlaceable, aNewXCoordinate, aNewYCoordinate)) {
       playMap.getField(anOldXCoordinate, anOldYCoordinate).setSetter(tmpPlaceable);
     }
 
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return
-   * @throws CoordinateOutOfIndexException 
+   * @throws CoordinateOutOfIndexException
    */
-  public ArrayList<int[]> getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException{
+  public ArrayList<int[]> getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException {
     Figure tmpFigure = (Figure) this.playMap.getSetter(anX, aY);
     return this.playMap.getMovingArea(tmpFigure);
   }
-  
+
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return
    */
-  public boolean fieldIsSetByPlaceable(int anX, int aY){
+  public boolean fieldIsSetByPlaceable(int anX, int aY) {
     return (this.playMap.getSetter(anX, aY) == null) ? false : true;
   }
-  
+
   /**
    * @return the displayer
    */
