@@ -5,7 +5,7 @@ import strategisio.elements.PlayMap;
 /**
  * Display interface for painting the game on the screen
  *
- * @author Tim, Tobias
+ * @author Tobias, Tim
  *
  */
 public interface Displayable {
