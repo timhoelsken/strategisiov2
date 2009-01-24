@@ -179,6 +179,6 @@ function doRefreshRequest() {
 
 function refresh(){
 	doRefreshRequest();
-	// setTimeout("refresh()",5000);
+	setTimeout("refresh()",5000);
 }
 // AJAX Request ===>

@@ -70,15 +70,17 @@ public class WebDisplay implements Displayable {
               }
               tmpPlacable = "figure";
             }
+            // TODO right show mechanism
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
             tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
                 + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
             String tmpImage = tmpSetter.getImage();
             tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
           } else {
-            // enemy's setter on the field
+            // invisible enemy's setter on the field
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
+            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
+                + tmpPlacable + "\" placablecolor=\"#000000\" >";
           }
         } else {
           // no setter on the field
