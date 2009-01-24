@@ -17,7 +17,7 @@ public class WebDisplay implements Displayable {
    * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
    */
   public String display(PlayMap aPlayMap) {
-    return display(aPlayMap, 'x');
+    return display(aPlayMap, 'X');
   }
 
   /**
