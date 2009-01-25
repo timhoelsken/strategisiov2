@@ -21,7 +21,21 @@
 		background-image: url(../pictures/water.png);
 }
 
+#overlay{
+	position:absolute;
+	top:0;
+	left:0;
+	zIndex:90;
+ 	width:100%;
+ 	height:100%
+	background-image: url(../pictures/overlay.png);
+	}
 
+#Messagebox{
+	display:none;
+	position:absolute';
+	zIndex:100;	
+	}
 [status="a"]{
 border: 1pt solid #000000;
 }

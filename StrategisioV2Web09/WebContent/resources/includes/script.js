@@ -47,6 +47,20 @@ function moveHoverOff(me){
 	}
 }
 
+// standard MessageBox
+function openMessageBox(text){
+var objBody = document.getElementsByTagName("body").item(0);
+
+var objOverlay = document.createElement("div");
+objOverlay.setAttribute('id','overlay');
+objOverlay.onclick = function () {document.getElementsByTagName("body").item(0).removeChild(document.getElementsByTagName("body").item(0).firstChild); return false;}
+objBody.insertBefore(objOverlay, objBody.firstChild);
+objMessagebox = document.createElement("div");
+objMessagebox.setAttribute('id','Messagebox');
+objMessagebox.innerHTML = text;
+objBody.insertBefore(objMessagebox, objOverlay.nextSibling);
+}
+
 // general function that is called onClick, refers to AJAX Request
 function checkUserAction(me){
 	var extendedAttribute = "";
@@ -60,7 +74,7 @@ function checkUserAction(me){
 
 // special function of an enemy player
 function checkSpecialUserAction(me){
-alert('you cannot move me');
+openMessageBox('you cannot move me');
 }
 
 // === Main-Function for processing the output of the action ===
