@@ -1,0 +1,10 @@
+<!ELEMENT map (field*)>
+<!ELEMENT field (ground, figure, item)>
+<!ELEMENT ground (#PCDATA)>
+<!ELEMENT figure EMPTY>
+<!ELEMENT item EMPTY>
+
+<!ATTLIST field
+   x CDATA #REQUIRED
+   y CDATA #REQUIRED
+>
