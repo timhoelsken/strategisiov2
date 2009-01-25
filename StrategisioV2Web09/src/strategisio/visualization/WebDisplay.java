@@ -70,12 +70,22 @@ public class WebDisplay implements Displayable {
               }
               tmpPlacable = "figure";
             }
-            // TODO right show mechanism
+            if (tmpSetterId == aPlayerId){
+
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
             tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
                 + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
             String tmpImage = tmpSetter.getImage();
             tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+            }
+            else{
+            	//TODO Problem with "who is allowed to click on the figure" => replace checkSpecialUserAction
+            	tmpOutput += "onClick=\"checkSpecialUserAction(this);\" ";
+                tmpOutput += "status=\"placed\" filled=\""
+                    + tmpPlacable + "\" placablecolor=\"#000000\" >";
+                String tmpImage = tmpSetter.getImage();
+                tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+            }
           } else {
             // invisible enemy's setter on the field
             tmpOutput += "onClick=\"checkUserAction(this);\" ";
