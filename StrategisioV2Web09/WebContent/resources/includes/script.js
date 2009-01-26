@@ -72,11 +72,6 @@ function checkUserAction(me){
 	sendRequest(me.attributes['status'].value, me.attributes['id'].value, extendedAttribute);
 }
 
-// special function of an enemy player
-function checkSpecialUserAction(me){
-openMessageBox('you cannot move me');
-}
-
 // === Main-Function for processing the output of the action ===
 function buildAnswer(data){
 
