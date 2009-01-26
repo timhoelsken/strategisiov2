@@ -80,13 +80,11 @@ public class WebDisplay implements Displayable {
               String tmpImage = tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             } else {
-              // TODO Problem with "who is allowed to click on the figure" =>
-              // replace checkSpecialUserAction
-              tmpOutput += "onClick=\"checkSpecialUserAction(this);\" ";
-              tmpOutput += "status=\"placed\" filled=\""
-              // TODO Color problem - I want to know who's setter I see (not
-                  // only my own figures by hovering)
-                  + tmpPlacable + "\" placablecolor=\"#000000\" >";
+              // TODO Problem with "who is allowed to click on the figure" => update controller.jsp line 79
+              tmpOutput += "onClick=\"checkUserAction(this);\" ";
+              tmpOutput += "status=\"placedInView\" filled=\""
+              // TODO Color problem - I want to know who's setter I see => current CSS Solution good?!?
+                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" style='border: 1pt solid " + tmpColor +";'>";
               String tmpImage = tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             }

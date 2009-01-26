@@ -21,14 +21,14 @@ function hoverOff(me){
 
 // when nothing is selected
 function globalHoverOn(me, color){
-	if (me.attributes['status'].value=="placed" && me.attributes['filled'].value=="figure"){
+	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
 		me.style.borderColor=me.attributes['placablecolor'].value;
 	}
 }
 
 // when nothing is selected
 function globalHoverOff(me){
-	if (me.attributes['status'].value=="placed" && me.attributes['filled'].value=="figure"){
+	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
 		me.style.borderColor='#ffffff';
 	}
 }
@@ -136,6 +136,9 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
+	}
+	else if(dataSegments[1] == "markedForMoveWhileInView"){
+		return;
 	}
 }
 

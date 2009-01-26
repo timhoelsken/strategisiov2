@@ -72,5 +72,28 @@
             out.println(tmpOutput);
           }
         }
+        else if (tmpRequestAction.equals("placedInView")){
+        	// the action that follows on the click
+            tmpOutput += "+++markedForMoveWhileInView+++";
+
+        	//TODO: if session.playerID == application.currentPlayer OR SOMETHING LIKE THAT
+        	if(false){
+        		tmpOutput = "+++markedForMove+++";
+            ArrayList<int[]> tmpArea = tmpGame.getMovingArea(Integer.parseInt(tmpSelectedCoordinates[0]),
+                Integer.parseInt(tmpSelectedCoordinates[1]));
+            int[] tmpPossibleCoordinates;
+
+            // write the movingArea into the output
+            for (int i = 0; i < tmpArea.size(); i++) {
+              tmpPossibleCoordinates = tmpArea.get(i);
+              tmpOutput += ";" + tmpPossibleCoordinates[0] + "/" + tmpPossibleCoordinates[1];
+            }
+
+            tmpOutput += ";";
+
+        	}
+            // print output
+            out.println(tmpOutput);
+        }
       }
 %>
