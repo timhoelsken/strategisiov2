@@ -59,6 +59,8 @@ public class WebDisplay implements Displayable {
           if (aPlayerId == 'X'
               || StrategisioUtil.isFieldInTeamView(tmpSetter.getCurrentCoordinates(), tmpTeamView)) {
             char tmpSetterId = tmpSetter.getId();
+            // TODO opponent's fake flag is shown as a fake flag. that's not a
+            // good fake flag xD
             if (tmpSetter instanceof Figure) {
               switch (tmpSetterId) {
                 case 'A':
@@ -70,21 +72,23 @@ public class WebDisplay implements Displayable {
               }
               tmpPlacable = "figure";
             }
-            if (tmpSetterId == aPlayerId){
+            if (tmpSetterId == aPlayerId) {
 
-            tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
-                + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
-            String tmpImage = tmpSetter.getImage();
-            tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
-            }
-            else{
-            	//TODO Problem with "who is allowed to click on the figure" => replace checkSpecialUserAction
-            	tmpOutput += "onClick=\"checkSpecialUserAction(this);\" ";
-                tmpOutput += "status=\"placed\" filled=\""
-                    + tmpPlacable + "\" placablecolor=\"#000000\" >";
-                String tmpImage = tmpSetter.getImage();
-                tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+              tmpOutput += "onClick=\"checkUserAction(this);\" ";
+              tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
+                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
+              String tmpImage = tmpSetter.getImage();
+              tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
+            } else {
+              // TODO Problem with "who is allowed to click on the figure" =>
+              // replace checkSpecialUserAction
+              tmpOutput += "onClick=\"checkSpecialUserAction(this);\" ";
+              tmpOutput += "status=\"placed\" filled=\""
+              // TODO Color problem - I want to know who's setter I see (not
+                  // only my own figures by hovering)
+                  + tmpPlacable + "\" placablecolor=\"#000000\" >";
+              String tmpImage = tmpSetter.getImage();
+              tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             }
           } else {
             // invisible enemy's setter on the field
