@@ -80,7 +80,7 @@ public class WebDisplay implements Displayable {
               String tmpImage = tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             } else {
-              // TODO Problem with "who is allowed to click on the figure" => update controller.jsp line 79
+
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "status=\"placedInView\" filled=\""
               // TODO Color problem - I want to know who's setter I see => current CSS Solution good?!?
