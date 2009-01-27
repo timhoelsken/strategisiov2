@@ -135,10 +135,17 @@ function buildAnswer(data){
 	else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
 	}
+	else if(dataSegments[1] == "Fight"){
+		alert('Now a fight starts!');
+		}
+	else if(dataSegments[1] == "Item") {
+		alert('You moved on an item!');
+		}
 }
 
 // <=== AJAX Request
 function sendRequest( action, data, extendedAttribute ) {
+
 	try {
 		if( window.XMLHttpRequest ) {
   			req = new XMLHttpRequest();
