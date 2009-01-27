@@ -7,6 +7,7 @@ import strategisio.elements.Placeable;
 import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
+import strategisio.elements.fields.Field;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
 import strategisio.exceptions.CoordinateOutOfIndexException;
@@ -16,9 +17,9 @@ import strategisio.visualization.ConsoleDisplay;
 import strategisio.visualization.Displayable;
 
 /**
- * 
+ *
  * contains all game elements
- * 
+ *
  */
 public class Game {
 
@@ -32,7 +33,7 @@ public class Game {
 
 	/**
 	 * standard constructor
-	 * 
+	 *
 	 * @param aMapSize
 	 *            size of the map
 	 * @param aTeamName
@@ -50,9 +51,9 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 *
 	 * Constructor for generating a map via XML-file
-	 * 
+	 *
 	 * @param aFile
 	 * @param aTeamName
 	 * @param anotherTeamName
@@ -90,7 +91,7 @@ public class Game {
 
 	/**
 	 * start it here
-	 * 
+	 *
 	 * @param args
 	 * @throws FlagLimitOverflowException
 	 * @throws UnknownFieldGroundException
@@ -241,7 +242,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param anOldXCoordinate
 	 * @param anOldYCoordinate
 	 * @param aNewXCoordinate
@@ -262,7 +263,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param anX
 	 * @param aY
 	 * @return
@@ -275,7 +276,7 @@ public class Game {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param anX
 	 * @param aY
 	 * @return
@@ -297,6 +298,17 @@ public class Game {
 	 */
 	public void setDisplayer(Displayable aDisplayer) {
 		displayer = aDisplayer;
+	}
+
+
+	//TODO new Method, getSetterOnField,used in controller.jsp => is there another way accessing the setter?
+	/**
+	 *
+	 * @return
+	 */
+	public Field getSetterOnField(int anX, int aY){
+		return playMap.getField(anX, aY);
+
 	}
 
 	private Team getTeam(char aPlayerId) {
