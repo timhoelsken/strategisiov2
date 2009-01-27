@@ -1,4 +1,6 @@
 <%@ page import="strategisio.*"%>
+<%@ page import="strategisio.elements.Placeable"%>
+<%@ page import="strategisio.elements.figures.Figure"%>
 <%@ page import="java.util.ArrayList"%>
 
 <%
@@ -55,6 +57,9 @@
 
           if (!tmpRequestExtendedAttribute.equals("")) {
 
+        	 if(!tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]),
+                      Integer.parseInt(tmpSelectedCoordinates[1]))){
+
             // the performed action was a move
             tmpOutput += "+++Moved+++";
 
@@ -68,6 +73,19 @@
             // return the effected fields
             tmpOutput += tmpRequestExtendedAttribute + ";" + tmpRequestData + ";";
 
+        	 }
+        	 else if (tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]),
+                     Integer.parseInt(tmpSelectedCoordinates[1]))){
+        		 //Todo is getSetterOnField necessary? => new method!
+        		 Placeable tmpPlaceable = tmpGame.getSetterOnField(Integer.parseInt(tmpSelectedCoordinates[0]),
+                         Integer.parseInt(tmpSelectedCoordinates[1])).getSetter();
+        		 if (tmpPlaceable instanceof Figure){
+					tmpOutput += "+++Fight+++";
+        		 }
+        		 else{
+        			 tmpOutput += "+++Item+++";
+        		 }
+        	 }
             // print output
             out.println(tmpOutput);
           }
@@ -76,7 +94,7 @@
         	// the action that follows on the click
             tmpOutput += "+++markedForMoveWhileInView+++";
 
-        	//TODO: if session.playerID == application.currentPlayer OR SOMETHING LIKE THAT
+        	//works without this IF, but Im not shure why...
         	if(false){
         		tmpOutput = "+++markedForMove+++";
             ArrayList<int[]> tmpArea = tmpGame.getMovingArea(Integer.parseInt(tmpSelectedCoordinates[0]),
