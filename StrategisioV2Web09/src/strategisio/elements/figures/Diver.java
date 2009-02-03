@@ -32,6 +32,6 @@ public class Diver extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("dvr_set.png");
+    return new String("Diver.png");
   }
 }

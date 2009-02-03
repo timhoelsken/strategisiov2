@@ -54,6 +54,7 @@ public class WebDisplay implements Displayable {
         }
         Placeable tmpSetter = tmpField.getSetter();
         String tmpColor = "#000000";
+        String tmpImageColorPrefix = "";
         String tmpPlacable = "item";
         if (tmpSetter != null) {
           if (aPlayerId == 'X'
@@ -65,9 +66,11 @@ public class WebDisplay implements Displayable {
               switch (tmpSetterId) {
                 case 'A':
                   tmpColor = "#ff0000";
+                  tmpImageColorPrefix = "coloredSetter/" + "red";
                   break;
                 case 'B':
                   tmpColor = "#0000ff";
+                  tmpImageColorPrefix = "coloredSetter/" + "blu";
                   break;
               }
               tmpPlacable = "figure";
@@ -77,15 +80,16 @@ public class WebDisplay implements Displayable {
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
                   + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
-              String tmpImage = tmpSetter.getImage();
+              String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             } else {
 
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "status=\"placedInView\" filled=\""
-              // TODO Color problem - I want to know who's setter I see => current CSS Solution good?!?
+              // Color problem - I want to know who's setter I see => current CSS Solution good?!?
+              // TODO delete CSS thing, we now have colorful setter-pictures. Items will follow soon.
                   + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" style='border: 1pt solid " + tmpColor +";'>";
-              String tmpImage = tmpSetter.getImage();
+              String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             }
           } else {

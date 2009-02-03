@@ -32,6 +32,6 @@ public class Medic extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("san_set.png");
+    return new String("Medic.png");
   }
 }

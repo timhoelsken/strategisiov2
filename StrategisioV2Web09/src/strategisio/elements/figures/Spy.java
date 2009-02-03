@@ -32,6 +32,6 @@ public class Spy extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("spy_set.png");
+    return new String("Spy.png");
   }
 }

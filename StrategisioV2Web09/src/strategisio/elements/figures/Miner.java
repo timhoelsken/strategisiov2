@@ -31,6 +31,6 @@ public class Miner extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("min_set.png");
+    return new String("Miner.png");
   }
 }

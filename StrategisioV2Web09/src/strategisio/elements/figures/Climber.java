@@ -32,6 +32,6 @@ public class Climber extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("clb_set.png");
+    return new String("Climber.png");
   }
 }

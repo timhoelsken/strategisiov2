@@ -31,6 +31,6 @@ public class Fighter extends Figure {
    * @return the image for this figure
    */
   public String getImage() {
-    return new String("fig_set.png");
+    return new String("Fighter.png");
   }
 }
