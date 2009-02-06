@@ -27,8 +27,29 @@
         // output String that is printed at the end
         String tmpOutput = "";
 
+        if (tmpRequestAction.equals("view")){
+
+        	// the action that follows on the hover
+        	tmpOutput += "+++view+++";
+
+        	ArrayList<int[]> tmpArea = tmpGame.getViewArea(Integer.parseInt(tmpSelectedCoordinates[0]),
+                    Integer.parseInt(tmpSelectedCoordinates[1]));
+        	int[] tmpPossibleCoordinates;
+
+        	// write the viewArea into the output
+            for (int i = 0; i < tmpArea.size(); i++) {
+              tmpPossibleCoordinates = tmpArea.get(i);
+              tmpOutput += ";" + tmpPossibleCoordinates[0] + "/" + tmpPossibleCoordinates[1];
+            }
+
+            tmpOutput += ";";
+
+            // print output
+            out.println(tmpOutput);
+        }
+
         // if a placed figure is clicked
-        if (tmpRequestAction.equals("placed")) {
+        else if (tmpRequestAction.equals("placed")) {
 
           // the action that follows on the click
           tmpOutput += "+++markedForMove+++";
@@ -58,7 +79,7 @@
           if (!tmpRequestExtendedAttribute.equals("")) {
 
         	 if(!tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]),
-                      Integer.parseInt(tmpSelectedCoordinates[1]))){
+                      Integer.parseInt(tmpSelectedCoordinates[1])) || (tmpRequestData.equals(tmpRequestExtendedAttribute))){
 
             // the performed action was a move
             tmpOutput += "+++Moved+++";
@@ -79,6 +100,7 @@
         		 //Todo is getSetterOnField necessary? => new method!
         		 Placeable tmpPlaceable = tmpGame.getSetterOnField(Integer.parseInt(tmpSelectedCoordinates[0]),
                          Integer.parseInt(tmpSelectedCoordinates[1])).getSetter();
+
         		 if (tmpPlaceable instanceof Figure){
 					tmpOutput += "+++Fight+++";
         		 }
