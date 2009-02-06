@@ -300,6 +300,27 @@ public class Game {
 		displayer = aDisplayer;
 	}
 
+	/**
+	 *
+	 * @param anX
+	 * @param aY
+	 * @return the ViewArea of a single Figure or -1/-1 if there is no Figure on the given field coordinates.
+	 */
+	public ArrayList<int[]> getViewArea(int anX, int aY)
+		throws CoordinateOutOfIndexException {
+
+			Placeable tmpPlaceable = this.playMap.getSetter(anX, aY);
+			if (tmpPlaceable instanceof Figure){
+				Figure tmpFigure = (Figure) tmpPlaceable;
+				return this.playMap.getSingleFigureViewArea(tmpFigure);
+			}
+			ArrayList<int[]> tmpViewArea = new ArrayList<int[]>();
+				int[] tmpCoordinates = new int[2];
+	          tmpCoordinates[0] = -1;
+	          tmpCoordinates[1] = -1;
+	          tmpViewArea.add(tmpCoordinates);
+			return tmpViewArea;
+	}
 
 	//TODO new Method, getSetterOnField,used in controller.jsp => is there another way accessing the setter?
 	/**
