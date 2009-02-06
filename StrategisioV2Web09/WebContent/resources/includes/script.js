@@ -5,6 +5,7 @@ var req;
 // ID of the figure that is moving
 var movingFigureId;
 
+var viewField = new Array();
 // global Variables ===>
 
 // general mouseOver call that refers to the specific function
@@ -22,6 +23,7 @@ function hoverOff(me){
 // when nothing is selected
 function globalHoverOn(me, color){
 	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
+		resolveViewField(me);
 		me.style.borderColor=me.attributes['placablecolor'].value;
 	}
 }
@@ -29,6 +31,7 @@ function globalHoverOn(me, color){
 // when nothing is selected
 function globalHoverOff(me){
 	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
+		unmarkField(me);
 		me.style.borderColor='#ffffff';
 	}
 }
@@ -47,6 +50,21 @@ function moveHoverOff(me){
 	}
 }
 
+function resolveViewField(me){
+
+	sendRequest("view", me.attributes['id'].value, "");
+}
+
+function unmarkField(me){
+
+	if (viewField[1] == "-1/-1"){
+			return;
+			}
+
+	for (var i = 1; i < viewField.length-1;i++){
+			document.getElementById(viewField[i]).style.borderColor = "#FFFFFF";
+		}
+}
 // standard MessageBox
 function openMessageBox(text){
 var objBody = document.getElementsByTagName("body").item(0);
@@ -78,14 +96,31 @@ function buildAnswer(data){
 	// split the output to performed action [1] and coordinates [2]
 	var dataSegments = data.split('+++');
 
+	// on hover over a figure
+	if (dataSegments[1] == "view"){
+		tmpArrayCoordinates = dataSegments[2].split(';');
+
+		if (tmpArrayCoordinates[1] == "-1/-1"){
+			return;
+			}
+
+
+		// mark the specific fields
+		for (var i = 1; i < tmpArrayCoordinates.length-1;i++){
+			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = "00FF00";
+		}
+
+		viewField = tmpArrayCoordinates;
+	}
 	// if a figure is marked
-	if (dataSegments[1] == "markedForMove"){
+	else if (dataSegments[1] == "markedForMove"){
 
 		// get the Map
 		var map = document.getElementById("map");
 
 		// disable all fields on the map
 		for (i = 0; i < map.childNodes.length;i++){
+			map.childNodes[i].style.borderColor = "#FFFFFF";
 			map.childNodes[i].attributes['status'].value ="disabled";
 		}
 
