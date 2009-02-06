@@ -107,7 +107,7 @@ function buildAnswer(data){
 
 		// mark the specific fields
 		for (var i = 1; i < tmpArrayCoordinates.length-1;i++){
-			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = "00FF00";
+			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = "FF00FF";
 		}
 
 		viewField = tmpArrayCoordinates;
