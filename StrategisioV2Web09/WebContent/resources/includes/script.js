@@ -67,16 +67,17 @@ function unmarkField(me){
 }
 // standard MessageBox
 function openMessageBox(text){
-var objBody = document.getElementsByTagName("body").item(0);
 
-var objOverlay = document.createElement("div");
-objOverlay.setAttribute('id','overlay');
-objOverlay.onclick = function () {document.getElementsByTagName("body").item(0).removeChild(document.getElementsByTagName("body").item(0).firstChild); return false;}
-objBody.insertBefore(objOverlay, objBody.firstChild);
-objMessagebox = document.createElement("div");
-objMessagebox.setAttribute('id','Messagebox');
-objMessagebox.innerHTML = text;
-objBody.insertBefore(objMessagebox, objOverlay.nextSibling);
+var objMessageBox = document.getElementById("messageBox");
+objMessageBox.style.position = "absolute";
+objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";};
+objMessageBox.style.backgroundImage = "url(resources/pictures/overlay.png)";
+objMessageBox.style.width = "100%";
+objMessageBox.style.height = "100%";
+objMessageBox.style.visibility = "visible";
+objMessageBox.innerHTML = "<div style=\"text-align:center;vertical-align:middle;\"><table id=\"centeredText\"><tr><td>";
+objMessageBox.innerHTML += text;
+objMessageBox.innerHTML += "</td></tr></table></div>";
 }
 
 // general function that is called onClick, refers to AJAX Request
@@ -171,10 +172,12 @@ function buildAnswer(data){
 		return;
 	}
 	else if(dataSegments[1] == "Fight"){
-		alert('Now a fight starts!');
+		openMessageBox('Now a fight starts!');
+		//alert('Now a fight starts!');
 		}
 	else if(dataSegments[1] == "Item") {
-		alert('You moved on an item!');
+		openMessageBox('You moved on an item!');
+		//alert('You moved on an item!');
 		}
 }
 
