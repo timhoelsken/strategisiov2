@@ -37,7 +37,7 @@
       out.println("<html>\n<head>");
       out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
       out.println("<script type=\"text/javascript\" src=\"resources/includes/script.js\"></script>");
-      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='refresh()'>");
+      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='refresh()'><div id=\"messageBox\"></div>");
 
       //HTML CONTENT
       out.println("<div class=\"map\" id=\"map\" style=\"width:278.0px; height:278.0px;\"></div>");
