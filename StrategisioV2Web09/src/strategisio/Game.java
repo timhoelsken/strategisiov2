@@ -108,8 +108,10 @@ public class Game {
 		// TODO init fields manually
 		tmpGame.generateMapAutomatically();
 
+		//TODO WHY DOES THIS WORK? :D
 		tmpGame.display("wholeMap");
 
+		//TODO ?!?? WHY THIS LINE?!??
 		tmpGame.getMovingArea(2, 2);
 	}
 
@@ -322,12 +324,12 @@ public class Game {
 			return tmpViewArea;
 	}
 
-	//TODO new Method, getSetterOnField,used in controller.jsp => is there another way accessing the setter?
+	//TODO new Method, getField,used in controller.jsp => is there another way accessing the setter?
 	/**
 	 *
 	 * @return
 	 */
-	public Field getSetterOnField(int anX, int aY){
+	public Field getField(int anX, int aY){
 		return playMap.getField(anX, aY);
 
 	}
