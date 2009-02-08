@@ -47,15 +47,21 @@ public class CombatTest extends TestCase {
    * @throws UnknownFieldGroundException
    */
   public void testInitFight() throws UnknownFieldGroundException {
-    combat = new Combat();
     Fighter tmpFighter = new Fighter();
     Medic tmpMedic = new Medic();
     Spy tmpSpy = new Spy();
 
-    assertTrue("Fighter should fast win.", combat.init(tmpFighter, tmpMedic) instanceof Fighter);
-    assertTrue("Fighter should fast win.", combat.init(tmpMedic, tmpFighter) instanceof Fighter);
-    assertTrue("Fighter should fast win.", combat.init(tmpFighter, tmpSpy) instanceof Fighter);
-    assertTrue("Fighter should fast win.", combat.init(tmpSpy, tmpFighter) instanceof Fighter);
+    combat = new Combat(tmpFighter, tmpMedic);
+    assertTrue("Fighter should fast win.", combat.evaluate() instanceof Fighter);
+
+    combat = new Combat(tmpMedic, tmpFighter);
+    assertTrue("Fighter should fast win.", combat.evaluate() instanceof Fighter);
+
+    combat = new Combat(tmpFighter, tmpSpy);
+    assertTrue("Fighter should fast win.", combat.evaluate() instanceof Fighter);
+
+    combat = new Combat(tmpSpy, tmpFighter);
+    assertTrue("Fighter should fast win.", combat.evaluate() instanceof Fighter);
   }
 
   /**
