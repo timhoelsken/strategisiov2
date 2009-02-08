@@ -1,5 +1,6 @@
 <%@ page import="strategisio.*"%>
 <%@ page import="strategisio.elements.Placeable"%>
+<%@ page import="strategisio.elements.Combat"%>
 <%@ page import="strategisio.elements.figures.Figure"%>
 <%@ page import="java.util.ArrayList"%>
 
@@ -98,17 +99,17 @@
         	 else if (tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]),
                      Integer.parseInt(tmpSelectedCoordinates[1]))){
         		 //Todo is getSetterOnField necessary? => new method!
-        		 Placeable tmpPlaceable = tmpGame.getSetterOnField(Integer.parseInt(tmpSelectedCoordinates[0]),
+        		 Placeable tmpPlaceable = tmpGame.getField(Integer.parseInt(tmpSelectedCoordinates[0]),
                          Integer.parseInt(tmpSelectedCoordinates[1])).getSetter();
 
         		 if (tmpPlaceable instanceof Figure){
-					tmpOutput += "+++Fight+++";
+					tmpOutput += "+++initFight+++" + tmpRequestExtendedAttribute + ";" + tmpRequestData;
         		 }
         		 else{
         			 tmpOutput += "+++Item+++";
         		 }
         	 }
-            // print output
+        	 // print output
             out.println(tmpOutput);
           }
         }
@@ -134,6 +135,34 @@
         	}
             // print output
             out.println(tmpOutput);
+        }
+        else if (tmpRequestAction.equals("Combat")){
+        	String tmpRequestExtendedAttribute = request.getParameter("extendedAttribute");
+        	String[] tmpAttackerAndDefender = tmpRequestExtendedAttribute.split(";");
+        	String[] tmpAttackerCoordinates = tmpAttackerAndDefender[0].split("/");
+        	String[] tmpDefenderCoordinates = tmpAttackerAndDefender[1].split("/");
+        	Figure tmpAttacker = (Figure) tmpGame.getField(Integer.parseInt(tmpAttackerCoordinates[0]), Integer.parseInt(tmpAttackerCoordinates[1])).getSetter();
+        	Figure tmpDefender = (Figure) tmpGame.getField(Integer.parseInt(tmpDefenderCoordinates[0]), Integer.parseInt(tmpDefenderCoordinates[1])).getSetter();
+
+        	Combat tmpCombat = new Combat(tmpAttacker, tmpDefender);
+
+        	application.setAttribute("globalCombat", tmpCombat);
+
+        	if (tmpCombat.evaluate() == null){
+        		tmpOutput += "+++continueCombat+++";
+        	}
+        	else{
+        		int[] tmpWinnerCoordinates = tmpCombat.evaluate().getCurrentCoordinates();
+        		tmpOutput += "+++CombatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";" + tmpRequestData;
+        		application.setAttribute("globalCombat", null);
+        	}
+
+        	out.println(tmpOutput);
+        }
+        else if (tmpRequestAction.equals("Combat")){
+        	// Here is a loop set output to +++continueCombat+++ for that
+
+        	// Problem: data from 2 users is needed! switch with the playerID?!
         }
       }
 %>
