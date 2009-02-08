@@ -69,15 +69,11 @@ function unmarkField(me){
 function openMessageBox(text){
 
 var objMessageBox = document.getElementById("messageBox");
-objMessageBox.style.position = "absolute";
 objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";};
-objMessageBox.style.backgroundImage = "url(resources/pictures/overlay.png)";
 objMessageBox.style.width = "100%";
 objMessageBox.style.height = "100%";
 objMessageBox.style.visibility = "visible";
-objMessageBox.innerHTML = "<div style=\"text-align:center;vertical-align:middle;\"><table id=\"centeredText\"><tr><td>";
-objMessageBox.innerHTML += text;
-objMessageBox.innerHTML += "</td></tr></table></div>";
+objMessageBox.innerHTML = "<div id=\"centeredText\">" + text + "</div>";
 }
 
 // general function that is called onClick, refers to AJAX Request
@@ -171,13 +167,25 @@ function buildAnswer(data){
 	else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
 	}
-	else if(dataSegments[1] == "Fight"){
-		openMessageBox('Now a fight starts!');
+	else if(dataSegments[1] == "initFight"){
+		//openMessageBox('Now a fight starts!');
+		var attackerAndDefender = dataSegments[2].split(';');
+		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
 		//alert('Now a fight starts!');
 		}
 	else if(dataSegments[1] == "Item") {
 		openMessageBox('You moved on an item!');
 		//alert('You moved on an item!');
+		}
+	else if(dataSegments[1] == "continueCombat") {
+		/*
+			Create dialog here,where user enters attack and defence.
+			When user has entered both, call controller.jsp again with action = "Combat"
+
+
+		*/
+
+		alert('fight!');
 		}
 }
 
