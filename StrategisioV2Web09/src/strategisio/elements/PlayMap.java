@@ -205,10 +205,10 @@ public class PlayMap {
       Placeable tmpEnemy = getSetter(anX, aY);
       // if there is an enemy Figure, a fight has to start
       if (tmpEnemy instanceof Figure) {
-        Combat tmpCombat = new Combat();
+        Combat tmpCombat = new Combat(aFigure, (Figure) tmpEnemy);
         tmpEnemy = fetchSetter(anX, aY);
         // the winner of the fight is placed on the field
-        Figure tmpWinner = tmpCombat.init(aFigure, (Figure) tmpEnemy);
+        Figure tmpWinner = tmpCombat.evaluate();
         positionWithoutCheck(tmpWinner, anX, aY);
       }
       // if there is an enemy Item, we have to do some more logic
