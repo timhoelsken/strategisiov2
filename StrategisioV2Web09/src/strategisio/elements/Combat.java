@@ -3,83 +3,88 @@ package strategisio.elements;
 import strategisio.elements.figures.Figure;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class Combat {
 
+	private Figure combatWinner;
+    private Figure attacker;
+    private Figure defender;
+    private int[] attackerAttacks;
+    private int[] attackerDefences;
+    private int[] defenderAttacks;
+    private int[] defenderDefences;
   /**
-   * 
+   *
    * @param anAttacker
    * @param aDefender
    * @return the winner of a fight
    */
-  public Figure init(Figure anAttacker, Figure aDefender) {
-    Figure tmpPlaceable;
-    Figure tmpAttacker = anAttacker;
-    Figure tmpDefender = aDefender;
-    int[] tmpAttackerAttacks = tmpAttacker.getAttacks();
-    int[] tmpAttackerDefences = tmpAttacker.getDefences();
-    int[] tmpDefenderAttacks = tmpDefender.getAttacks();
-    int[] tmpDefenderDefences = tmpDefender.getDefences();
+  public Combat(Figure anAttacker, Figure aDefender) {
 
-    if (tmpAttackerAttacks.length == 4 && tmpDefenderDefences.length < 4) {
-      tmpPlaceable = anAttacker;
-    } else if (tmpDefenderAttacks.length == 4 && tmpAttackerDefences.length < 4) {
-      tmpPlaceable = aDefender;
-    } else {
-      tmpPlaceable = fight(anAttacker, aDefender);
-    }
-    return tmpPlaceable;
+	attacker = anAttacker;
+	defender = aDefender;
+
+    attackerAttacks = attacker.getAttacks();
+    attackerDefences = attacker.getDefences();
+    defenderAttacks = defender.getAttacks();
+    defenderDefences = defender.getDefences();
+
+
   }
 
   /**
-   * 
+   *
+   * @param anAttacker
+   * @param aDefender
+   * @return
+   */
+  public Figure evaluate(){
+	  if (attackerAttacks.length == 4 && defenderDefences.length < 4) {
+	      combatWinner = attacker;
+	    } else if (defenderAttacks.length == 4 && attackerDefences.length < 4) {
+	      combatWinner = defender;
+	    } else {
+	      return null;
+	    }
+	    return combatWinner;
+  }
+  /**
+   *
    * @param anAttacker
    * @param aDefender
    * @return the winner of a fight
    */
-  private Figure fight(Figure anAttacker, Figure aDefender) {
-    int tmpAttackerAttack, tmpAttackerDefence;
-    int tmpDefenderAttack, tmpDefenderDefence;
-    Figure tmpWinner = null;
-    boolean tmpFighting = true;
+  public Figure fight(int anAttackerAttack, int anAttackerDefence, int aDefenderAttack, int aDefenderDefence) {
 
-    while (tmpFighting) {
-      tmpAttackerAttack = chooseAttack(anAttacker);
-      tmpAttackerDefence = chooseDefence(anAttacker);
-      tmpDefenderAttack = chooseAttack(aDefender);
-      tmpDefenderDefence = chooseDefence(aDefender);
-
-      // fight logic
-      if (tmpAttackerAttack == tmpDefenderDefence && tmpDefenderAttack == tmpAttackerDefence) {
+     // fight logic
+      if (anAttackerAttack == aDefenderDefence && aDefenderAttack == anAttackerDefence) {
         // draw
       } else {
-        if (tmpAttackerAttack == tmpDefenderDefence) {
-          tmpWinner = aDefender;
-          tmpFighting = false;
-        } else if (tmpDefenderAttack == tmpAttackerDefence) {
-          tmpWinner = anAttacker;
-          tmpFighting = false;
+        if (anAttackerAttack == aDefenderDefence) {
+          combatWinner = defender;
+        } else if (aDefenderAttack == anAttackerDefence) {
+          combatWinner = attacker;
         }
       }
-    }
-    return tmpWinner;
+    return combatWinner;
   }
 
   private int chooseAttack(Figure aFigure){// throws IOException {
 
-    int tmpAttack = 0;
-    //int tmpChoice;
-    //int[] tmpAllAttacks = aFigure.getAttacks();
-    //tmpChoice = System.in.read();
-    // TODO interaction with player
+    int[] tmpAllAttacks = aFigure.getAttacks();
 
-    return tmpAttack;
+    return getAttacks(tmpAllAttacks);
   }
 
-  private int chooseDefence(Figure aFigure) {
+  public int getAttacks(int[] tmpAllAttacks) {
+	//tmpAttack
+	return 0;
+}
+
+private int chooseDefence(Figure aFigure) {
 
     int tmpDefence = 0;
     //int[] tmpAllDefences = aFigure.getDefences();
