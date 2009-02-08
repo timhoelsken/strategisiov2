@@ -25,13 +25,20 @@
 		background-image: url(../pictures/water.png);
 }
 
+#messageBox{
+	position:absolute;
+	background-image:url(../pictures/overlay.png);
+	width:1px;
+	height:1px;
+	visibility:hidden;
+	padding-left:20%;
+	padding-top:13%;
+	}
+
 #centeredText{
+	width:30%;
+	height:30%;
+	text-align:center;
+	vertical-align:middle;
 	background-color:white;
 	}
-[status="a"]{
-border: 1pt solid #000000;
-}
-
-[status="b"]{
-border: 1pt solid #aaccff;
-}
