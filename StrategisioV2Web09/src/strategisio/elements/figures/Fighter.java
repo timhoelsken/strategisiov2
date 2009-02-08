@@ -18,7 +18,7 @@ public class Fighter extends Figure {
     setDiagonalSteps(0);
 
     setNormalView(2);
-    setDiagonalView(2);
+    setDiagonalView(1);
 
     setGroundAuthorities(new int[] { Ground.GRASS });
 
