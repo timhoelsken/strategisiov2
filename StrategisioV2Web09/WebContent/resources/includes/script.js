@@ -23,7 +23,8 @@ function hoverOff(me){
 // when nothing is selected
 function globalHoverOn(me, color){
 	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
-		resolveViewField(me);
+		//TODO get server power
+		//resolveViewField(me);
 		me.style.borderColor=me.attributes['placablecolor'].value;
 	}
 }
@@ -31,8 +32,9 @@ function globalHoverOn(me, color){
 // when nothing is selected
 function globalHoverOff(me){
 	if ((me.attributes['status'].value=="placed" || me.attributes['status'].value=="placedInView") && me.attributes['filled'].value=="figure"){
-		unmarkField(me);
-		me.style.borderColor='#ffffff';
+		//TODO get server power
+		//unmarkField(me);
+		me.style.borderColor='#FFFFFF';
 	}
 }
 
@@ -51,19 +53,14 @@ function moveHoverOff(me){
 }
 
 function resolveViewField(me){
-
 	sendRequest("view", me.attributes['id'].value, "");
 }
 
 function unmarkField(me){
-
-	if (viewField[1] == "-1/-1"){
-			return;
-			}
-
 	for (var i = 1; i < viewField.length-1;i++){
-			document.getElementById(viewField[i]).style.borderColor = "#FFFFFF";
-		}
+		document.getElementById(viewField[i]).style.borderColor = "#FFFFFF";
+		document.getElementById(viewField[i]).style.borderStyle = "solid";
+	}
 }
 // standard MessageBox
 function openMessageBox(text){
@@ -97,26 +94,21 @@ function buildAnswer(data){
 	if (dataSegments[1] == "view"){
 		tmpArrayCoordinates = dataSegments[2].split(';');
 
-		if (tmpArrayCoordinates[1] == "-1/-1"){
-			return;
-			}
-
-
 		// mark the specific fields
 		for (var i = 1; i < tmpArrayCoordinates.length-1;i++){
-			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = "FF00FF";
+			document.getElementById(tmpArrayCoordinates[i]).style.borderStyle = "dashed";
+			document.getElementById(tmpArrayCoordinates[i]).style.borderColor = "#000000";
 		}
 
 		viewField = tmpArrayCoordinates;
-	}
-	// if a figure is marked
+	} // if a figure is marked
 	else if (dataSegments[1] == "markedForMove"){
-
 		// get the Map
 		var map = document.getElementById("map");
 
 		// disable all fields on the map
-		for (i = 0; i < map.childNodes.length;i++){
+		for (var i = 0; i < map.childNodes.length;i++){
+			map.childNodes[i].style.borderStyle = "solid";
 			map.childNodes[i].style.borderColor = "#FFFFFF";
 			map.childNodes[i].attributes['status'].value ="disabled";
 		}
@@ -132,8 +124,7 @@ function buildAnswer(data){
 			document.getElementById(tmpArrayCoordinates[i]).attributes['status'].value ="markedForMove";
 			document.getElementById(tmpArrayCoordinates[i]).attributes['placablecolor'].value = tmpColor;
 		}
-	}
-	// if a figure is moved to a field
+	} // if a figure is moved to a field
 	else if (dataSegments[1] == "Moved"){
 
 		// get the map
@@ -148,7 +139,7 @@ function buildAnswer(data){
 				map.childNodes[i].attributes['status'].value ="empty";
 				map.childNodes[i].attributes['placablecolor'].value ="#000000";
 			}
-			map.childNodes[i].style.borderColor='#ffffff';
+			map.childNodes[i].style.borderColor='#FFFFFF';
 		}
 
 		tmpArrayCoordinates = dataSegments[2].split(';');
@@ -163,21 +154,19 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
-	}
-	else if(dataSegments[1] == "markedForMoveWhileInView"){
+	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
-	}
-	else if(dataSegments[1] == "initFight"){
+	} else if(dataSegments[1] == "initFight"){
 		//openMessageBox('Now a fight starts!');
 		var attackerAndDefender = dataSegments[2].split(';');
+		alert('Now a fight starts!');
 		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
-		//alert('Now a fight starts!');
-		}
-	else if(dataSegments[1] == "Item") {
+	} else if(dataSegments[1] == "Item") {
 		openMessageBox('You moved on an item!');
 		//alert('You moved on an item!');
-		}
-	else if(dataSegments[1] == "continueCombat") {
+	} else if(dataSegments[1] == "combatWinner") {
+		alert("schnell feddich");
+	} else if(dataSegments[1] == "continueCombat") {
 		/*
 			Create dialog here,where user enters attack and defence.
 			When user has entered both, call controller.jsp again with action = "Combat"
@@ -186,7 +175,7 @@ function buildAnswer(data){
 		*/
 
 		alert('fight!');
-		}
+	}
 }
 
 // <=== AJAX Request
@@ -247,8 +236,10 @@ function doRefreshRequest() {
     }
 }
 
-function refresh(){
-	doRefreshRequest();
-	setTimeout("refresh()",5000);
+function refresh(doRefresh){
+	if (doRefresh) {
+		doRefreshRequest();
+		setTimeout("refresh()",5000);
+	}
 }
 // AJAX Request ===>

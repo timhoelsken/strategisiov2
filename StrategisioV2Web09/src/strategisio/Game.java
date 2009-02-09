@@ -97,6 +97,7 @@ public class Game {
 	 * @throws UnknownFieldGroundException
 	 * @throws CoordinateOutOfIndexException
 	 */
+	// XXX this is a main function. only called if started as java application :)
 	public static void main(String[] args) throws FlagLimitOverflowException,
 			UnknownFieldGroundException, CoordinateOutOfIndexException {
 		String tmpTeam1 = "Team 1";
@@ -108,11 +109,9 @@ public class Game {
 		// TODO init fields manually
 		tmpGame.generateMapAutomatically();
 
-		//TODO WHY DOES THIS WORK? :D
-		tmpGame.display("wholeMap");
+		tmpGame.setDisplayer(new ConsoleDisplay());
 
-		//TODO ?!?? WHY THIS LINE?!??
-		tmpGame.getMovingArea(2, 2);
+		tmpGame.display("X");
 	}
 
 	/**

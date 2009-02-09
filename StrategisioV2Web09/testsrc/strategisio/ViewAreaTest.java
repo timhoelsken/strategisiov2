@@ -41,7 +41,7 @@ public class ViewAreaTest {
     ArrayList<Figure> tmpFigures = tmpTeam.getFigures();
     // here's a san if needed lateron
     Figure tmpFigure = tmpFigures.get(7);
-    assertEquals("san_set.png", tmpFigure.getImage());
+    assertEquals("Medic.png", tmpFigure.getImage());
 
     for (int i = 0; i < tmpFigures.size() - 2; i++) {
       tmpPlayMap.position(tmpFigures.get(i), i, 0);
@@ -85,8 +85,7 @@ public class ViewAreaTest {
     assertTrue(StrategisioUtil.isFieldInTeamView(new int[] { 1, 2 }, tmpTeamView));
     assertTrue("Fighter on (0/0) should see this field.", StrategisioUtil.isFieldInTeamView(
         new int[] { 2, 2 }, tmpTeamView));
-    assertTrue("Fighter on (0/1) should see this field.", StrategisioUtil.isFieldInTeamView(
-        new int[] { 3, 2 }, tmpTeamView));
+    assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 3, 2 }, tmpTeamView));
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 4, 2 }, tmpTeamView));
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 5, 2 }, tmpTeamView));
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 6, 2 }, tmpTeamView));
@@ -141,5 +140,38 @@ public class ViewAreaTest {
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 5, 7 }, tmpTeamView));
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 6, 7 }, tmpTeamView));
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 7, 7 }, tmpTeamView));
+  }
+
+  @Test
+  public void testFieldsOutsideTheMap() throws FlagLimitOverflowException, UnknownFieldGroundException {
+    Team tmpTeam = new Team('A', "TestTeam");
+    PlayMap tmpPlayMap = new PlayMap(8);
+
+    ArrayList<Figure> tmpFigures = tmpTeam.getFigures();
+    // here's a san if needed lateron
+    Figure tmpFigure = tmpFigures.get(7);
+    assertEquals("Medic.png", tmpFigure.getImage());
+
+    for (int i = 0; i < tmpFigures.size() - 2; i++) {
+      tmpPlayMap.position(tmpFigures.get(i), i, 0);
+    }
+    for (int i = tmpFigures.size() - 2; i < tmpFigures.size(); i++) {
+      tmpPlayMap.position(tmpFigures.get(i), i - 8, 1);
+    }
+
+    ArrayList<int[]> tmpTeamView = null;
+    try {
+      tmpTeamView = tmpPlayMap.getTeamViewArea(tmpTeam);
+    } catch (CoordinateOutOfIndexException e) {
+      fail();
+    }
+
+    ConsoleDisplay tmpDisplay = new ConsoleDisplay();
+    tmpDisplay.display(tmpPlayMap);
+
+    // upper left
+    assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { -1, -1 }, tmpTeamView));
+    assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { -1, 0 }, tmpTeamView));
+    assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 0, -1 }, tmpTeamView));
   }
 }

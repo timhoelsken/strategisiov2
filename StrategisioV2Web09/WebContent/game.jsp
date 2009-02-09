@@ -24,6 +24,7 @@
 
           // mark me as TeamA
           session.setAttribute("playerId", "A");
+          application.setAttribute("currentPlayer", session.getAttribute("playerId"));
         } else {
           // mark me as TeamB
           session.setAttribute("playerId", "B");
@@ -37,9 +38,17 @@
       out.println("<html>\n<head>");
       out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
       out.println("<script type=\"text/javascript\" src=\"resources/includes/script.js\"></script>");
-      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='refresh()'><div id=\"messageBox\"></div>");
+      tmpPlayerId = (String) session.getAttribute("playerId");
+      String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
+      boolean tmpRefreshMap = true;
+      if (tmpPlayerId.equals(tmpCurrentPlayer)) {
+        tmpRefreshMap = false;
+      }
+      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();refresh(" + tmpRefreshMap
+          + ");'><div id=\"messageBox\"></div>");
 
       //HTML CONTENT
+      // TODO dynamic width & height
       out.println("<div class=\"map\" id=\"map\" style=\"width:278.0px; height:278.0px;\"></div>");
 
       //CLOSE HTML
