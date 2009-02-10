@@ -602,6 +602,31 @@ public class PlayMap {
   }
 
   /**
+   * Returns all fields a figure can see the setter of
+   *
+   * THIS IS FAKE FOR ENEMY (also see fakeCheckIfIsAppartionial method)
+   * @param aFigure
+   *            where the figure remains at the moment
+   * @return an array of coordinates of fields a figure can see
+   * @throws CoordinateOutOfIndexException
+   */
+  public ArrayList<int[]> fakeGetSingleFigureViewArea(Figure aFigure) throws CoordinateOutOfIndexException {
+    ArrayList<int[]> tmpViewArea = new ArrayList<int[]>();
+
+    for (int y = 0; y < getYDimension(); y++) {
+      for (int x = 0; x < getXDimension(); x++) {
+        if (fakeCheckIfIsApparitionial(aFigure, x, y)) {
+          int[] tmpCoordinates = new int[2];
+          tmpCoordinates[0] = x;
+          tmpCoordinates[1] = y;
+          tmpViewArea.add(tmpCoordinates);
+        }
+      }
+    }
+    return tmpViewArea;
+  }
+
+  /**
    * Returns all fields a team can see on the map
    *
    * @param aTeam
@@ -700,6 +725,46 @@ public class PlayMap {
     }
     return false;
   }
+
+  /**
+   * Fake check if a figure can see what's on a field
+   * ==> Used for enemy, that he does not get any visual hint that there could be a Spy
+   *
+   * @param aFigure
+   * @param aNewX
+   * @param aNewY
+   * @return
+   * @throws CoordinateOutOfIndexException
+   */
+  private boolean fakeCheckIfIsApparitionial(Figure aFigure, int aNewX, int aNewY)
+      throws CoordinateOutOfIndexException {
+    int[] tmpCurrentCoordinates = aFigure.getCurrentCoordinates();
+    if (tmpCurrentCoordinates[0] == aNewX && tmpCurrentCoordinates[1] == aNewY) {
+      // same field
+      return true;
+    } else if (tmpCurrentCoordinates[0] == aNewX) {
+      // vertical move
+      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getNormalView())) {
+        return checkIfIsViewableNonDiagonally(aFigure, aNewY, "y");
+      }
+      return false;
+    } else if (tmpCurrentCoordinates[1] == aNewY) {
+      // horizontal move
+      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getNormalView())) {
+        return checkIfIsViewableNonDiagonally(aFigure, aNewX, "x");
+      }
+      return false;
+    } else if (Math.abs(tmpCurrentCoordinates[0] - aNewX) == Math.abs(tmpCurrentCoordinates[1] - aNewY)) {
+      // diagonal move
+      if (checkIfDistanceIsSolvable(tmpCurrentCoordinates[0], aNewX, aFigure.getDiagonalView())
+          && checkIfDistanceIsSolvable(tmpCurrentCoordinates[1], aNewY, aFigure.getDiagonalView())) {
+        return checkIfIsViewableDiagonally(aFigure, aNewX, aNewY);
+      }
+      return false;
+    }
+    return false;
+  }
+
 
   /**
    * @return true if the field is empty or if there is an enemy placeable the
