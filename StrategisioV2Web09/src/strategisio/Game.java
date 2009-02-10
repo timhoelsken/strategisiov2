@@ -313,7 +313,7 @@ public class Game {
 			Placeable tmpPlaceable = this.playMap.getSetter(anX, aY);
 			if (tmpPlaceable instanceof Figure){
 				Figure tmpFigure = (Figure) tmpPlaceable;
-				return this.playMap.getSingleFigureViewArea(tmpFigure);
+				return this.playMap.fakeGetSingleFigureViewArea(tmpFigure);
 			}
 			ArrayList<int[]> tmpViewArea = new ArrayList<int[]>();
 				int[] tmpCoordinates = new int[2];
