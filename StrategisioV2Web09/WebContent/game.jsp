@@ -45,11 +45,18 @@
         tmpRefreshMap = false;
       }
       out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();refresh(" + tmpRefreshMap
-          + ");'><div id=\"messageBox\"></div>");
+          + ");'>");
 
       //HTML CONTENT
       // TODO dynamic width & height
-      out.println("<div class=\"map\" id=\"map\" style=\"width:278.0px; height:278.0px;\"></div>");
+      out.println("<div id=\"messageBox\"></div>");
+      out.println("<table ><tr><td><div class=\"field\"></div></td><td>");
+      out.println("<table style=\"border-collapse:collapse;border:none;\"><tr><td><div class=\"field\">A</div></td><td><div class=\"field\">B</div></td><td><div class=\"field\">C</div></td><td><div class=\"field\">D</div></td><td><div class=\"field\">E</div></td><td><div class=\"field\">F</div></td><td><div class=\"field\">G</div></td><td></td><td><div class=\"field\">H</div></td></tr></table>");
+      out.println("</td></tr><tr><td>");
+      out.println("<table style=\"border-collapse:collapse;\"><tr><td><div class=\"field\">1</div></td></tr><tr><td><div class=\"field\">2</div></td></tr><tr><td><div class=\"field\">3</div></td></tr><tr><td><div class=\"field\">4</div></td></tr><tr><td><div class=\"field\">5</div></td></tr><tr><td><div class=\"field\">6</div></td></tr><tr><td><div class=\"field\">7</div></td></tr><tr><td><div class=\"field\">8</div></td></tr></table>");
+      out.println("</td><td style=\"text-align:left;vertical-align:top;\">");
+      out.println("<div class=\"map\" id=\"map\" ></div>");
+      out.println("</td></tr></table>");
 
       //CLOSE HTML
       out.println("</body>\n</html>");
