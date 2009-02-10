@@ -86,9 +86,7 @@ public class WebDisplay implements Displayable {
 
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "status=\"placedInView\" filled=\""
-              // Color problem - I want to know who's setter I see => current CSS Solution good?!?
-              // TODO delete CSS thing, we now have colorful setter-pictures. Items will follow soon.
-                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" style='border: 1pt solid " + tmpColor +";'>";
+                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\">";
               String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             }
