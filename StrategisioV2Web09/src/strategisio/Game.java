@@ -343,4 +343,8 @@ public class Game {
 			return null;
 		}
 	}
+
+	public PlayMap getPlayMap() {
+		return playMap;
+	}
 }
