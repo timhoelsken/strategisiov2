@@ -42,6 +42,7 @@ public class Combat {
    * @return
    */
   public Figure evaluate(){
+
 	  if (attackerAttacks.length == 4 && defenderDefences.length < 4) {
 	      combatWinner = attacker;
 	    } else if (defenderAttacks.length == 4 && attackerDefences.length < 4) {
