@@ -31,6 +31,9 @@
         }
       }
 
+      int tmpXDimension = tmpGame.getPlayMap().getXDimension();
+      int tmpYDimension = tmpGame.getPlayMap().getYDimension();
+
       //generate html output
       //BEGIN HTML-FILE
       out
@@ -48,16 +51,15 @@
           + ");'>");
 
       //HTML CONTENT
-      // TODO dynamic width & height
-      out.println("<div id=\"messageBox\"></div>");
+      out.println("<div id=\"gameContent\"><div id=\"messageBox\"></div>");
       out.println("<table ><tr><td><div class=\"field\"></div></td><td>");
       out.println("<table style=\"border-collapse:collapse;border:none;\"><tr><td><div class=\"field\">A</div></td><td><div class=\"field\">B</div></td><td><div class=\"field\">C</div></td><td><div class=\"field\">D</div></td><td><div class=\"field\">E</div></td><td><div class=\"field\">F</div></td><td><div class=\"field\">G</div></td><td></td><td><div class=\"field\">H</div></td></tr></table>");
       out.println("</td></tr><tr><td>");
       out.println("<table style=\"border-collapse:collapse;\"><tr><td><div class=\"field\">1</div></td></tr><tr><td><div class=\"field\">2</div></td></tr><tr><td><div class=\"field\">3</div></td></tr><tr><td><div class=\"field\">4</div></td></tr><tr><td><div class=\"field\">5</div></td></tr><tr><td><div class=\"field\">6</div></td></tr><tr><td><div class=\"field\">7</div></td></tr><tr><td><div class=\"field\">8</div></td></tr></table>");
       out.println("</td><td style=\"text-align:left;vertical-align:top;\">");
-      out.println("<div class=\"map\" id=\"map\" ></div>");
+      out.println("<div class=\"map\" style=\"width:" + (tmpXDimension*34.75) + "px;height:" + (tmpYDimension*34.75) + "px;\" id=\"map\" ></div>");
       out.println("</td></tr></table>");
 
       //CLOSE HTML
-      out.println("</body>\n</html>");
+      out.println("</div></body>\n</html>");
 %>
