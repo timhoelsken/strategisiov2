@@ -62,6 +62,7 @@ function unmarkField(me){
 		document.getElementById(viewField[i]).style.borderStyle = "solid";
 	}
 }
+
 // standard MessageBox
 function openMessageBox(text){
 
@@ -70,7 +71,17 @@ objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";obj
 objMessageBox.style.width = "100%";
 objMessageBox.style.height = "100%";
 objMessageBox.style.visibility = "visible";
-objMessageBox.innerHTML = "<div id=\"centeredText\">" + text + "</div>";
+objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
+}
+
+// standard MessageBox
+function openUncloseableMessageBox(text){
+
+var objMessageBox = document.getElementById("messageBox");
+objMessageBox.style.width = "50%";
+objMessageBox.style.height = "50%";
+objMessageBox.style.visibility = "visible";
+objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
 // general function that is called onClick, refers to AJAX Request
@@ -157,15 +168,49 @@ function buildAnswer(data){
 	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
 	} else if(dataSegments[1] == "initFight"){
-		//openMessageBox('Now a fight starts!');
+		openMessageBox('Now a fight starts!');
 		var attackerAndDefender = dataSegments[2].split(';');
-		alert('Now a fight starts!');
 		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
 	} else if(dataSegments[1] == "Item") {
 		openMessageBox('You moved on an item!');
-		//alert('You moved on an item!');
 	} else if(dataSegments[1] == "combatWinner") {
-		alert("schnell feddich");
+		openMessageBox(dataSegments[3] + " won the fight against " + dataSegments[4] + " easily!");
+
+		// get the map
+		var map = document.getElementById("map");
+
+		// set all fields back to normal --> no border, status back to placed / empty
+		for (i = 0; i < map.childNodes.length;i++){
+			if (map.childNodes[i].attributes['filled'].value != "no"){
+				map.childNodes[i].attributes['status'].value ="placed";
+			}
+			else{
+				map.childNodes[i].attributes['status'].value ="empty";
+				map.childNodes[i].attributes['placablecolor'].value ="#000000";
+			}
+			map.childNodes[i].style.borderColor='#FFFFFF';
+		}
+
+		tmpArrayCoordinates = dataSegments[2].split(";");
+
+		if (dataSegments[5]=="attacker"){
+		// clear old field, paint figure on new field, set attributes of fields
+		tmpFieldData = document.getElementById(tmpArrayCoordinates[0]).innerHTML;
+		document.getElementById(tmpArrayCoordinates[0]).innerHTML = "";
+		document.getElementById(tmpArrayCoordinates[1]).innerHTML = tmpFieldData;
+		document.getElementById(tmpArrayCoordinates[0]).attributes['filled'].value = "no";
+		document.getElementById(tmpArrayCoordinates[0]).attributes['status'].value = "empty";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value;
+		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
+		}
+		else{
+		document.getElementById(tmpArrayCoordinates[1]).innerHTML = "";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "no";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "empty";
+		document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = "#000000";
+		}
 	} else if(dataSegments[1] == "continueCombat") {
 		/*
 			Create dialog here,where user enters attack and defence.
@@ -238,8 +283,11 @@ function doRefreshRequest() {
 
 function refresh(doRefresh){
 	if (doRefresh) {
+		openUncloseableMessageBox("Please wait for the other player...");
 		doRefreshRequest();
 		setTimeout("refresh()",5000);
+	}else{
+
 	}
 }
 // AJAX Request ===>
