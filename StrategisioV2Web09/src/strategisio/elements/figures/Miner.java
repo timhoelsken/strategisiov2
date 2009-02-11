@@ -20,6 +20,7 @@ public class Miner extends Figure {
     setNormalView(1);
     setDiagonalView(1);
 
+    setFigureType("Miner");
     setGroundAuthorities(new int[] { Ground.GRASS });
 
     int[] tmpFightMoves = new int[] { FightMoves.HIT, FightMoves.CUT, FightMoves.KICK };

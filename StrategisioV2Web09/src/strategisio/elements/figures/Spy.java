@@ -20,6 +20,7 @@ public class Spy extends Figure {
     setNormalView(2);
     setDiagonalView(1);
 
+    setFigureType("Spy");
     setGroundAuthorities(new int[] { Ground.GRASS });
 
     int[] tmpAttacks = new int[] { FightMoves.HIT, FightMoves.CUT };

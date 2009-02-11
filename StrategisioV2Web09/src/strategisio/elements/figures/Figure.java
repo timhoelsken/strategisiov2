@@ -7,158 +7,178 @@ import strategisio.elements.Placeable;
  */
 public abstract class Figure implements Placeable {
 
-  private int normalSteps;
+	private int normalSteps;
 
-  private int diagonalSteps;
+	private int diagonalSteps;
 
-  private int normalView;
+	private int normalView;
 
-  private int diagonalView;
+	private int diagonalView;
 
-  private int[] groundAuthorities;
+	private int[] groundAuthorities;
 
-  private int[] attacks;
+	private int[] attacks;
 
-  private int[] defences;
+	private int[] defences;
 
-  private int[] currentCoordinates = new int[2];
+	private int[] currentCoordinates = new int[2];
 
-  private char id;
+	private char id;
 
-  /**
-   * @return the normalSteps
-   */
-  public int getNormalSteps() {
-    return normalSteps;
-  }
+	private String figureType;
 
-  /**
-   * @param aNormalSteps
-   *            the normalSteps to set
-   */
-  protected void setNormalSteps(int aNormalSteps) {
-    normalSteps = aNormalSteps;
-  }
+	/**
+	 *
+	 * @return the name of a figure (fighter, spy, climber...)
+	 */
+	public String getFigureType() {
+		return figureType;
+	}
 
-  /**
-   * @return the diagonalSteps
-   */
-  public int getDiagonalSteps() {
-    return diagonalSteps;
-  }
+	/**
+	 *
+	 * @param figureType
+	 * 			the name of a figure (fighter, spy, climber...)
+	 */
+	public void setFigureType(String figureType) {
+		this.figureType = figureType;
+	}
 
-  /**
-   * @param aDiagonalSteps
-   *            the diagonalSteps to set
-   */
-  protected void setDiagonalSteps(int aDiagonalSteps) {
-    diagonalSteps = aDiagonalSteps;
-  }
+	/**
+	 * @return the normalSteps
+	 */
+	public int getNormalSteps() {
+		return normalSteps;
+	}
 
-  /**
-   * @return the normalView
-   */
-  public int getNormalView() {
-    return normalView;
-  }
+	/**
+	 * @param aNormalSteps
+	 *            the normalSteps to set
+	 */
+	protected void setNormalSteps(int aNormalSteps) {
+		normalSteps = aNormalSteps;
+	}
 
-  /**
-   * @param aNormalView
-   *            the normalView to set
-   */
-  protected void setNormalView(int aNormalView) {
-    normalView = aNormalView;
-  }
+	/**
+	 * @return the diagonalSteps
+	 */
+	public int getDiagonalSteps() {
+		return diagonalSteps;
+	}
 
-  /**
-   * @return the diagonalView
-   */
-  public int getDiagonalView() {
-    return diagonalView;
-  }
+	/**
+	 * @param aDiagonalSteps
+	 *            the diagonalSteps to set
+	 */
+	protected void setDiagonalSteps(int aDiagonalSteps) {
+		diagonalSteps = aDiagonalSteps;
+	}
 
-  /**
-   * @param aDiagonalView
-   *            the diagonalView to set
-   */
-  protected void setDiagonalView(int aDiagonalView) {
-    diagonalView = aDiagonalView;
-  }
+	/**
+	 * @return the normalView
+	 */
+	public int getNormalView() {
+		return normalView;
+	}
 
-  /**
-   * @return the groundAuthorities
-   */
-  public int[] getGroundAuthorities() {
-    return groundAuthorities;
-  }
+	/**
+	 * @param aNormalView
+	 *            the normalView to set
+	 */
+	protected void setNormalView(int aNormalView) {
+		normalView = aNormalView;
+	}
 
-  /**
-   * @param aGroundAuthorities
-   *            the groundAuthorities to set
-   */
-  protected void setGroundAuthorities(int[] aGroundAuthorities) {
-    groundAuthorities = aGroundAuthorities;
-  }
+	/**
+	 * @return the diagonalView
+	 */
+	public int getDiagonalView() {
+		return diagonalView;
+	}
 
-  /**
-   * @return the attacks
-   */
-  public int[] getAttacks() {
-    return attacks;
-  }
+	/**
+	 * @param aDiagonalView
+	 *            the diagonalView to set
+	 */
+	protected void setDiagonalView(int aDiagonalView) {
+		diagonalView = aDiagonalView;
+	}
 
-  /**
-   * @param aAttacks
-   *            the attacks to set
-   */
-  protected void setAttacks(int[] aAttacks) {
-    attacks = aAttacks;
-  }
+	/**
+	 * @return the groundAuthorities
+	 */
+	public int[] getGroundAuthorities() {
+		return groundAuthorities;
+	}
 
-  /**
-   * @return the defences
-   */
-  public int[] getDefences() {
-    return defences;
-  }
+	/**
+	 * @param aGroundAuthorities
+	 *            the groundAuthorities to set
+	 */
+	protected void setGroundAuthorities(int[] aGroundAuthorities) {
+		groundAuthorities = aGroundAuthorities;
+	}
 
-  /**
-   * @param aDefences
-   *            the defences to set
-   */
-  protected void setDefences(int[] aDefences) {
-    defences = aDefences;
-  }
+	/**
+	 * @return the attacks
+	 */
+	public int[] getAttacks() {
+		return attacks;
+	}
 
-  /**
-   * @return the id
-   */
-  public char getId() {
-    return id;
-  }
+	/**
+	 * @param aAttacks
+	 *            the attacks to set
+	 */
+	protected void setAttacks(int[] aAttacks) {
+		attacks = aAttacks;
+	}
 
-  /**
-   * @param aId
-   *            the id to set
-   */
-  public void setId(char aId) {
-    id = aId;
-  }
-  /**
-   * @return the currentCoordinates
-   */
-  public int[] getCurrentCoordinates() {
-    return currentCoordinates;
-  }
+	/**
+	 * @return the defences
+	 */
+	public int[] getDefences() {
+		return defences;
+	}
 
-  /**
-   *
-   * @param anX
-   * @param aY
-   */
-  public void setCurrentCoordinates(int anX, int aY) {
+	/**
+	 * @param aDefences
+	 *            the defences to set
+	 */
+	protected void setDefences(int[] aDefences) {
+		defences = aDefences;
+	}
 
-    currentCoordinates[0] = anX;
-    currentCoordinates[1] = aY;
-  }
+	/**
+	 * @return the id
+	 */
+	public char getId() {
+		return id;
+	}
+
+	/**
+	 * @param aId
+	 *            the id to set
+	 */
+	public void setId(char aId) {
+		id = aId;
+	}
+
+	/**
+	 * @return the currentCoordinates
+	 */
+	public int[] getCurrentCoordinates() {
+		return currentCoordinates;
+	}
+
+	/**
+	 *
+	 * @param anX
+	 * @param aY
+	 */
+	public void setCurrentCoordinates(int anX, int aY) {
+
+		currentCoordinates[0] = anX;
+		currentCoordinates[1] = aY;
+	}
 }
