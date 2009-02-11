@@ -138,6 +138,7 @@
           String[] tmpAttackerAndDefender = tmpRequestExtendedAttribute.split(";");
           String[] tmpAttackerCoordinates = tmpAttackerAndDefender[1].split("/");
           String[] tmpDefenderCoordinates = tmpAttackerAndDefender[2].split("/");
+
           Figure tmpAttacker = (Figure) tmpGame.getField(Integer.parseInt(tmpAttackerCoordinates[0].trim()),
               Integer.parseInt(tmpAttackerCoordinates[1].trim())).getSetter();
           Figure tmpDefender = (Figure) tmpGame.getField(Integer.parseInt(tmpDefenderCoordinates[0].trim()),
@@ -151,8 +152,31 @@
             tmpOutput += "+++continueCombat+++";
           } else {
             int[] tmpWinnerCoordinates = tmpCombat.evaluate().getCurrentCoordinates();
-            tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";"
-                + tmpRequestData;
+            String tmpWinnerString ="";
+            String tmpLoserString ="";
+
+            if (tmpAttacker.getCurrentCoordinates()[0] == tmpWinnerCoordinates[0] && tmpAttacker.getCurrentCoordinates()[1] == tmpWinnerCoordinates[1]){
+            	tmpWinnerString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
+            	tmpLoserString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
+
+            	// do the move
+                tmpGame.move(tmpAttacker.getCurrentCoordinates()[0], tmpAttacker.getCurrentCoordinates()[1], tmpDefender.getCurrentCoordinates()[0],
+                		tmpDefender.getCurrentCoordinates()[1]);
+
+                tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";"
+                + tmpRequestData + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++attacker";
+            	//TODO delete Defender Figure from team
+            }
+            else{
+            	tmpWinnerString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
+            	tmpLoserString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
+
+            	tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";"
+                + tmpAttacker.getCurrentCoordinates()[0] + "/" + tmpAttacker.getCurrentCoordinates()[1] + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++defender";
+            	//TODO delete Attacker Figure from team
+            }
+
+
             application.setAttribute("globalCombat", null);
           }
 
