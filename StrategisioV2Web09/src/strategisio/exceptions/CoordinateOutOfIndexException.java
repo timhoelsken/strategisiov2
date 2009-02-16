@@ -3,10 +3,10 @@ package strategisio.exceptions;
 /**
  * 
  * @author Tim
- *
+ * 
  */
-public class CoordinateOutOfIndexException extends Exception{
-  
+public class CoordinateOutOfIndexException extends Exception {
+
   /**
    * 
    */
@@ -16,7 +16,7 @@ public class CoordinateOutOfIndexException extends Exception{
    * 
    */
   public CoordinateOutOfIndexException() {
-   super();
+    super();
   }
 
   /**

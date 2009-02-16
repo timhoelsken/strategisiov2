@@ -6,7 +6,7 @@ import strategisio.elements.figures.Figure;
 
 /**
  * @author Tobias
- *
+ * 
  * the medic
  */
 public class TestFigure extends Figure {

@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- *
+ * 
  * the climber
  */
 public class Climber extends Figure {

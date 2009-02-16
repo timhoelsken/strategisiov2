@@ -4,7 +4,7 @@ import strategisio.elements.figures.Figure;
 
 /**
  * @author Tobias
- *
+ * 
  * the trap
  */
 public class Trap extends Item {

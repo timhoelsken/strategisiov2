@@ -98,8 +98,7 @@
 
             } else if (tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]), Integer
                 .parseInt(tmpSelectedCoordinates[1]))) {
-              //TODO is getField necessary? => new method!
-              Placeable tmpPlaceable = tmpGame.getField(Integer.parseInt(tmpSelectedCoordinates[0]),
+              Placeable tmpPlaceable = tmpGame.getPlayMap().getField(Integer.parseInt(tmpSelectedCoordinates[0]),
                   Integer.parseInt(tmpSelectedCoordinates[1])).getSetter();
 
               if (tmpPlaceable instanceof Figure) {
@@ -139,9 +138,9 @@
           String[] tmpAttackerCoordinates = tmpAttackerAndDefender[1].split("/");
           String[] tmpDefenderCoordinates = tmpAttackerAndDefender[2].split("/");
 
-          Figure tmpAttacker = (Figure) tmpGame.getField(Integer.parseInt(tmpAttackerCoordinates[0].trim()),
+          Figure tmpAttacker = (Figure) tmpGame.getPlayMap().getField(Integer.parseInt(tmpAttackerCoordinates[0].trim()),
               Integer.parseInt(tmpAttackerCoordinates[1].trim())).getSetter();
-          Figure tmpDefender = (Figure) tmpGame.getField(Integer.parseInt(tmpDefenderCoordinates[0].trim()),
+          Figure tmpDefender = (Figure) tmpGame.getPlayMap().getField(Integer.parseInt(tmpDefenderCoordinates[0].trim()),
               Integer.parseInt(tmpDefenderCoordinates[1].trim())).getSetter();
 
           Combat tmpCombat = new Combat(tmpAttacker, tmpDefender);

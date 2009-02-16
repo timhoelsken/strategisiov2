@@ -8,9 +8,9 @@ import strategisio.exceptions.UnknownFieldGroundException;
 
 /**
  * @author Tobias
- *
+ * 
  * has the constants for the different field grounds
- *
+ * 
  */
 public class Ground {
 
@@ -30,7 +30,7 @@ public class Ground {
   public static final int WATER = 2;
 
   /**
-   *
+   * 
    * @param aFieldGround
    * @return
    * @throws UnknownFieldGroundException

@@ -17,12 +17,12 @@ import javax.swing.KeyStroke;
 
 /**
  * @author Tim
- *
+ * 
  */
 public class JavaDisplay extends JFrame implements ActionListener {
 
   /**
-   *
+   * 
    */
   private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class JavaDisplay extends JFrame implements ActionListener {
   }
 
   /**
-   *
+   * 
    */
   public JavaDisplay() {
     JMenuBar tmpMenuBar = new JMenuBar();
@@ -79,7 +79,7 @@ public class JavaDisplay extends JFrame implements ActionListener {
 
     /**
      * @param anActionEvent
-     *
+     * 
      */
     public void actionPerformed(ActionEvent anActionEvent) {
       Object tmpObject = anActionEvent.getSource();

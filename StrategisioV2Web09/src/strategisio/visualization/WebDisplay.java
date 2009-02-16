@@ -16,7 +16,7 @@ import strategisio.util.StrategisioUtil;
 
 /**
  * @author Tobias, Tim
- *
+ * 
  */
 public class WebDisplay implements Displayable {
 

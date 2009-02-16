@@ -1,9 +1,9 @@
 package strategisio.elements;
 
 /**
- *
+ * 
  * groups figures & items
- *
+ * 
  */
 public interface Placeable {
 
@@ -28,5 +28,5 @@ public interface Placeable {
    * @return the filename of the picture
    */
   String getImage();
-  //TODO how to image trapped figures?!
+  // TODO how to image trapped figures?!
 }

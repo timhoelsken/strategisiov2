@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Tobias
- *
+ * 
  */
 public class StrategisioUtil {
 

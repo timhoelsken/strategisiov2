@@ -5,7 +5,7 @@ import strategisio.elements.constants.Ground;
 
 /**
  * @author Tobias
- *
+ * 
  * the medic
  */
 public class Medic extends Figure {

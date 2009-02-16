@@ -11,9 +11,9 @@ import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
 /**
- *
+ * 
  * @author Tim
- *
+ * 
  */
 public class GameController {
 

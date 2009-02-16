@@ -20,7 +20,7 @@ import strategisio.visualization.ConsoleDisplay;
 
 /**
  * @author Tobias
- *
+ * 
  */
 public class ViewAreaTest {
 
@@ -29,7 +29,7 @@ public class ViewAreaTest {
 
   /**
    * tests the view area overbound
-   *
+   * 
    * @throws UnknownFieldGroundException
    * @throws FlagLimitOverflowException
    */
