@@ -8,6 +8,8 @@ import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.figures.Figure;
+import strategisio.elements.items.FakeFlag;
+import strategisio.elements.items.Flag;
 import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.util.StrategisioUtil;
@@ -60,8 +62,6 @@ public class WebDisplay implements Displayable {
           if (aPlayerId == 'X'
               || StrategisioUtil.isFieldInTeamView(tmpSetter.getCurrentCoordinates(), tmpTeamView)) {
             char tmpSetterId = tmpSetter.getId();
-            // TODO opponent's fake flag is shown as a fake flag. that's not a
-            // good fake flag xD
             if (tmpSetter instanceof Figure) {
               switch (tmpSetterId) {
                 case 'A':
@@ -76,6 +76,7 @@ public class WebDisplay implements Displayable {
               tmpPlacable = "figure";
             }
             if (tmpSetterId == aPlayerId) {
+              // if own setter
 
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
@@ -83,11 +84,17 @@ public class WebDisplay implements Displayable {
               String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             } else {
+              // if opponent's setter
 
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
-              tmpOutput += "status=\"placedInView\" filled=\""
-                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\">";
-              String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
+              tmpOutput += "status=\"placedInView\" filled=\"" + tmpPlacable + "\" placablecolor=\""
+                  + tmpColor + "\">";
+              String tmpImage;
+              if (tmpSetter instanceof FakeFlag) {
+                tmpImage = tmpImageColorPrefix + new Flag().getImage();
+              } else {
+                tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
+              }
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             }
           } else {
