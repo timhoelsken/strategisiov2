@@ -16,7 +16,7 @@ import strategisio.util.StrategisioUtil;
 
 /**
  * @author Tobias, Tim
- * 
+ *
  */
 public class WebDisplay implements Displayable {
 
@@ -39,7 +39,7 @@ public class WebDisplay implements Displayable {
     try {
       tmpTeamView = aPlayMap.getTeamViewArea(aTeam);
     } catch (CoordinateOutOfIndexException e) {
-      // TODO throw?
+      // TODO display an elegant error message for both users :)
       e.printStackTrace();
     }
 
