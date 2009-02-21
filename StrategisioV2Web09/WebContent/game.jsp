@@ -20,6 +20,7 @@
             tmpGame = new Game(tmpFile, "TeamA", "TeamB");
           } catch (MapTooLargeException e) {
             // TODO tell player that the mapSize is invalid
+            e.printStackTrace();
           }
           WebDisplay tmpDisplayer = new WebDisplay();
           tmpGame.setDisplayer(tmpDisplayer);
