@@ -20,7 +20,7 @@ import strategisio.visualization.ConsoleDisplay;
 
 /**
  * @author Tobias
- * 
+ *
  */
 public class ViewAreaTest {
 
@@ -29,7 +29,7 @@ public class ViewAreaTest {
 
   /**
    * tests the view area overbound
-   * 
+   *
    * @throws UnknownFieldGroundException
    * @throws FlagLimitOverflowException
    */
@@ -142,6 +142,10 @@ public class ViewAreaTest {
     assertFalse(StrategisioUtil.isFieldInTeamView(new int[] { 7, 7 }, tmpTeamView));
   }
 
+  /**
+   * @throws FlagLimitOverflowException
+   * @throws UnknownFieldGroundException
+   */
   @Test
   public void testFieldsOutsideTheMap() throws FlagLimitOverflowException, UnknownFieldGroundException {
     Team tmpTeam = new Team('A', "TestTeam");
