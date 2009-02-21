@@ -56,7 +56,7 @@
 	width:1px;
 	height:1px;
 	visibility:hidden;
-	// TODO don't do this in %-->
+	/*TODO good solution for this, not in '%', but don't know how*/
 	padding-left:12%;
 	padding-top:12%;
 }
