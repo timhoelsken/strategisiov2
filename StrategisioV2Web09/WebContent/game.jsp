@@ -17,7 +17,7 @@
         if (tmpGame == null) {
           // create new Game and set Displayer to Webdisplay
           try {
-          	tmpGame = new Game(tmpFile, "TeamA", "TeamB");
+            tmpGame = new Game(tmpFile, "TeamA", "TeamB");
           } catch (MapTooLargeException e) {
             // TODO tell player that the mapSize is invalid
           }
@@ -52,19 +52,31 @@
       if (tmpPlayerId.equals(tmpCurrentPlayer)) {
         tmpRefreshMap = false;
       }
-      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();refresh(" + tmpRefreshMap
-          + ");'>");
+      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();refresh("
+          + tmpRefreshMap + ");'>");
 
       //HTML CONTENT
       out.println("<div id='gameContent'><div id='messageBox'></div>");
       out.println("<table ><tr><td><div class='field'></div></td><td>");
-      // TODO someday I'll kill you for this static coordinates... *kopfschüttel*
+      // XXX someday I'll kill you for this static coordinates... *kopfschüttel*
       // Du machst extra variable Map-Größe aber dann statische Koordinaten. Das ist doch verrückt!
-      out.println("<table style='border-collapse:collapse;border:none;'><tr><td><div class='field' style='text-align:center;'>A</div></td><td><div class='field'>B</div></td><td><div class='field'>C</div></td><td><div class='field'>D</div></td><td><div class='field'>E</div></td><td><div class='field'>F</div></td><td><div class='field'>G</div></td><td></td><td><div class='field'>H</div></td></tr></table>");
+      // Fast 'ne Frechheit :D
+      out.println("<table style='border-collapse:collapse;border:none;'><tr>");
+      char[] tmpLetters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
+          'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+      for (int i = 0; i < tmpXDimension; i++) {
+        out.println("<td><div class='coordinate'>" + tmpLetters[i] + "</div></td>");
+      }
+      out.println("</tr></table>");
       out.println("</td></tr><tr><td>");
-      out.println("<table style='border-collapse:collapse;'><tr><td><div class='field'>1</div></td></tr><tr><td><div class='field'>2</div></td></tr><tr><td><div class='field'>3</div></td></tr><tr><td><div class='field'>4</div></td></tr><tr><td><div class='field'>5</div></td></tr><tr><td><div class='field'>6</div></td></tr><tr><td><div class='field'>7</div></td></tr><tr><td><div class='field'>8</div></td></tr></table>");
+      out.println("<table style='border-collapse:collapse;'>");
+      for (int i = 1; i <= tmpYDimension; i++) {
+        out.println("<tr><td><div class='coordinate'>" + i + "</div></td></tr>");
+      }
+      out.println("</table>");
       out.println("</td><td style='text-align:left;vertical-align:top;'>");
-      out.println("<div class='map' style='width:" + (tmpXDimension*34.75) + "px;height:" + (tmpYDimension*34.75) + "px;' id='map' ></div>");
+      out.println("<div class='map' style='width:" + (tmpXDimension * 34.75) + "px;height:"
+          + (tmpYDimension * 34.75) + "px;' id='map' ></div>");
       out.println("</td></tr></table>");
 
       //CLOSE HTML
