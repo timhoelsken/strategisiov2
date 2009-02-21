@@ -13,7 +13,6 @@
       //refresh page possibility
       String tmpPlayerId = (String) session.getAttribute("playerId");
       if (tmpGame == null || "".equals(tmpPlayerId) || tmpPlayerId == null) {
-
         if (tmpGame == null) {
           // create new Game and set Displayer to Webdisplay
           try {

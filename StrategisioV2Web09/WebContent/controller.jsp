@@ -98,8 +98,9 @@
 
             } else if (tmpGame.fieldIsSetByPlaceable(Integer.parseInt(tmpSelectedCoordinates[0]), Integer
                 .parseInt(tmpSelectedCoordinates[1]))) {
-              Placeable tmpPlaceable = tmpGame.getPlayMap().getField(Integer.parseInt(tmpSelectedCoordinates[0]),
-                  Integer.parseInt(tmpSelectedCoordinates[1])).getSetter();
+              Placeable tmpPlaceable = tmpGame.getPlayMap().getField(
+                  Integer.parseInt(tmpSelectedCoordinates[0]), Integer.parseInt(tmpSelectedCoordinates[1]))
+                  .getSetter();
 
               if (tmpPlaceable instanceof Figure) {
                 tmpOutput += "+++initFight+++;" + tmpRequestExtendedAttribute + ";" + tmpRequestData;
@@ -109,12 +110,24 @@
             }
             // print output
             out.println(tmpOutput);
+
+			// XXX Funktioniert zunächst nur manuell.
+			// TODO Der refresh fehlt noch.
+			// TODO playerId an allen notwendigen Stellen umsetzen => auslagern
+            // change current player
+            String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
+            if ("A".equals(tmpCurrentPlayer)) {
+              application.setAttribute("currentPlayer", "B");
+            } else if ("B".equals(tmpCurrentPlayer)) {
+              application.setAttribute("currentPlayer", "A");
+            }
           }
         } else if (tmpRequestAction.equals("placedInView")) {
           // the action that follows on the click
           tmpOutput += "+++markedForMoveWhileInView+++";
 
-          //works without this IF, but Im not shure why...
+          //TODO works without this IF, but Im not shure why... WTF?
+          //Zur Information: Dieser Block wird nie ausgeführt?????
           if (false) {
             tmpOutput = "+++markedForMove+++";
             ArrayList<int[]> tmpArea = tmpGame.getMovingArea(Integer.parseInt(tmpSelectedCoordinates[0]),
@@ -138,9 +151,11 @@
           String[] tmpAttackerCoordinates = tmpAttackerAndDefender[1].split("/");
           String[] tmpDefenderCoordinates = tmpAttackerAndDefender[2].split("/");
 
-          Figure tmpAttacker = (Figure) tmpGame.getPlayMap().getField(Integer.parseInt(tmpAttackerCoordinates[0].trim()),
+          Figure tmpAttacker = (Figure) tmpGame.getPlayMap().getField(
+              Integer.parseInt(tmpAttackerCoordinates[0].trim()),
               Integer.parseInt(tmpAttackerCoordinates[1].trim())).getSetter();
-          Figure tmpDefender = (Figure) tmpGame.getPlayMap().getField(Integer.parseInt(tmpDefenderCoordinates[0].trim()),
+          Figure tmpDefender = (Figure) tmpGame.getPlayMap().getField(
+              Integer.parseInt(tmpDefenderCoordinates[0].trim()),
               Integer.parseInt(tmpDefenderCoordinates[1].trim())).getSetter();
 
           Combat tmpCombat = new Combat(tmpAttacker, tmpDefender);
@@ -151,30 +166,31 @@
             tmpOutput += "+++continueCombat+++";
           } else {
             int[] tmpWinnerCoordinates = tmpCombat.evaluate().getCurrentCoordinates();
-            String tmpWinnerString ="";
-            String tmpLoserString ="";
+            String tmpWinnerString = "";
+            String tmpLoserString = "";
 
-            if (tmpAttacker.getCurrentCoordinates()[0] == tmpWinnerCoordinates[0] && tmpAttacker.getCurrentCoordinates()[1] == tmpWinnerCoordinates[1]){
-            	tmpWinnerString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
-            	tmpLoserString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
+            if (tmpAttacker.getCurrentCoordinates()[0] == tmpWinnerCoordinates[0]
+                && tmpAttacker.getCurrentCoordinates()[1] == tmpWinnerCoordinates[1]) {
+              tmpWinnerString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
+              tmpLoserString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
 
-            	// do the move
-                tmpGame.move(tmpAttacker.getCurrentCoordinates()[0], tmpAttacker.getCurrentCoordinates()[1], tmpDefender.getCurrentCoordinates()[0],
-                		tmpDefender.getCurrentCoordinates()[1]);
+              // do the move
+              tmpGame.move(tmpAttacker.getCurrentCoordinates()[0], tmpAttacker.getCurrentCoordinates()[1],
+                  tmpDefender.getCurrentCoordinates()[0], tmpDefender.getCurrentCoordinates()[1]);
 
-                tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";"
-                + tmpRequestData + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++attacker";
-            	//TODO delete Defender Figure from team
+              tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1]
+                  + ";" + tmpRequestData + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++attacker";
+              //TODO delete Defender Figure from team
+            } else {
+              tmpWinnerString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
+              tmpLoserString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
+
+              tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1]
+                  + ";" + tmpAttacker.getCurrentCoordinates()[0] + "/"
+                  + tmpAttacker.getCurrentCoordinates()[1] + "+++" + tmpWinnerString + "+++" + tmpLoserString
+                  + "+++defender";
+              //TODO delete Attacker Figure from team
             }
-            else{
-            	tmpWinnerString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
-            	tmpLoserString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
-
-            	tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1] + ";"
-                + tmpAttacker.getCurrentCoordinates()[0] + "/" + tmpAttacker.getCurrentCoordinates()[1] + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++defender";
-            	//TODO delete Attacker Figure from team
-            }
-
 
             application.setAttribute("globalCombat", null);
           }
