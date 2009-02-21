@@ -7,13 +7,14 @@ import java.io.InputStreamReader;
 
 import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.FlagLimitOverflowException;
+import strategisio.exceptions.MapTooLargeException;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class GameController {
 
@@ -24,9 +25,10 @@ public class GameController {
    * @throws IOException
    * @throws CoordinateOutOfIndexException
    * @throws NumberFormatException
+   * @throws MapTooLargeException
    */
   public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException,
-      IOException, NumberFormatException, CoordinateOutOfIndexException {
+      IOException, NumberFormatException, CoordinateOutOfIndexException, MapTooLargeException {
     if (args.length != 0) {
       GameController tmpGameController = new GameController();
       if (args[0].equals("console")) {
@@ -51,9 +53,10 @@ public class GameController {
    * @throws IOException
    * @throws NumberFormatException
    * @throws CoordinateOutOfIndexException
+   * @throws MapTooLargeException
    */
   protected boolean startConsoleGame(String[] args) throws FlagLimitOverflowException,
-      UnknownFieldGroundException, IOException, NumberFormatException, CoordinateOutOfIndexException {
+      UnknownFieldGroundException, IOException, NumberFormatException, CoordinateOutOfIndexException, MapTooLargeException {
     if (args.length > 2) {
 
       String tmpPlayerInput = "";

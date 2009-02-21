@@ -13,8 +13,6 @@ import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.figures.Figure;
 import strategisio.exceptions.CoordinateOutOfIndexException;
-import strategisio.exceptions.FlagLimitOverflowException;
-import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.util.StrategisioUtil;
 import strategisio.visualization.ConsoleDisplay;
 
@@ -30,11 +28,10 @@ public class ViewAreaTest {
   /**
    * tests the view area overbound
    *
-   * @throws UnknownFieldGroundException
-   * @throws FlagLimitOverflowException
+   * @throws Exception
    */
   @Test
-  public void testViewArea() throws FlagLimitOverflowException, UnknownFieldGroundException {
+  public void testViewArea() throws Exception {
     Team tmpTeam = new Team('A', "TestTeam");
     PlayMap tmpPlayMap = new PlayMap(8);
 
@@ -143,11 +140,10 @@ public class ViewAreaTest {
   }
 
   /**
-   * @throws FlagLimitOverflowException
-   * @throws UnknownFieldGroundException
+   * @throws Exception
    */
   @Test
-  public void testFieldsOutsideTheMap() throws FlagLimitOverflowException, UnknownFieldGroundException {
+  public void testFieldsOutsideTheMap() throws Exception {
     Team tmpTeam = new Team('A', "TestTeam");
     PlayMap tmpPlayMap = new PlayMap(8);
 

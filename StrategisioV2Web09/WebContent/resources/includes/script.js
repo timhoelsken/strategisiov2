@@ -65,23 +65,21 @@ function unmarkField(me){
 
 // standard MessageBox
 function openMessageBox(text){
-
-var objMessageBox = document.getElementById("messageBox");
-objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";};
-objMessageBox.style.width = "100%";
-objMessageBox.style.height = "100%";
-objMessageBox.style.visibility = "visible";
-objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
+	var objMessageBox = document.getElementById("messageBox");
+	objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";};
+	objMessageBox.style.width = "100%";
+	objMessageBox.style.height = "100%";
+	objMessageBox.style.visibility = "visible";
+	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
 // standard MessageBox
 function openUncloseableMessageBox(text){
-
-var objMessageBox = document.getElementById("messageBox");
-objMessageBox.style.width = "50%";
-objMessageBox.style.height = "50%";
-objMessageBox.style.visibility = "visible";
-objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
+	var objMessageBox = document.getElementById("messageBox");
+	objMessageBox.style.width = "65%";
+	objMessageBox.style.height = "50%";
+	objMessageBox.style.visibility = "visible";
+	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
 // general function that is called onClick, refers to AJAX Request
@@ -285,7 +283,7 @@ function refresh(doRefresh){
 	if (doRefresh) {
 		openUncloseableMessageBox("Please wait for the other player...");
 		doRefreshRequest();
-		setTimeout("refresh()",5000);
+		setTimeout("refresh(true)",5000);
 	}else{
 
 	}

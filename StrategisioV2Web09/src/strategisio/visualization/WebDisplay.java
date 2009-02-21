@@ -77,7 +77,6 @@ public class WebDisplay implements Displayable {
             }
             if (tmpSetterId == aPlayerId) {
               // if own setter
-
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
                   + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
@@ -85,7 +84,6 @@ public class WebDisplay implements Displayable {
               tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
             } else {
               // if opponent's setter
-
               tmpOutput += "onClick=\"checkUserAction(this);\" ";
               tmpOutput += "status=\"placedInView\" filled=\"" + tmpPlacable + "\" placablecolor=\""
                   + tmpColor + "\">";

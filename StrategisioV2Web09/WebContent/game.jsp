@@ -1,5 +1,6 @@
 <%@ page import="strategisio.visualization.WebDisplay"%>
 <%@ page import="strategisio.*"%>
+<%@ page import="strategisio.exceptions.MapTooLargeException"%>
 <%@ page import="java.io.File"%>
 
 <%
@@ -15,7 +16,11 @@
 
         if (tmpGame == null) {
           // create new Game and set Displayer to Webdisplay
-          tmpGame = new Game(tmpFile, "TeamA", "TeamB");
+          try {
+          	tmpGame = new Game(tmpFile, "TeamA", "TeamB");
+          } catch (MapTooLargeException e) {
+            // TODO tell player that the mapSize is invalid
+          }
           WebDisplay tmpDisplayer = new WebDisplay();
           tmpGame.setDisplayer(tmpDisplayer);
           // position figures and items automatically on the map
@@ -51,13 +56,15 @@
           + ");'>");
 
       //HTML CONTENT
-      out.println("<div id=\"gameContent\"><div id=\"messageBox\"></div>");
-      out.println("<table ><tr><td><div class=\"field\"></div></td><td>");
-      out.println("<table style=\"border-collapse:collapse;border:none;\"><tr><td><div class=\"field\">A</div></td><td><div class=\"field\">B</div></td><td><div class=\"field\">C</div></td><td><div class=\"field\">D</div></td><td><div class=\"field\">E</div></td><td><div class=\"field\">F</div></td><td><div class=\"field\">G</div></td><td></td><td><div class=\"field\">H</div></td></tr></table>");
+      out.println("<div id='gameContent'><div id='messageBox'></div>");
+      out.println("<table ><tr><td><div class='field'></div></td><td>");
+      // TODO someday I'll kill you for this static coordinates... *kopfschüttel*
+      // Du machst extra variable Map-Größe aber dann statische Koordinaten. Das ist doch verrückt!
+      out.println("<table style='border-collapse:collapse;border:none;'><tr><td><div class='field' style='text-align:center;'>A</div></td><td><div class='field'>B</div></td><td><div class='field'>C</div></td><td><div class='field'>D</div></td><td><div class='field'>E</div></td><td><div class='field'>F</div></td><td><div class='field'>G</div></td><td></td><td><div class='field'>H</div></td></tr></table>");
       out.println("</td></tr><tr><td>");
-      out.println("<table style=\"border-collapse:collapse;\"><tr><td><div class=\"field\">1</div></td></tr><tr><td><div class=\"field\">2</div></td></tr><tr><td><div class=\"field\">3</div></td></tr><tr><td><div class=\"field\">4</div></td></tr><tr><td><div class=\"field\">5</div></td></tr><tr><td><div class=\"field\">6</div></td></tr><tr><td><div class=\"field\">7</div></td></tr><tr><td><div class=\"field\">8</div></td></tr></table>");
-      out.println("</td><td style=\"text-align:left;vertical-align:top;\">");
-      out.println("<div class=\"map\" style=\"width:" + (tmpXDimension*34.75) + "px;height:" + (tmpYDimension*34.75) + "px;\" id=\"map\" ></div>");
+      out.println("<table style='border-collapse:collapse;'><tr><td><div class='field'>1</div></td></tr><tr><td><div class='field'>2</div></td></tr><tr><td><div class='field'>3</div></td></tr><tr><td><div class='field'>4</div></td></tr><tr><td><div class='field'>5</div></td></tr><tr><td><div class='field'>6</div></td></tr><tr><td><div class='field'>7</div></td></tr><tr><td><div class='field'>8</div></td></tr></table>");
+      out.println("</td><td style='text-align:left;vertical-align:top;'>");
+      out.println("<div class='map' style='width:" + (tmpXDimension*34.75) + "px;height:" + (tmpYDimension*34.75) + "px;' id='map' ></div>");
       out.println("</td></tr></table>");
 
       //CLOSE HTML

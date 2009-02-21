@@ -11,14 +11,15 @@ import strategisio.elements.figures.Figure;
 import strategisio.elements.items.Item;
 import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.FlagLimitOverflowException;
+import strategisio.exceptions.MapTooLargeException;
 import strategisio.exceptions.UnknownFieldGroundException;
 import strategisio.visualization.ConsoleDisplay;
 import strategisio.visualization.Displayable;
 
 /**
- * 
+ *
  * contains all game elements
- * 
+ *
  */
 public class Game {
 
@@ -32,7 +33,7 @@ public class Game {
 
   /**
    * standard constructor
-   * 
+   *
    * @param aMapSize
    *            size of the map
    * @param aTeamName
@@ -40,8 +41,9 @@ public class Game {
    * @param anotherTeamName
    *            name for team 2
    * @throws FlagLimitOverflowException
+   * @throws MapTooLargeException
    */
-  public Game(int aMapSize, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException {
+  public Game(int aMapSize, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException, MapTooLargeException {
     initMap(aMapSize);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName);
@@ -49,28 +51,29 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * Constructor for generating a map via XML-file
-   * 
+   *
    * @param aFile
    * @param aTeamName
    * @param anotherTeamName
    * @throws FlagLimitOverflowException
    * @throws UnknownFieldGroundException
+   * @throws MapTooLargeException
    */
   public Game(File aFile, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException,
-      UnknownFieldGroundException {
+      UnknownFieldGroundException, MapTooLargeException {
     initMap(aFile);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName, aFile);
     teamB = new Team('B', anotherTeamName, aFile);
   }
 
-  private void initMap(int aMapSize) {
+  private void initMap(int aMapSize) throws MapTooLargeException {
     initMap(aMapSize, aMapSize);
   }
 
-  private void initMap(int anXDimension, int aYDimension) {
+  private void initMap(int anXDimension, int aYDimension) throws MapTooLargeException {
     playMap = new PlayMap(anXDimension, aYDimension);
     for (int i = 0; i < anXDimension; i++) {
       for (int j = 0; j < aYDimension; j++) {
@@ -83,21 +86,22 @@ public class Game {
     }
   }
 
-  private void initMap(File aFile) throws UnknownFieldGroundException {
+  private void initMap(File aFile) throws UnknownFieldGroundException, MapTooLargeException {
     playMap = new PlayMap(aFile);
   }
 
   /**
    * start it here
-   * 
+   *
    * @param args
    * @throws FlagLimitOverflowException
    * @throws UnknownFieldGroundException
    * @throws CoordinateOutOfIndexException
+   * @throws MapTooLargeException
    */
   // XXX this is a main function. only called if started as java application :)
   public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException,
-      CoordinateOutOfIndexException {
+      CoordinateOutOfIndexException, MapTooLargeException {
     String tmpTeam1 = "Team 1";
     String tmpTeam2 = "Team 2";
 
@@ -113,7 +117,7 @@ public class Game {
   }
 
   /**
-   * 
+   *
    */
   public void generateMapAutomatically() {
     ArrayList<Figure> tmpFigures = this.teamA.getFigures();
@@ -232,7 +236,7 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * @param anOldXCoordinate
    * @param anOldYCoordinate
    * @param aNewXCoordinate
@@ -249,7 +253,7 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return
@@ -261,7 +265,7 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return
@@ -286,7 +290,7 @@ public class Game {
   }
 
   /**
-   * 
+   *
    * @param anX
    * @param aY
    * @return the ViewArea of a single Figure or -1/-1 if there is no Figure on
