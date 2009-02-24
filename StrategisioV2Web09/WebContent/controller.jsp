@@ -111,7 +111,6 @@
             // print output
             out.println(tmpOutput);
 
-			// XXX Funktioniert zunächst nur manuell.
 			// TODO Der refresh fehlt noch.
 			// TODO playerId an allen notwendigen Stellen umsetzen => auslagern
             // change current player
@@ -126,23 +125,6 @@
           // the action that follows on the click
           tmpOutput += "+++markedForMoveWhileInView+++";
 
-          //TODO works without this IF, but Im not shure why... WTF?
-          //Zur Information: Dieser Block wird nie ausgeführt?????
-          if (false) {
-            tmpOutput = "+++markedForMove+++";
-            ArrayList<int[]> tmpArea = tmpGame.getMovingArea(Integer.parseInt(tmpSelectedCoordinates[0]),
-                Integer.parseInt(tmpSelectedCoordinates[1]));
-            int[] tmpPossibleCoordinates;
-
-            // write the movingArea into the output
-            for (int i = 0; i < tmpArea.size(); i++) {
-              tmpPossibleCoordinates = tmpArea.get(i);
-              tmpOutput += ";" + tmpPossibleCoordinates[0] + "/" + tmpPossibleCoordinates[1];
-            }
-
-            tmpOutput += ";";
-
-          }
           // print output
           out.println(tmpOutput);
         } else if (tmpRequestAction.equals("Combat")) {

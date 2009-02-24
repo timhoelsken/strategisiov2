@@ -13,12 +13,13 @@
 
 .coordinate{
 		border: 1pt solid #ffffff;
-		width:32px;
-		height:32px;
+		width:30px;
+		height:30px;
 		float:left;
 		text-align:center;
 		vertical-align:middle;
 	}
+
 .map{
     border: 0pt solid #000000;
 }
@@ -28,14 +29,6 @@
 		width:32px;
 		height:32px;
 		float:left;
-}
-
-.coordinate{
-	    border: 1pt solid #ffffff;
-		width:30px;
-		height:30px;
-		float:left;
-		text-align:center;
 }
 
 .grass{

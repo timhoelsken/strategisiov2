@@ -99,7 +99,6 @@ public class Game {
    * @throws CoordinateOutOfIndexException
    * @throws MapTooLargeException
    */
-  // XXX this is a main function. only called if started as java application :)
   public static void main(String[] args) throws FlagLimitOverflowException, UnknownFieldGroundException,
       CoordinateOutOfIndexException, MapTooLargeException {
     String tmpTeam1 = "Team 1";
@@ -315,6 +314,10 @@ public class Game {
 
   // TODO new Method, getField,used in controller.jsp => is there another way
   // accessing the setter?
+  // TODO @ToBe -> getPlayMap was written after i wrote getField()
+  // Wouldnt it be more correct to implement a public method in game that works with the
+  // logic of the map, instead of giving the map to work with it directly
+
   // XXX sure there is -> getPlayMap().getField(x, y)
 
   private Team getTeam(char aPlayerId) {

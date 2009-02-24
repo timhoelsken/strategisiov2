@@ -58,9 +58,6 @@
       //HTML CONTENT
       out.println("<div id='gameContent'><div id='messageBox'></div>");
       out.println("<table ><tr><td><div class='field'></div></td><td>");
-      // XXX someday I'll kill you for this static coordinates... *kopfschüttel*
-      // Du machst extra variable Map-Größe aber dann statische Koordinaten. Das ist doch verrückt!
-      // Fast 'ne Frechheit :D
       out.println("<table style='border-collapse:collapse;border:none;'><tr>");
       char[] tmpLetters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
           'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
