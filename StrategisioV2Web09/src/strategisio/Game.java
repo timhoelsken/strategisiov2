@@ -329,4 +329,10 @@ public class Game {
   public PlayMap getPlayMap() {
     return playMap;
   }
+
+  public void removePlaceableFromTeam(Placeable aPlaceable, char anId){
+	  Team tmpTeam = getTeam(anId);
+	  if (aPlaceable instanceof Figure)
+	  tmpTeam.removeFigureFromTeam((Figure)aPlaceable);
+  }
 }

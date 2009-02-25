@@ -20,9 +20,9 @@ import strategisio.elements.items.Trap;
 import strategisio.exceptions.FlagLimitOverflowException;
 
 /**
- * 
+ *
  * represents a player's Team
- * 
+ *
  */
 public class Team {
 
@@ -36,7 +36,7 @@ public class Team {
 
   /**
    * constructor for non XML
-   * 
+   *
    * @param anId
    *            a unique id for the team
    * @param aName
@@ -109,7 +109,7 @@ public class Team {
 
   /**
    * constructor for XML
-   * 
+   *
    * @param anId
    *            a unique id for the team
    * @param aName
@@ -269,5 +269,18 @@ public class Team {
    */
   public void setItems(ArrayList<Item> aItems) {
     items = aItems;
+  }
+
+  /**
+   *
+   * @param aFigure
+   */
+  public void removeFigureFromTeam(Figure aFigure){
+	  for (int i=0; i<figures.size();i++){
+		if (aFigure.getFigureType().equals(figures.get(i).getFigureType())){
+			figures.remove(i);
+			break;
+		}
+	  }
   }
 }

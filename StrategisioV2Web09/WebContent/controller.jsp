@@ -162,7 +162,7 @@
 
               tmpOutput += "+++combatWinner+++" + tmpWinnerCoordinates[0] + "/" + tmpWinnerCoordinates[1]
                   + ";" + tmpRequestData + "+++" + tmpWinnerString + "+++" + tmpLoserString + "+++attacker";
-              //TODO delete Defender Figure from team
+              tmpGame.removePlaceableFromTeam(tmpDefender, tmpDefender.getId());
             } else {
               tmpWinnerString = tmpDefender.getFigureType() + "_" + tmpDefender.getId();
               tmpLoserString = tmpAttacker.getFigureType() + "_" + tmpAttacker.getId();
@@ -171,7 +171,7 @@
                   + ";" + tmpAttacker.getCurrentCoordinates()[0] + "/"
                   + tmpAttacker.getCurrentCoordinates()[1] + "+++" + tmpWinnerString + "+++" + tmpLoserString
                   + "+++defender";
-              //TODO delete Attacker Figure from team
+              tmpGame.removePlaceableFromTeam(tmpAttacker, tmpAttacker.getId());
             }
 
             application.setAttribute("globalCombat", null);

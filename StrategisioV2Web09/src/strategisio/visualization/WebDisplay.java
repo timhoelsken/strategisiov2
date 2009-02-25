@@ -39,7 +39,7 @@ public class WebDisplay implements Displayable {
     try {
       tmpTeamView = aPlayMap.getTeamViewArea(aTeam);
     } catch (CoordinateOutOfIndexException e) {
-      // TODO display an elegant error message for both users :)
+      tmpOutput = "<script>alert('Due to an internal error the game could not be loaded. You will be redirected to the landing page.');location.href='#';</script>";
       e.printStackTrace();
     }
 
