@@ -95,7 +95,6 @@ function checkUserAction(me){
 
 // === Main-Function for processing the output of the action ===
 function buildAnswer(data){
-
 	// split the output to performed action [1] and coordinates [2]
 	var dataSegments = data.split('+++');
 
@@ -228,7 +227,6 @@ function buildAnswer(data){
 
 // <=== AJAX Request
 function sendRequest( action, data, extendedAttribute ) {
-
 	try {
 		if( window.XMLHttpRequest ) {
   			req = new XMLHttpRequest();
