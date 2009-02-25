@@ -115,14 +115,13 @@ function buildAnswer(data){
 		var map = document.getElementById("map");
 
 		// disable all fields on the map
-		for (var i = 0; i < map.childNodes.length;i++){
+		for (var i = 0; i < map.childNodes.length; i++){
 			map.childNodes[i].style.borderStyle = "solid";
 			map.childNodes[i].style.borderColor = "#FFFFFF";
 			map.childNodes[i].attributes['status'].value ="disabled";
 		}
 
 		tmpArrayCoordinates = dataSegments[2].split(';');
-
 		movingFigureId = document.getElementById(tmpArrayCoordinates[1]).attributes['id'].value;
 
 		// mark the specific fields
