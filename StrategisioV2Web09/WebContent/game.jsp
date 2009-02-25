@@ -48,6 +48,7 @@
         }
       }
 
+      tmpPlayerId = (String) session.getAttribute("playerId");
       if (tmpPlayerId != null && !"".equals(tmpPlayerId)) {
 	      int tmpXDimension = tmpGame.getPlayMap().getXDimension();
 	      int tmpYDimension = tmpGame.getPlayMap().getYDimension();

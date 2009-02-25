@@ -111,8 +111,8 @@
             // print output
             out.println(tmpOutput);
 
-			// TODO Der refresh fehlt noch.
-			// TODO playerId an allen notwendigen Stellen umsetzen => auslagern
+            // TODO Der refresh fehlt noch.
+            // TODO playerId an allen notwendigen Stellen umsetzen => auslagern
             // change current player
             String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
             if ("A".equals(tmpCurrentPlayer)) {
