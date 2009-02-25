@@ -31,6 +31,8 @@ public class Game {
 
   private Team teamB;
 
+  private boolean isFull = false;
+
   /**
    * standard constructor
    *
@@ -43,7 +45,8 @@ public class Game {
    * @throws FlagLimitOverflowException
    * @throws MapTooLargeException
    */
-  public Game(int aMapSize, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException, MapTooLargeException {
+  public Game(int aMapSize, String aTeamName, String anotherTeamName) throws FlagLimitOverflowException,
+      MapTooLargeException {
     initMap(aMapSize);
     displayer = new ConsoleDisplay();
     teamA = new Team('A', aTeamName);
@@ -330,9 +333,25 @@ public class Game {
     return playMap;
   }
 
-  public void removePlaceableFromTeam(Placeable aPlaceable, char anId){
-	  Team tmpTeam = getTeam(anId);
-	  if (aPlaceable instanceof Figure)
-	  tmpTeam.removeFigureFromTeam((Figure)aPlaceable);
+  public void removePlaceableFromTeam(Placeable aPlaceable, char anId) {
+    Team tmpTeam = getTeam(anId);
+    if (aPlaceable instanceof Figure)
+      tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
   }
+
+  /**
+   * @return the isFull
+   */
+  public boolean isFull() {
+    return isFull;
+  }
+
+  /**
+   * @param aIsFull
+   *            the isFull to set
+   */
+  public void setFull(boolean aIsFull) {
+    isFull = aIsFull;
+  }
+
 }
