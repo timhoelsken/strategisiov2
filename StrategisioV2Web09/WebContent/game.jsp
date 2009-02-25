@@ -55,7 +55,7 @@
           + tmpRefreshMap + ");'>");
 
       //HTML CONTENT
-      out.println("<div id='gameContent'><div id='messageBox'></div>");
+      out.println("<div id='messageBox'></div>");
       out.println("<table ><tr><td><div class='field'></div></td><td>");
       out.println("<table style='border-collapse:collapse;border:none;'><tr>");
       char[] tmpLetters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
@@ -76,5 +76,5 @@
       out.println("</td></tr></table>");
 
       //CLOSE HTML
-      out.println("</div></body>\n</html>");
+      out.println("</body>\n</html>");
 %>

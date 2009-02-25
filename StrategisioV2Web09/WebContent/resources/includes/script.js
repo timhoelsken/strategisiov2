@@ -66,7 +66,7 @@ function unmarkField(me){
 // standard MessageBox
 function openMessageBox(text){
 	var objMessageBox = document.getElementById("messageBox");
-	objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";};
+	objMessageBox.onclick = function () {objMessageBox.style.visibility="hidden";objMessageBox.style.width="1px";objMessageBox.style.height="1px";location.reload(true);};
 	objMessageBox.style.width = "100%";
 	objMessageBox.style.height = "100%";
 	objMessageBox.style.visibility = "visible";
@@ -163,11 +163,15 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
+
+		location.reload(true);
+
 	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
 	} else if(dataSegments[1] == "initFight"){
 		openMessageBox('Now a fight starts!');
 		var attackerAndDefender = dataSegments[2].split(';');
+
 		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
 	} else if(dataSegments[1] == "Item") {
 		openMessageBox('You moved on an item!');
@@ -219,6 +223,7 @@ function buildAnswer(data){
 
 		alert('fight!');
 	}
+
 }
 
 // <=== AJAX Request

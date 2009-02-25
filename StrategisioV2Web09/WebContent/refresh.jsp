@@ -13,4 +13,5 @@
 	  String tmpPlayerId = (String) session.getAttribute("playerId");
 
       out.println(tmpGame.display(tmpPlayerId));
+      out.println("<script>location.reload(true);</script>");
 %>

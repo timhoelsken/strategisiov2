@@ -3,14 +3,6 @@
 	height:100%;
 	}
 
-#gameContent{
-	width: 50%;
-	heigth: 50%;
-	align: left;
-	background-color:fefefe;
-	border: 1pt solid ededed;
-	}
-
 .coordinate{
 		border: 1pt solid #ffffff;
 		width:30px;
