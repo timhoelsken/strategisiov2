@@ -3,9 +3,9 @@ package strategisio.elements;
 import strategisio.elements.figures.Figure;
 
 /**
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class Combat {
 
@@ -18,10 +18,10 @@ public class Combat {
   private int[] defenderDefences;
 
   /**
-   * 
-   * @param anAttacker
-   * @param aDefender
-   * @return the winner of a fight
+   * Combat constructor
+   *
+   * @param anAttacker the attacker figure
+   * @param aDefender the defender figure
    */
   public Combat(Figure anAttacker, Figure aDefender) {
 
@@ -36,7 +36,7 @@ public class Combat {
   }
 
   /**
-   * 
+   *
    * @param anAttacker
    * @param aDefender
    * @return
@@ -54,7 +54,7 @@ public class Combat {
   }
 
   /**
-   * 
+   *
    * @param anAttacker
    * @param aDefender
    * @return the winner of a fight
