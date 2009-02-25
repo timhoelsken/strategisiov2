@@ -312,14 +312,6 @@ public class Game {
     return tmpViewArea;
   }
 
-  // TODO new Method, getField,used in controller.jsp => is there another way
-  // accessing the setter?
-  // TODO @ToBe -> getPlayMap was written after i wrote getField()
-  // Wouldnt it be more correct to implement a public method in game that works with the
-  // logic of the map, instead of giving the map to work with it directly
-
-  // XXX sure there is -> getPlayMap().getField(x, y)
-
   private Team getTeam(char aPlayerId) {
     switch (aPlayerId) {
       case 'A':
