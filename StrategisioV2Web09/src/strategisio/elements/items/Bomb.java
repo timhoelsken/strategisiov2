@@ -2,7 +2,7 @@ package strategisio.elements.items;
 
 /**
  * @author Tobias
- * 
+ *
  * the bomb
  */
 public class Bomb extends Item {
@@ -14,4 +14,10 @@ public class Bomb extends Item {
     return new String("bmb_set.png");
   }
 
+  /**
+   * @return name of the item type
+   */
+  public String getItemType(){
+	  return new String("bomb");
+  }
 }

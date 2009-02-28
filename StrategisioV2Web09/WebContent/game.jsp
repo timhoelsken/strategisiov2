@@ -64,8 +64,14 @@
 	      if (tmpPlayerId.equals(tmpCurrentPlayer)) {
 	        tmpRefreshMap = false;
 	      }
-	      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();refresh("
-	          + tmpRefreshMap + ");'>");
+	      out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();");
+
+	      // TODO currently the waiting player does not see a map at the beginning
+	      // start the refresh for the waiting player
+	      if (tmpRefreshMap){
+	    	  out.println("refresh();");
+	      }
+	      out.println("'>");
 
 	      // HTML CONTENT
 	      out.println("<div id='messageBox'></div>");

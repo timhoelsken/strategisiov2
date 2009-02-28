@@ -8,9 +8,23 @@
        *
        */
 
-      Game tmpGame = (Game) application.getAttribute("globalGame");
-
+	  // ID of player who is calling this refresh
 	  String tmpPlayerId = (String) session.getAttribute("playerId");
 
-      out.println(tmpGame.display(tmpPlayerId));
+	  // ID of player who is doing an action on the map right now
+	  String tmpCurrentPlayerId = (String) application.getAttribute("currentPlayer");
+
+	  // is the moving player my player?
+	  if (tmpPlayerId.equals(tmpCurrentPlayerId)){
+
+	      // YES! So I have to get the current map and the messageBox has to close!
+		  Game tmpGame = (Game) application.getAttribute("globalGame");
+		  out.println("+++true+++" + tmpGame.display(tmpPlayerId));
+	  }
+	  else{
+
+		  // NO! I have to wait! I do not need the current map
+		  out.println("+++false+++null");
+	  }
+
 %>

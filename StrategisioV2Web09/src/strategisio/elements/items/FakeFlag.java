@@ -2,7 +2,7 @@ package strategisio.elements.items;
 
 /**
  * @author Tobias
- * 
+ *
  * the fakeflag
  */
 public class FakeFlag extends Item {
@@ -11,5 +11,12 @@ public class FakeFlag extends Item {
    */
   public String getImage() {
     return new String("flf_set.png");
+  }
+
+  /**
+   * @return name of the item type
+   */
+  public String getItemType(){
+	  return new String("fakeflag");
   }
 }

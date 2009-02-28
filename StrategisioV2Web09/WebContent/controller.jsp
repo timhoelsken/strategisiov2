@@ -111,8 +111,7 @@
             // print output
             out.println(tmpOutput);
 
-            // TODO Der refresh fehlt noch.
-            // TODO playerId an allen notwendigen Stellen umsetzen => auslagern
+            //TODO only do this when the figure did not reset to start position!!!
             // change current player
             String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
             if ("A".equals(tmpCurrentPlayer)) {

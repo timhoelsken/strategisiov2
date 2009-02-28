@@ -4,7 +4,7 @@ import strategisio.elements.figures.Figure;
 
 /**
  * @author Tobias
- * 
+ *
  * the trap
  */
 public class Trap extends Item {
@@ -31,5 +31,12 @@ public class Trap extends Item {
    */
   public String getImage() {
     return new String("trp_set.png");
+  }
+
+  /**
+   * @return name of the item type
+   */
+  public String getItemType(){
+	  return new String("trap");
   }
 }

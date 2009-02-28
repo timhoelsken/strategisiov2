@@ -41,10 +41,7 @@
 	width:1px;
 	height:1px;
 	visibility:hidden;
-	/*TODO good solution for this, not in '%', but don't know how*/
-	/*why isn't that a fixed div below the map or something?*/
-	padding-left:12%;
-	padding-top:12%;
+	padding-top:5%;
 }
 
 #centeredText{

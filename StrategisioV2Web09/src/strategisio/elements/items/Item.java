@@ -7,40 +7,49 @@ import strategisio.elements.Placeable;
  */
 public abstract class Item implements Placeable {
 
-  private char id;
+	private char id;
 
-  private int[] currentCoordinates = new int[2];
+	private int[] currentCoordinates = new int[2];
 
-  /**
-   * @return the id
-   */
-  public char getId() {
-    return id;
-  }
+	private String itemType;
+	/**
+	 * @return the id
+	 */
+	public char getId() {
+		return id;
+	}
 
-  /**
-   * @param aId
-   *            the id to set
-   */
-  public void setId(char aId) {
-    id = aId;
-  }
+	/**
+	 * @param aId
+	 *            the id to set
+	 */
+	public void setId(char aId) {
+		id = aId;
+	}
 
-  /**
-   * @return the currentCoordinates
-   */
-  public int[] getCurrentCoordinates() {
-    return currentCoordinates;
-  }
+	/**
+	 * @return the currentCoordinates
+	 */
+	public int[] getCurrentCoordinates() {
+		return currentCoordinates;
+	}
 
-  /**
-   * 
-   * @param anX
-   * @param aY
-   */
-  public void setCurrentCoordinates(int anX, int aY) {
+	/**
+	 *
+	 * @param anX
+	 * @param aY
+	 */
+	public void setCurrentCoordinates(int anX, int aY) {
 
-    currentCoordinates[0] = anX;
-    currentCoordinates[1] = aY;
-  }
+		currentCoordinates[0] = anX;
+		currentCoordinates[1] = aY;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public String getItemType(){
+		return itemType;
+	}
 }

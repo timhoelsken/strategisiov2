@@ -69,25 +69,30 @@ function openMessageBox(text){
 	objMessageBox.onclick = closeMessageBox();
 	objMessageBox.style.width = "100%";
 	objMessageBox.style.height = "100%";
+	// TODO here ~30 px have to be added (coordinates field)
+	objMessageBox.style.paddingLeft = document.getElementById("map").style.width;
 	objMessageBox.style.visibility = "visible";
 	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
-// uncloseabel MessageBox
+// uncloseable MessageBox
 function openUncloseableMessageBox(text){
 	var objMessageBox = document.getElementById("messageBox");
-	objMessageBox.style.width = "65%";
-	objMessageBox.style.height = "50%";
+	objMessageBox.style.width = "100%";
+	objMessageBox.style.height = "100%";
+
+	// TODO here ~30 px have to be added (coordinates field)
+	objMessageBox.style.paddingLeft = document.getElementById("map").style.width;
 	objMessageBox.style.visibility = "visible";
 	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
 // closes the messageBox
 function closeMessageBox(){
+	var objMessageBox = document.getElementById("messageBox");
 	objMessageBox.style.visibility="hidden";
 	objMessageBox.style.width="1px";
 	objMessageBox.style.height="1px";
-	location.reload(true);
 }
 
 // general function that is called onClick, refers to AJAX Request
@@ -170,7 +175,9 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
 		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
 
-		location.reload(true);
+		// TODO only call this if the movingFigure Coordinates and
+		// the coordinates of the field that was clicked are not the same!
+		refresh();
 
 	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
@@ -224,7 +231,7 @@ function buildAnswer(data){
 			Create dialog here,where user enters attack and defence.
 			When user has entered both, call controller.jsp again with action = "Combat"
 
-
+			Also use refresh.jsp for this!
 		*/
 
 		alert('fight!');
@@ -261,18 +268,33 @@ function getAnswer() {
     }
 }
 
+// recalls the doRefreshRequest() if the player is not on turn
 function setRefreshedMap() {
 	if( 4 == req.readyState ) {
         if( 200 != req.status ) {
     		alert( "Request Error " + req.status + ": " + req.statusText );
         } else {
-	    	document.getElementById("map").innerHTML = req.responseText.replace(/^\s+/,"").replace(/\s+$/,"");
-	    	// THIS IS THE PLACE WHERE WE HAVE TO CHECK
-	    	//IF TO DO AN AJAX CALL AGAIN OR TO CLOSE THE MESSAGE BOX
+        	//what tells me the refresh.jsp? [1] = true/false; [2] = map/null
+	    	var responseArray = req.responseText.split('+++');
+
+
+	    	// Is it my turn?
+	    	if (responseArray[1] == "false"){
+
+	    		// No it's not, I have to wait and do the request again
+	    		setTimeout("doRefreshRequest()",1000);
+	    	}
+	    	else{
+
+	    	// YEAH! It's my turn! I load the map and close the messageBox()
+	    	document.getElementById("map").innerHTML = responseArray[2].replace(/^\s+/,"").replace(/\s+$/,"");
+	    	closeMessageBox();
+	    	}
         }
     }
 }
 
+// Request is calculated in setRefreshedMap()
 function doRefreshRequest() {
 	try {
 		if( window.XMLHttpRequest ) {
@@ -291,14 +313,9 @@ function doRefreshRequest() {
     }
 }
 
-function refresh(doRefresh){
-	if (doRefresh) {
+// uses initially when a player has to wait!
+function refresh(){
 		openUncloseableMessageBox("Please wait for the other player...");
 		doRefreshRequest();
-		//REMOVE THIS TO setRefreshedMap()
-		setTimeout("refresh(true)",5000);
-	}else{
-
-	}
 }
 // AJAX Request ===>

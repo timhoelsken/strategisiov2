@@ -333,10 +333,19 @@ public class Game {
     return playMap;
   }
 
+  /**
+   * Deletes an item or a figure from the team
+   * @param aPlaceable
+   * @param anId
+   */
   public void removePlaceableFromTeam(Placeable aPlaceable, char anId) {
     Team tmpTeam = getTeam(anId);
-    if (aPlaceable instanceof Figure)
-      tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
+    if (aPlaceable instanceof Figure){
+    	tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
+    }
+    else if (aPlaceable instanceof Item){
+    	tmpTeam.removeItemFromTeam((Item) aPlaceable);
+    }
   }
 
   /**
