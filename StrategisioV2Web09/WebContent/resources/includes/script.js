@@ -69,8 +69,12 @@ function openMessageBox(text){
 	objMessageBox.onclick = closeMessageBox();
 	objMessageBox.style.width = "100%";
 	objMessageBox.style.height = "100%";
-	// TODO here ~30 px have to be added (coordinates field)
-	objMessageBox.style.paddingLeft = document.getElementById("map").style.width;
+
+	var mapWidthString = document.getElementById("map").style.width;
+	var mapWidthNumber = mapWidthString.slice(0, mapWidthString.indexOf('p'));
+	var BoxWidth = (parseFloat(mapWidthNumber) + 40);
+
+	objMessageBox.style.paddingLeft = BoxWidth + "px";
 	objMessageBox.style.visibility = "visible";
 	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
@@ -81,8 +85,12 @@ function openUncloseableMessageBox(text){
 	objMessageBox.style.width = "100%";
 	objMessageBox.style.height = "100%";
 
-	// TODO here ~30 px have to be added (coordinates field)
-	objMessageBox.style.paddingLeft = document.getElementById("map").style.width;
+
+	var mapWidthString = document.getElementById("map").style.width;
+	var mapWidthNumber = mapWidthString.slice(0, mapWidthString.indexOf('p'));
+	var BoxWidth = (parseFloat(mapWidthNumber) + 40);
+
+	objMessageBox.style.paddingLeft = BoxWidth + "px";
 	objMessageBox.style.visibility = "visible";
 	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
