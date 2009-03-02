@@ -236,6 +236,7 @@ function buildAnswer(data){
 		}
 	} else if(dataSegments[1] == "continueCombat") {
 		/*
+			TODO
 			Create dialog here,where user enters attack and defence.
 			When user has entered both, call controller.jsp again with action = "Combat"
 
@@ -321,6 +322,13 @@ function doRefreshRequest() {
     }
 }
 
+// TODO write function to refresh MessageBox Text and Icon, ie when enemy got on item or figure
+// TODO create combat.jsp?
+// TODO write function to log movements in the game
+// TODO write the log functions to the relevant positions in the buildAnswer function
+// TODO add Log box to game.jsp
+
+// TODO make the new map appear before the messageBox opens...
 // uses initially when a player has to wait!
 function refresh(){
 		openUncloseableMessageBox("Please wait for the other player...");
