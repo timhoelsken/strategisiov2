@@ -45,9 +45,10 @@
 }
 
 #centeredText{
-	width:30%;
-	height:30%;
-	text-align:center;
-	vertical-align:middle;
-	background-color:white;
+	width:321px;
+	height:27px;
+	padding:5%;
+	font-face:verdana;
+	font-weight:bold;
+	background-image:url(../pictures/MsgBoxBack.gif);
 }

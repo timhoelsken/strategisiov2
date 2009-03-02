@@ -76,7 +76,7 @@ function openMessageBox(text){
 
 	objMessageBox.style.paddingLeft = BoxWidth + "px";
 	objMessageBox.style.visibility = "visible";
-	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/wait.gif\"></td><td>" + text + "</td></tr></table></div>";
+	objMessageBox.innerHTML = "<div id=\"centeredText\"><table><tr><td><img src=\"resources/pictures/exclamationmark.gif\"></td><td>" + text + "</td></tr></table></div>";
 }
 
 // uncloseable MessageBox
