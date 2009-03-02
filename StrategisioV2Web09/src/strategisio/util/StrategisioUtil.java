@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 /**
  * @author Tobias
- * 
+ *
  */
 public class StrategisioUtil {
 
+	//TODO why is this a util class and not part of the Team class? :D
   /**
    * @param aField
    * @param aTeamView

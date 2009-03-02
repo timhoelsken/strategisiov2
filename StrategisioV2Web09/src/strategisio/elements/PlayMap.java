@@ -252,6 +252,8 @@ public class PlayMap {
               positionWithoutCheck(aFigure, anX, aY);
             } else {
               tmpTrap.setCatched(aFigure);
+              //TODO Game may end here! Even if Figure is still in the team, but there is no medic left to rescue...
+              // kill figures when the team has no medic left would would shorten the game... or is it irritating?!
             }
           } else {
             // if the trap has a catched figure, and the moving
@@ -291,11 +293,15 @@ public class PlayMap {
             positionWithoutCheck(aFigure, anX, aY);
           } else {
             fetchSetter(anX, aY);
+            // TODO Bomb figure away => removeFigureFromTeam => game may end here
           }
 
         } else if (tmpItem instanceof Flag) {
           fetchSetter(anX, aY);
           positionWithoutCheck(aFigure, anX, aY);
+
+          // TODO Move Figure, removeItemFromTeam
+
           // TODO Logic (Method?) what if Figure finds Flag
           /*
            * The game ends here... maybe use a return param and then call a

@@ -278,6 +278,8 @@ public class Team {
 	 * @param aFigure
 	 */
 	public void removeFigureFromTeam(Figure aFigure) {
+		// TODO if this was the last figure of the team, the game ended =>
+		// return true, call this method as a param of endgame method in game
 		for (int i = 0; i < figures.size(); i++) {
 			if (aFigure.getFigureType().equals(figures.get(i).getFigureType())) {
 				figures.remove(i);
@@ -291,13 +293,14 @@ public class Team {
 	 *
 	 * @param anItem
 	 */
-	public void removeItemFromTeam(Item anItem) {
+	public boolean removeItemFromTeam(Item anItem) {
+		// TODO if anItem is flag, return true
 		for (int i = 0; i < items.size(); i++) {
 			if (anItem.getItemType().equals(items.get(i).getItemType())) {
 				items.remove(i);
-				break;
+				return false;
 			}
 		}
-
+		return false;
 	}
 }

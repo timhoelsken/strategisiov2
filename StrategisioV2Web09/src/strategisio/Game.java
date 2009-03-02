@@ -344,7 +344,8 @@ public class Game {
     	tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
     }
     else if (aPlaceable instanceof Item){
-    	tmpTeam.removeItemFromTeam((Item) aPlaceable);
+    	// TODO Maybe the Game ends here?!
+    	endGame(tmpTeam.removeItemFromTeam((Item) aPlaceable));
     }
   }
 
@@ -363,4 +364,8 @@ public class Game {
     isFull = aIsFull;
   }
 
+  // TODO write a method to end the game
+  private void endGame(boolean gameEnded){
+
+  }
 }

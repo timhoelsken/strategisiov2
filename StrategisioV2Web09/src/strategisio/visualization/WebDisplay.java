@@ -20,96 +20,110 @@ import strategisio.util.StrategisioUtil;
  */
 public class WebDisplay implements Displayable {
 
-  /**
-   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
-   */
-  public String display(PlayMap aPlayMap) {
-    return display(aPlayMap, 'X', null);
-  }
+	/**
+	 * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
+	 */
+	public String display(PlayMap aPlayMap) {
+		return display(aPlayMap, 'X', null);
+	}
 
-  /**
-   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
-   *      char, strategisio.elements.Team)
-   */
-  public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {
-    String tmpOutput = "";
-    Field tmpField;
+	/**
+	 * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
+	 *      char, strategisio.elements.Team)
+	 */
+	public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {
+		String tmpOutput = "";
+		Field tmpField;
 
-    ArrayList<int[]> tmpTeamView = null;
-    try {
-      tmpTeamView = aPlayMap.getTeamViewArea(aTeam);
-    } catch (CoordinateOutOfIndexException e) {
-      tmpOutput = "<script>alert('Due to an internal error the game could not be loaded. You will be redirected to the landing page.');location.href='#';</script>";
-      e.printStackTrace();
-    }
+		ArrayList<int[]> tmpTeamView = null;
+		try {
+			tmpTeamView = aPlayMap.getTeamViewArea(aTeam);
+		} catch (CoordinateOutOfIndexException e) {
+			// TODO use MessageBox for this and create a page from where the
+			// game can be reentered!
+			tmpOutput = "<script>alert('Due to an internal error the game could not be loaded. You will be redirected to the landing page.');location.href='#';</script>";
+			e.printStackTrace();
+		}
 
-    // loop for row
-    for (int i = 0; i < aPlayMap.getYDimension(); i++) {
-      // loop for column
-      for (int j = 0; j < aPlayMap.getXDimension(); j++) {
-        tmpField = aPlayMap.getField(j, i);
-        tmpOutput += "<div id=\"" + j + "/" + i + "\" ";
-        try {
-          tmpOutput += "class=\"field " + Ground.getGroundLabeling(tmpField.getGround()) + "\" ";
-        } catch (UnknownFieldGroundException e) {
-          e.printStackTrace();
-        }
-        Placeable tmpSetter = tmpField.getSetter();
-        String tmpColor = "#000000";
-        String tmpImageColorPrefix = "";
-        String tmpPlacable = "item";
-        if (tmpSetter != null) {
-          if (aPlayerId == 'X'
-              || StrategisioUtil.isFieldInTeamView(tmpSetter.getCurrentCoordinates(), tmpTeamView)) {
-            char tmpSetterId = tmpSetter.getId();
-            if (tmpSetter instanceof Figure) {
-              switch (tmpSetterId) {
-                case 'A':
-                  tmpColor = "#ff0000";
-                  tmpImageColorPrefix = "coloredSetter/" + "red";
-                  break;
-                case 'B':
-                  tmpColor = "#0000ff";
-                  tmpImageColorPrefix = "coloredSetter/" + "blu";
-                  break;
-              }
-              tmpPlacable = "figure";
-            }
-            if (tmpSetterId == aPlayerId) {
-              // if own setter
-              tmpOutput += "onClick=\"checkUserAction(this);\" ";
-              tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
-                  + tmpPlacable + "\" placablecolor=\"" + tmpColor + "\" >";
-              String tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
-              tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
-            } else {
-              // if opponent's setter
-              tmpOutput += "onClick=\"checkUserAction(this);\" ";
-              tmpOutput += "status=\"placedInView\" filled=\"" + tmpPlacable + "\" placablecolor=\""
-                  + tmpColor + "\">";
-              String tmpImage;
-              if (tmpSetter instanceof FakeFlag) {
-                tmpImage = tmpImageColorPrefix + new Flag().getImage();
-              } else {
-                tmpImage = tmpImageColorPrefix + tmpSetter.getImage();
-              }
-              tmpOutput += "<img src=\"resources/pictures/" + tmpImage + "\">";
-            }
-          } else {
-            // invisible enemy's setter on the field
-            tmpOutput += "onClick=\"checkUserAction(this);\" ";
-            tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
-                + tmpPlacable + "\" placablecolor=\"#000000\" >";
-          }
-        } else {
-          // no setter on the field
-          tmpOutput += "onClick=\"checkUserAction(this);\" ";
-          tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
-        }
-        tmpOutput += "</div>";
-      }
-    }
+		// loop for row
+		for (int i = 0; i < aPlayMap.getYDimension(); i++) {
+			// loop for column
+			for (int j = 0; j < aPlayMap.getXDimension(); j++) {
+				tmpField = aPlayMap.getField(j, i);
+				tmpOutput += "<div id=\"" + j + "/" + i + "\" ";
+				try {
+					tmpOutput += "class=\"field "
+							+ Ground.getGroundLabeling(tmpField.getGround())
+							+ "\" ";
+				} catch (UnknownFieldGroundException e) {
+					e.printStackTrace();
+				}
+				Placeable tmpSetter = tmpField.getSetter();
+				String tmpColor = "#000000";
+				String tmpImageColorPrefix = "";
+				String tmpPlacable = "item";
+				if (tmpSetter != null) {
+					if (aPlayerId == 'X'
+							|| StrategisioUtil.isFieldInTeamView(tmpSetter
+									.getCurrentCoordinates(), tmpTeamView)) {
+						char tmpSetterId = tmpSetter.getId();
+						if (tmpSetter instanceof Figure) {
+							switch (tmpSetterId) {
+							case 'A':
+								tmpColor = "#ff0000";
+								tmpImageColorPrefix = "coloredSetter/" + "red";
+								break;
+							case 'B':
+								tmpColor = "#0000ff";
+								tmpImageColorPrefix = "coloredSetter/" + "blu";
+								break;
+							}
+							tmpPlacable = "figure";
+						}
+						if (tmpSetterId == aPlayerId) {
+							// if own setter
+							tmpOutput += "onClick=\"checkUserAction(this);\" ";
+							tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
+									+ tmpPlacable
+									+ "\" placablecolor=\""
+									+ tmpColor + "\" >";
+							String tmpImage = tmpImageColorPrefix
+									+ tmpSetter.getImage();
+							tmpOutput += "<img src=\"resources/pictures/"
+									+ tmpImage + "\">";
+						} else {
+							// if opponent's setter
+							tmpOutput += "onClick=\"checkUserAction(this);\" ";
+							tmpOutput += "status=\"placedInView\" filled=\""
+									+ tmpPlacable + "\" placablecolor=\""
+									+ tmpColor + "\">";
+							String tmpImage;
+							if (tmpSetter instanceof FakeFlag) {
+								tmpImage = tmpImageColorPrefix
+										+ new Flag().getImage();
+							} else {
+								tmpImage = tmpImageColorPrefix
+										+ tmpSetter.getImage();
+							}
+							tmpOutput += "<img src=\"resources/pictures/"
+									+ tmpImage + "\">";
+						}
+					} else {
+						// invisible enemy's setter on the field
+						tmpOutput += "onClick=\"checkUserAction(this);\" ";
+						tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"placed\" filled=\""
+								+ tmpPlacable
+								+ "\" placablecolor=\"#000000\" >";
+					}
+				} else {
+					// no setter on the field
+					tmpOutput += "onClick=\"checkUserAction(this);\" ";
+					tmpOutput += "onMouseOver=\"hoverOn(this);\" onMouseOut=\"hoverOff(this);\" status=\"empty\" filled=\"no\" placablecolor=\"#000000\" >";
+				}
+				tmpOutput += "</div>";
+			}
+		}
 
-    return tmpOutput;
-  }
+		return tmpOutput;
+	}
 }
