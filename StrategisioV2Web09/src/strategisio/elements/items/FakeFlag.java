@@ -16,6 +16,7 @@ public class FakeFlag extends Item {
   /**
    * @return name of the item type
    */
+  @Override
   public String getItemType(){
 	  return new String("fakeflag");
   }
