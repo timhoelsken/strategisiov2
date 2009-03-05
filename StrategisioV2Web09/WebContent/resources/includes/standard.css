@@ -41,14 +41,25 @@
 	width:1px;
 	height:1px;
 	visibility:hidden;
-	padding-top:5%;
+	padding-left:40px;
 }
 
 #centeredText{
 	width:321px;
-	height:27px;
-	padding:5%;
+	height:150px;
 	font-face:verdana;
 	font-weight:bold;
-	background-image:url(../pictures/MsgBoxBack.gif);
+	background-image:url(../pictures/MsgBoxBackCenter.gif);
+}
+
+#centeredTextLeft{
+	width:11px;
+	height:150px;
+	background-image:url(../pictures/MsgBoxBackLeft.gif);
+}
+
+#centeredTextRight{
+	width:20px;
+	height:150px;
+	background-image:url(../pictures/MsgBoxBackRight.gif);
 }
