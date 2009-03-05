@@ -83,15 +83,20 @@
                 .parseInt(tmpSelectedCoordinates[1]))
                 || (tmpRequestData.equals(tmpRequestExtendedAttribute))) {
 
-              // the performed action was a move
-              tmpOutput += "+++Moved+++";
-
               String[] tmpMovingFigureCoordinates = tmpRequestExtendedAttribute.split("/");
 
               // do the move
               tmpGame.move(Integer.parseInt(tmpMovingFigureCoordinates[0]), Integer
                   .parseInt(tmpMovingFigureCoordinates[1]), Integer.parseInt(tmpSelectedCoordinates[0]),
                   Integer.parseInt(tmpSelectedCoordinates[1]));
+
+              // the performed action was only a real move if the coordinates differ from the last
+              if (tmpSelectedCoordinates[0].equals(tmpMovingFigureCoordinates[0])
+                  && tmpSelectedCoordinates[1].equals(tmpMovingFigureCoordinates[1])) {
+                tmpOutput += "+++MovedToSameField+++";
+              } else {
+                tmpOutput += "+++Moved+++";
+              }
 
               // return the effected fields
               tmpOutput += tmpRequestExtendedAttribute + ";" + tmpRequestData + ";";
@@ -111,13 +116,14 @@
             // print output
             out.println(tmpOutput);
 
-            //TODO only do this when the figure did not reset to start position!!!
             // change current player
-            String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
-            if ("A".equals(tmpCurrentPlayer)) {
-              application.setAttribute("currentPlayer", "B");
-            } else if ("B".equals(tmpCurrentPlayer)) {
-              application.setAttribute("currentPlayer", "A");
+            if (!tmpOutput.contains("+++MovedToSameField+++")) {
+	            String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
+	            if ("A".equals(tmpCurrentPlayer)) {
+	              application.setAttribute("currentPlayer", "B");
+	            } else if ("B".equals(tmpCurrentPlayer)) {
+	              application.setAttribute("currentPlayer", "A");
+	            }
             }
           }
         } else if (tmpRequestAction.equals("placedInView")) {

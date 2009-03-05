@@ -24,6 +24,7 @@
 	  else{
 
 		  // NO! I have to wait! I do not need the current map
+		  // TODO do one more refesh for the waiting player after her/his turn
 		  out.println("+++false+++null");
 	  }
 

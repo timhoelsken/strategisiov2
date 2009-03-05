@@ -153,7 +153,7 @@ function buildAnswer(data){
 			document.getElementById(tmpArrayCoordinates[i]).attributes['placablecolor'].value = tmpColor;
 		}
 	} // if a figure is moved to a field
-	else if (dataSegments[1] == "Moved"){
+	else if (dataSegments[1] == "Moved" || dataSegments[1] == "MovedToSameField"){
 
 		// get the map
 		var map = document.getElementById("map");
@@ -172,20 +172,21 @@ function buildAnswer(data){
 
 		tmpArrayCoordinates = dataSegments[2].split(';');
 
-		// clear old field, paint figure on new field, set attributes of fields
-		tmpFieldData = document.getElementById(tmpArrayCoordinates[0]).innerHTML;
-		document.getElementById(tmpArrayCoordinates[0]).innerHTML = "";
-		document.getElementById(tmpArrayCoordinates[1]).innerHTML = tmpFieldData;
-		document.getElementById(tmpArrayCoordinates[0]).attributes['filled'].value = "no";
-		document.getElementById(tmpArrayCoordinates[0]).attributes['status'].value = "empty";
-		document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value;
-		document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
-		document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
-		document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
+		// means != 'MovedToSameField'
+		if (dataSegments[1] == "Moved") {
+			// clear old field, paint figure on new field, set attributes of fields
+			tmpFieldData = document.getElementById(tmpArrayCoordinates[0]).innerHTML;
+			document.getElementById(tmpArrayCoordinates[0]).innerHTML = "";
+			document.getElementById(tmpArrayCoordinates[1]).innerHTML = tmpFieldData;
+			document.getElementById(tmpArrayCoordinates[0]).attributes['filled'].value = "no";
+			document.getElementById(tmpArrayCoordinates[0]).attributes['status'].value = "empty";
+			document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value;
+			document.getElementById(tmpArrayCoordinates[0]).attributes['placablecolor'].value = "#000000";
+			document.getElementById(tmpArrayCoordinates[1]).attributes['filled'].value = "figure";
+			document.getElementById(tmpArrayCoordinates[1]).attributes['status'].value = "placed";
 
-		// TODO only call this if the movingFigure Coordinates and
-		// the coordinates of the field that was clicked are not the same!
-		refresh();
+			refresh();
+		}
 
 	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
