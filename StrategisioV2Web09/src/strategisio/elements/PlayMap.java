@@ -252,8 +252,10 @@ public class PlayMap {
               positionWithoutCheck(aFigure, anX, aY);
             } else {
               tmpTrap.setCatched(aFigure);
-              //TODO Game may end here! Even if Figure is still in the team, but there is no medic left to rescue...
-              // kill figures when the team has no medic left would would shorten the game... or is it irritating?!
+              // TODO Game may end here! Even if Figure is still in the team,
+              // but there is no medic left to rescue...
+              // kill figures when the team has no medic left would would
+              // shorten the game... or is it irritating?!
             }
           } else {
             // if the trap has a catched figure, and the moving
@@ -293,7 +295,8 @@ public class PlayMap {
             positionWithoutCheck(aFigure, anX, aY);
           } else {
             fetchSetter(anX, aY);
-            // TODO Bomb figure away => removeFigureFromTeam => game may end here
+            // TODO Bomb figure away => removeFigureFromTeam => game may end
+            // here
           }
 
         } else if (tmpItem instanceof Flag) {
@@ -313,6 +316,11 @@ public class PlayMap {
            * going on, 0 when ends by flag, -1 when ends by defeat all
            * enemies...
            */
+
+          // XXX what about a checkMethod (is Game still running) that has to be
+          // called at all neccessary places and if we decide there that it is
+          // not we have to end the game?! would perhaps be an "active" or
+          // "running" attribute in the PlayMap?!
         }
       }
 
