@@ -1,4 +1,4 @@
-package strategisio;
+package strategisio.figures;
 
 import strategisio.elements.constants.FightMoves;
 import strategisio.elements.constants.Ground;

@@ -1,7 +1,7 @@
 /**
  *
  */
-package strategisio;
+package strategisio.elements;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +25,7 @@ import strategisio.elements.items.FakeFlag;
 import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
+import strategisio.figures.TestFigure;
 import strategisio.visualization.ConsoleDisplay;
 
 /**

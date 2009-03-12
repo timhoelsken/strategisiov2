@@ -1,4 +1,4 @@
-package strategisio;
+package strategisio.elements;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -20,7 +20,7 @@ import strategisio.visualization.ConsoleDisplay;
  * @author Tobias
  *
  */
-public class ViewAreaTest {
+public class PlayMapViewAreaTest {
 
   // TODO test for if diagonal field is really diagonal and not 1 field x and
   // 2 fields y away or something
