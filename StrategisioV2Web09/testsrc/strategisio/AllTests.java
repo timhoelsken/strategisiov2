@@ -12,6 +12,6 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses( { strategisio.elements.AllTests.class })
+@SuiteClasses( { strategisio.components.AllTests.class })
 public class AllTests {
 }
