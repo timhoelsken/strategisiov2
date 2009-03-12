@@ -57,7 +57,7 @@
 	      out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\"http://www.w3.org/TR/html4/loose.dtd\">\n\n");
 	      out.println("<html>\n<head>");
 	      out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
-	      out.println("<script type=\"text/javascript\" src=\"resources/includes/script.js\"></script>");
+	      out.println("<script type=\"text/javascript\" src=\"resources/includes/javascript/script.js\"></script>");
 	      tmpPlayerId = (String) session.getAttribute("playerId");
 	      String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
 	      boolean tmpRefreshMap = true;
