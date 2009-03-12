@@ -1,9 +1,10 @@
-package strategisio.elements;
+package strategisio.components;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import strategisio.XmlReader;
+import strategisio.elements.Placeable;
+import strategisio.elements.Team;
 import strategisio.elements.constants.Direction;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
@@ -20,6 +21,7 @@ import strategisio.elements.items.Trap;
 import strategisio.exceptions.CoordinateOutOfIndexException;
 import strategisio.exceptions.MapTooLargeException;
 import strategisio.exceptions.UnknownFieldGroundException;
+import strategisio.util.XmlReader;
 
 /**
  *
@@ -117,7 +119,6 @@ public class PlayMap {
    *
    * @param aPlaceable
    *
-   * @param aFigure
    * @param anX
    * @param aY
    * @return true if positioning was successful
@@ -335,8 +336,6 @@ public class PlayMap {
    * Does the check before move().
    *
    * @param aFigure
-   * @param tmpOldX
-   * @param tmpOldY
    *            where the figure comes from (anOldX/anOldY)
    * @param aNewX
    * @param aNewY
@@ -667,7 +666,7 @@ public class PlayMap {
    *
    * @param aTeam
    *            which team's view Area is needed
-   * @return
+   * @return all fields the team can see
    * @throws CoordinateOutOfIndexException
    */
   public ArrayList<int[]> getTeamViewArea(Team aTeam) throws CoordinateOutOfIndexException {
@@ -714,7 +713,7 @@ public class PlayMap {
    * @param aFigure
    * @param aNewX
    * @param aNewY
-   * @return
+   * @return true if figure can see the specified field, false if not
    * @throws CoordinateOutOfIndexException
    */
   public boolean checkViewForTest(Figure aFigure, int aNewX, int aNewY) throws CoordinateOutOfIndexException {

@@ -1,4 +1,4 @@
-package strategisio;
+package strategisio.util;
 
 import java.io.File;
 

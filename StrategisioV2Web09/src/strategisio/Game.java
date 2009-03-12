@@ -3,8 +3,8 @@ package strategisio;
 import java.io.File;
 import java.util.ArrayList;
 
+import strategisio.components.PlayMap;
 import strategisio.elements.Placeable;
-import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.figures.Figure;
@@ -258,7 +258,7 @@ public class Game {
    *
    * @param anX
    * @param aY
-   * @return
+   * @return the movingArrea
    * @throws CoordinateOutOfIndexException
    */
   public ArrayList<int[]> getMovingArea(int anX, int aY) throws CoordinateOutOfIndexException {
@@ -270,7 +270,7 @@ public class Game {
    *
    * @param anX
    * @param aY
-   * @return
+   * @return true if setter on field, false if not
    */
   public boolean fieldIsSetByPlaceable(int anX, int aY) {
     return (this.playMap.getSetter(anX, aY) == null) ? false : true;
@@ -335,17 +335,17 @@ public class Game {
 
   /**
    * Deletes an item or a figure from the team
+   *
    * @param aPlaceable
    * @param anId
    */
   public void removePlaceableFromTeam(Placeable aPlaceable, char anId) {
     Team tmpTeam = getTeam(anId);
-    if (aPlaceable instanceof Figure){
-    	tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
-    }
-    else if (aPlaceable instanceof Item){
-    	// TODO Maybe the Game ends here?!
-    	endGame(tmpTeam.removeItemFromTeam((Item) aPlaceable));
+    if (aPlaceable instanceof Figure) {
+      tmpTeam.removeFigureFromTeam((Figure) aPlaceable);
+    } else if (aPlaceable instanceof Item) {
+      // TODO Maybe the Game ends here?!
+      endGame(tmpTeam.removeItemFromTeam((Item) aPlaceable));
     }
   }
 
@@ -365,7 +365,7 @@ public class Game {
   }
 
   // TODO write a method to end the game
-  private void endGame(boolean gameEnded){
+  private void endGame(boolean gameEnded) {
 
   }
 }

@@ -2,8 +2,8 @@ package strategisio.visualization;
 
 import java.util.ArrayList;
 
+import strategisio.components.PlayMap;
 import strategisio.elements.Placeable;
-import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
@@ -21,14 +21,14 @@ import strategisio.util.StrategisioUtil;
 public class WebDisplay implements Displayable {
 
 	/**
-	 * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap)
+	 * @see strategisio.visualization.Displayable#display(strategisio.components.PlayMap)
 	 */
 	public String display(PlayMap aPlayMap) {
 		return display(aPlayMap, 'X', null);
 	}
 
 	/**
-	 * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
+	 * @see strategisio.visualization.Displayable#display(strategisio.components.PlayMap,
 	 *      char, strategisio.elements.Team)
 	 */
 	public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {

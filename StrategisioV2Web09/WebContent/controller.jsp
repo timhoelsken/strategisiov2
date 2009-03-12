@@ -1,6 +1,6 @@
 <%@ page import="strategisio.*"%>
 <%@ page import="strategisio.elements.Placeable"%>
-<%@ page import="strategisio.elements.Combat"%>
+<%@ page import="strategisio.components.Combat"%>
 <%@ page import="strategisio.elements.figures.Figure"%>
 <%@ page import="java.util.ArrayList"%>
 

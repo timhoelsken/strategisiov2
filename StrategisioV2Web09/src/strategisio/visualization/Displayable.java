@@ -1,32 +1,30 @@
 package strategisio.visualization;
 
-import strategisio.elements.PlayMap;
+import strategisio.components.PlayMap;
 import strategisio.elements.Team;
 
 /**
  * Display interface for painting the game on the screen
- * 
+ *
  * @author Tobias, Tim
- * 
+ *
  */
 public interface Displayable {
 
   /**
-   * To paint the given map on the screen in God's view
-   * 
    * @param aPlayMap
-   * @return
+   * @return the current status of the given map in God's view
    */
   public String display(PlayMap aPlayMap);
 
   /**
-   * To paint the given map on the screen from the point of view of team aTeam
-   * with aPlayerId
-   * 
+   * To paint
+   *
    * @param aPlayMap
    * @param aPlayerId
    * @param aTeam
-   * @return
+   * @return the current status of the given map from the point of view of team
+   *         aTeam with the given playerId
    */
   public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam);
 }

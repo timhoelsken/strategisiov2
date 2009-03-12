@@ -1,22 +1,20 @@
 package strategisio.visualization;
 
+import strategisio.components.PlayMap;
 import strategisio.elements.Placeable;
-import strategisio.elements.PlayMap;
 import strategisio.elements.Team;
 
 /**
  * for displaying the game in the console
- * 
+ *
  * @author Tim
- * 
+ *
  */
 public class ConsoleDisplay implements Displayable {
 
+
   /**
-   * displays the map in the console
-   * 
-   * @param aPlayMap
-   * @return
+   * @see strategisio.visualization.Displayable#display(strategisio.components.PlayMap)
    */
   public String display(PlayMap aPlayMap) {
     System.out.println();
@@ -64,7 +62,7 @@ public class ConsoleDisplay implements Displayable {
   }
 
   /**
-   * @see strategisio.visualization.Displayable#display(strategisio.elements.PlayMap,
+   * @see strategisio.visualization.Displayable#display(strategisio.components.PlayMap,
    *      char, strategisio.elements.Team)
    */
   public String display(PlayMap aPlayMap, char aPlayerId, Team aTeam) {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import strategisio.elements.PlayMap;
+import strategisio.components.PlayMap;
 import strategisio.elements.Team;
 import strategisio.elements.figures.Figure;
 import strategisio.exceptions.CoordinateOutOfIndexException;

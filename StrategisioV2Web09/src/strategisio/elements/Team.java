@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import strategisio.XmlReader;
 import strategisio.elements.figures.Climber;
 import strategisio.elements.figures.Diver;
 import strategisio.elements.figures.Fighter;
@@ -18,6 +17,7 @@ import strategisio.elements.items.Flag;
 import strategisio.elements.items.Item;
 import strategisio.elements.items.Trap;
 import strategisio.exceptions.FlagLimitOverflowException;
+import strategisio.util.XmlReader;
 
 /**
  *

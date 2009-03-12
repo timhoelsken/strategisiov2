@@ -46,8 +46,7 @@ public abstract class Item implements Placeable {
 	}
 
 	/**
-	 *
-	 * @return
+	 * @return the itemType
 	 */
 	public String getItemType(){
 		return itemType;

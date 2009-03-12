@@ -7,7 +7,7 @@ import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import strategisio.elements.Combat;
+import strategisio.components.Combat;
 import strategisio.elements.figures.Fighter;
 import strategisio.elements.figures.Medic;
 import strategisio.elements.figures.Spy;
