@@ -10,7 +10,6 @@ import junit.framework.JUnit4TestAdapter;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import strategisio.components.PlayMap;
 import strategisio.constants.Ground;
 import strategisio.elements.Team;
 import strategisio.elements.figures.Climber;
