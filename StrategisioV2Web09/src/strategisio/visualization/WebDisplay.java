@@ -3,9 +3,9 @@ package strategisio.visualization;
 import java.util.ArrayList;
 
 import strategisio.components.PlayMap;
+import strategisio.constants.Ground;
 import strategisio.elements.Placeable;
 import strategisio.elements.Team;
-import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.figures.Figure;
 import strategisio.elements.items.FakeFlag;

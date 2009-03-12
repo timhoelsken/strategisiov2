@@ -3,10 +3,10 @@ package strategisio.components;
 import java.io.File;
 import java.util.ArrayList;
 
+import strategisio.constants.Direction;
+import strategisio.constants.Ground;
 import strategisio.elements.Placeable;
 import strategisio.elements.Team;
-import strategisio.elements.constants.Direction;
-import strategisio.elements.constants.Ground;
 import strategisio.elements.fields.Field;
 import strategisio.elements.fields.Grass;
 import strategisio.elements.figures.Figure;

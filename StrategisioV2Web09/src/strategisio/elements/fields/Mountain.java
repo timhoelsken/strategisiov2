@@ -1,6 +1,6 @@
 package strategisio.elements.fields;
 
-import strategisio.elements.constants.Ground;
+import strategisio.constants.Ground;
 
 /**
  * @author Tobias

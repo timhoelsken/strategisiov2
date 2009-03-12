@@ -1,7 +1,7 @@
 package strategisio.elements.figures;
 
-import strategisio.elements.constants.FightMoves;
-import strategisio.elements.constants.Ground;
+import strategisio.constants.FightMoves;
+import strategisio.constants.Ground;
 
 /**
  * @author Tobias
