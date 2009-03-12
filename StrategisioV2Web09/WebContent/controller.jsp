@@ -118,12 +118,12 @@
 
             // change current player
             if (!tmpOutput.contains("+++MovedToSameField+++")) {
-	            String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
-	            if ("A".equals(tmpCurrentPlayer)) {
-	              application.setAttribute("currentPlayer", "B");
-	            } else if ("B".equals(tmpCurrentPlayer)) {
-	              application.setAttribute("currentPlayer", "A");
-	            }
+              String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
+              if ("A".equals(tmpCurrentPlayer)) {
+                application.setAttribute("currentPlayer", "B");
+              } else if ("B".equals(tmpCurrentPlayer)) {
+                application.setAttribute("currentPlayer", "A");
+              }
             }
           }
         } else if (tmpRequestAction.equals("placedInView")) {
