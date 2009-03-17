@@ -61,7 +61,7 @@
         out.println("<html>\n<head>");
         out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/includes/standard.css\">");
         out
-            .println("<script type=\"text/javascript\" src=\"resources/includes/javascript/script.js\"></script>");
+            .println("<script type=\"text/javascript\" src=\"resources/includes/javascript/import.js\"></script>");
         tmpPlayerId = (String) session.getAttribute("playerId");
         String tmpCurrentPlayer = (String) application.getAttribute("currentPlayer");
         boolean tmpRefreshMap = true;
