@@ -35,31 +35,70 @@
 		background-image: url(../pictures/water.png);
 }
 
-#messageBox{
-	position:absolute;
-	background-image:url(../pictures/overlay.png);
-	width:1px;
-	height:1px;
-	visibility:hidden;
-	padding-left:40px;
+#overlay{
+position:absolute;
+background-image:url(../pictures/messageBox/overlay.png);
 }
 
-#centeredText{
-	width:321px;
-	height:150px;
-	font-face:verdana;
-	font-weight:bold;
-	background-image:url(../pictures/MsgBoxBackCenter.gif);
+.TopL, .MiddleL, .BottomL{
+width:9px;
 }
 
-#centeredTextLeft{
-	width:11px;
-	height:150px;
-	background-image:url(../pictures/MsgBoxBackLeft.gif);
+.TopC, .MiddleC, .BottomC{
+width:200px;
 }
 
-#centeredTextRight{
-	width:20px;
-	height:150px;
-	background-image:url(../pictures/MsgBoxBackRight.gif);
+.TopR, .MiddleR, .BottomR{
+width:10px;
+}
+
+.TopL, TopC, TopR{
+height:9px;
+}
+
+.MiddleL, MiddleC, MiddleR{
+height:132px;
+}
+
+.BottomL, BottomC, BottomR{
+height:12px;
+}
+
+.TopL{
+background-image:url(../pictures/messageBox/MsgBoxBackTL.gif);
+}
+.TopC{
+background-image:url(../pictures/messageBox/MsgBoxBackTC.gif);
+}
+.TopR{
+background-image:url(../pictures/messageBox/MsgBoxBackTR.gif);
+}
+
+.MiddleL{
+background-image:url(../pictures/messageBox/MsgBoxBackML.gif);
+}
+.MiddleC{
+background-image:url(../pictures/messageBox/MsgBoxBackMC.gif);
+padding-left:10px;
+}
+.MiddleR{
+background-image:url(../pictures/messageBox/MsgBoxBackMR.gif);
+}
+
+.BottomL{
+background-image:url(../pictures/messageBox/MsgBoxBackBL.gif);
+}
+.BottomC{
+background-image:url(../pictures/messageBox/MsgBoxBackBC.gif);
+}
+.BottomR{
+background-image:url(../pictures/messageBox/MsgBoxBackBR.gif);
+}
+
+.messageBoxPlaceholder{
+font:bold 10pt Verdana;
+}
+
+#messageBoxContentTable{
+border-collapse:collapse;
 }
