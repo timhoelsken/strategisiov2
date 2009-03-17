@@ -78,7 +78,7 @@
         out.println("'>");
 
         // HTML CONTENT
-        out.println("<div id='messageBox'></div>");
+        out.println("<div id='overlay'></div>");
 
         out.println("<table><tr><td><div class='field'></div></td><td>");
         out.println("<table style='border-collapse:collapse;border:none;'><tr>");
