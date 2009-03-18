@@ -184,7 +184,12 @@
 
           out.println(tmpOutput);
         } else if (tmpRequestAction.equals("continueCombat")) {
-          // Here is a loop set output to +++continueCombat+++ for that
+
+        	// This does not work properly right now
+        	Combat tmpCombat = (Combat) application.getAttribute("globalCombat");
+
+        	out.println(tmpRequestData.split("+++")[1] + " - " + tmpRequestData.split("+++")[2]);
+        	// Here is a loop set output to +++continueCombat+++ for that
 
           // TODO Problem: data from 2 users is needed! switch with the playerID?!
         }

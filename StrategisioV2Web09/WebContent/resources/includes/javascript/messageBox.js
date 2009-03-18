@@ -4,6 +4,8 @@ function openStandardMessageBox(text){
 	openMessageBox()
 	document.getElementById("messageBoxIconPlaceholder").innerHTML = "<img src=\"resources/pictures/exclamationmark.gif\" />";
 	document.getElementById("messageBoxTextPlaceholder").innerHTML = text;
+
+	//TODO does not work in IE, but in FF... dont know why
 	document.getElementById("overlay").setAttribute('onclick', 'closeMessageBox();');
 	document.getElementById("messageBox").setAttribute('onclick', 'closeMessageBox();');
 }

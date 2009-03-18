@@ -121,15 +121,9 @@ function buildAnswer(data){
 		document.getElementById(tmpArrayCoordinates[1]).attributes['placablecolor'].value = "#000000";
 		}
 	} else if(dataSegments[1] == "continueCombat") {
-		/*
-			TODO
-			Create dialog here,where user enters attack and defence.
-			When user has entered both, call controller.jsp again with action = "Combat"
-
-			Also use refresh.jsp for this!
-		*/
-
-		alert('fight!');
+		// does not work propely right now
+		// calls in combat.js
+		openCombatDialog();
 	}
 
 }

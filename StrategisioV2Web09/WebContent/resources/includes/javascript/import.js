@@ -42,5 +42,6 @@ addScriptToLoadList("resources/includes/javascript/requests.js");
 addScriptToLoadList("resources/includes/javascript/movements.js");
 addScriptToLoadList("resources/includes/javascript/messageBox.js");
 addScriptToLoadList("resources/includes/javascript/userActions.js");
+addScriptToLoadList("resources/includes/javascript/combat.js");
 
 importScripts();
