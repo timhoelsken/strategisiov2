@@ -76,14 +76,14 @@ function buildAnswer(data){
 	} else if(dataSegments[1] == "markedForMoveWhileInView"){
 		return;
 	} else if(dataSegments[1] == "initFight"){
-		openMessageBox('Now a fight starts!');
+		openStandardMessageBox('Now a fight starts!');
 		var attackerAndDefender = dataSegments[2].split(';');
 
 		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
 	} else if(dataSegments[1] == "Item") {
-		openMessageBox('You moved on an item!');
+		openStandardMessageBox('You moved on an item!');
 	} else if(dataSegments[1] == "combatWinner") {
-		openMessageBox(dataSegments[3] + " won the fight against " + dataSegments[4] + " easily!");
+		openStandardMessageBox(dataSegments[3] + " won the fight against " + dataSegments[4] + " easily!");
 
 		// get the map
 		var map = document.getElementById("map");

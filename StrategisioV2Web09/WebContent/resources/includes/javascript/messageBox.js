@@ -1,11 +1,11 @@
 
 // standard MessageBox
-function openMessageBox(text){
+function openStandardMessageBox(text){
 	openMessageBox()
-	document.getElementById("messageBoxIconPlaceholder").innerHTML = "<img src=\"resources/pictures/wait.gif\" />";
+	document.getElementById("messageBoxIconPlaceholder").innerHTML = "<img src=\"resources/pictures/exclamationmark.gif\" />";
 	document.getElementById("messageBoxTextPlaceholder").innerHTML = text;
-	document.getElementById("overlay").onclick="closeMessageBox();";
-	document.getElementById("messageBox").onclick="closeMessageBox();";
+	document.getElementById("overlay").setAttribute('onclick', 'closeMessageBox();');
+	document.getElementById("messageBox").setAttribute('onclick', 'closeMessageBox();');
 }
 
 // uncloseable MessageBox
