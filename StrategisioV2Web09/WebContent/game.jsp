@@ -68,7 +68,7 @@
         if (tmpPlayerId.equals(tmpCurrentPlayer)) {
           tmpRefreshMap = false;
         }
-        out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='doRefreshRequest();");
+        out.println("<title>StrategisioDEV</title>\n</head>\n\n<body onload='sendRequest(\"refresh.jsp\", null, null, null);");
 
         // TODO currently the waiting player does not see a map at the beginning
         // start the refresh for the waiting player

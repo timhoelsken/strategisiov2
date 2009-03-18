@@ -2,7 +2,7 @@
 var req;
 
 // <=== AJAX Request
-function sendRequest( action, data, extendedAttribute ) {
+function sendRequest(url, action, data, extendedAttribute ) {
 	try {
 		if( window.XMLHttpRequest ) {
   			req = new XMLHttpRequest();
@@ -11,10 +11,19 @@ function sendRequest( action, data, extendedAttribute ) {
     	} else {
        		alert( "Your Browser doesn't support AJAX!" );
     	}
-    	req.open( "POST", "controller.jsp", true );
-    	req.onreadystatechange = getAnswer;
-		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-		req.send( 'action=' + action + '&data=' + data + '&extendedAttribute=' + extendedAttribute );
+
+    	if (url == "controller.jsp"){
+	    	req.open( "POST", url, true );
+	    	req.onreadystatechange = getAnswer;
+			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			req.send( 'action=' + action + '&data=' + data + '&extendedAttribute=' + extendedAttribute );
+		}
+		else if(url == "refresh.jsp"){
+			req.open( "POST", url, true );
+	    	req.onreadystatechange = setRefreshedMap;
+	    	req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	    	req.send( null );
+		}
     } catch( e ) {
       	alert( "Error: " + e );
     }
@@ -56,21 +65,20 @@ function setRefreshedMap() {
     		alert( "Request Error " + req.status + ": " + req.statusText );
         } else {
         	//what tells me the refresh.jsp? [1] = true/false; [2] = map/null
-	    	var responseArray = req.responseText.split('+++');
+		   	var responseArray = req.responseText.split('+++');
 
+		   	// Is it my turn?
+		   	if (responseArray[1] == "false"){
 
-	    	// Is it my turn?
-	    	if (responseArray[1] == "false"){
+		   		// No it's not, I have to wait and do the request again
+		   		setTimeout("sendRequest('refresh.jsp', null, null, null);",1000);
+		   	}
+		   	else{
 
-	    		// No it's not, I have to wait and do the request again
-	    		setTimeout("doRefreshRequest()",1000);
-	    	}
-	    	else{
-
-	    	// YEAH! It's my turn! I load the map and close the messageBox()
-	    	document.getElementById("map").innerHTML = responseArray[2].replace(/^\s+/,"").replace(/\s+$/,"");
-	    	closeMessageBox();
-	    	}
+		   	// YEAH! It's my turn! I load the map and close the messageBox()
+		   	document.getElementById("map").innerHTML = responseArray[2].replace(/^\s+/,"").replace(/\s+$/,"");
+		   	closeMessageBox();
+		   	}
         }
     }
 }

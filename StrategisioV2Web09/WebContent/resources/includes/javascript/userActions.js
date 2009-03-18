@@ -7,7 +7,7 @@ function checkUserAction(me){
 		extendedAttribute = movingFigureId;
 	}
 
-	sendRequest(me.attributes['status'].value, me.attributes['id'].value, extendedAttribute);
+	sendRequest("controller.jsp", me.attributes['status'].value, me.attributes['id'].value, extendedAttribute);
 }
 
 // === Main-Function for processing the output of the action ===
@@ -79,7 +79,7 @@ function buildAnswer(data){
 		openStandardMessageBox('Now a fight starts!');
 		var attackerAndDefender = dataSegments[2].split(';');
 
-		sendRequest("Combat", attackerAndDefender[2], dataSegments[2]);
+		sendRequest("controller.jsp", "Combat", attackerAndDefender[2], dataSegments[2]);
 	} else if(dataSegments[1] == "Item") {
 		openStandardMessageBox('You moved on an item!');
 	} else if(dataSegments[1] == "combatWinner") {
@@ -144,5 +144,5 @@ function buildAnswer(data){
 // uses initially when a player has to wait!
 function refresh(){
 		openUncloseableMessageBox("Please wait for the other player...");
-		doRefreshRequest();
+		sendRequest("refresh.jsp", null, null, null);
 }
