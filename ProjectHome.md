@@ -1,0 +1,3 @@
+This game is supposed to be run in a browser.
+
+Detailed information will be filled in...
